@@ -32,6 +32,7 @@ public class Test extends JFrame {
 	 */
 	public Test() {
 		int j = 0;
+		System.out.println("Hello World");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
