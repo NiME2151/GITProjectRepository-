@@ -31,6 +31,8 @@ public class Test extends JFrame {
 	 * Create the frame.
 	 */
 	public Test() {
+		int i = 0;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
