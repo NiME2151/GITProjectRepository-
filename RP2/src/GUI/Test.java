@@ -31,7 +31,7 @@ public class Test extends JFrame {
 	 * Create the frame.
 	 */
 	public Test() {
-		int i = 0;
+		int j = 0;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
