@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 public class ErsteGUI extends JFrame {
 
+	private int kkk = 1;
+
 	private JPanel contentPane;
 
 	/**
