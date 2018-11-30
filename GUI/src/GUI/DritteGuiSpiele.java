@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 public class DritteGuiSpiele extends JFrame {
 
+	private int kkk = 1;
+
 	private JPanel contentPane;
 
 	/**
@@ -38,5 +40,4 @@ public class DritteGuiSpiele extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 	}
-
 }
