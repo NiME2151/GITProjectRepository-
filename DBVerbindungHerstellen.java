@@ -1,11 +1,15 @@
-package test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+
+import net.proteanit.sql.DbUtils;
+
 import java.sql.*;
 
 public class DBVerbindungHerstellen {
+	
+	
 
 	// Methode zum Aufbau einer Verbindung mit SQLite
 	private static Connection connect() throws ClassNotFoundException {
@@ -26,17 +30,15 @@ public class DBVerbindungHerstellen {
 	}
 
 	// Methode zum Anzeigen aller Datensätze der Spalte name
-	public static void select() throws ClassNotFoundException {
+	public static void select(String kunde) throws ClassNotFoundException {
 		try {
-			String sql = "SELECT * FROM test";
-			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank herzustellen
+			String sql = "SELECT DISTINCT * FROM test WHERE LOWER(vorname) = '" + kunde.toLowerCase() + "'";
+			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+			// herzustellen
 			Connection conn = connect();
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-			// while zeigt alle Datensätze der Spalte name an
-			while (rs.next()) {
-				System.out.println(rs.getString("name"));
-			}
+			Kundenverwaltung.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 			// Gibt Nachricht aus bei funktionierendem SELECT
 			System.out.println("SQL-SELECT funzt");
 		} catch (SQLException e) {
@@ -46,6 +48,6 @@ public class DBVerbindungHerstellen {
 
 	public static void main(String[] args) throws ClassNotFoundException {
 		// main führt select Befehl zum Testen aus
-		select();
+		// select();
 	}
 }
