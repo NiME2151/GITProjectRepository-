@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
-import net.proteanit.sql.DbUtils;
+//import net.proteanit.sql.DbUtils;
 
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -52,6 +52,7 @@ public class Kundenverwaltung extends JFrame {
 	private JPanel kundenlistePanel;
 	private JLabel kundenlisteLabel;
 	static JTable kundenlisteTable;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -226,23 +227,28 @@ public class Kundenverwaltung extends JFrame {
 			});
 			this.contentPane.add(this.schliessenButton);
 		}
-
-	{
-		this.kundenlistePanel = new JPanel();
-		this.kundenlistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		this.kundenlistePanel.setBounds(340, 70, 284, 250);
-		this.contentPane.add(this.kundenlistePanel);
-		this.kundenlistePanel.setLayout(null);
+	
 		{
-			this.kundenlisteTable = new JTable();
-			this.kundenlisteTable
-					.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Vorname", "Nachname" }));
-			this.kundenlisteTable.getColumnModel().getColumn(0).setPreferredWidth(90);
-			this.kundenlisteTable.getColumnModel().getColumn(1).setPreferredWidth(90);
-			this.kundenlisteTable.setBounds(10, 11, 264, 228);
-			this.kundenlistePanel.add(this.kundenlisteTable);
+			this.kundenlistePanel = new JPanel();
+			this.kundenlistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+			this.kundenlistePanel.setBounds(340, 70, 284, 250);
+			this.contentPane.add(this.kundenlistePanel);
+			this.kundenlistePanel.setLayout(null);
+			{
+				this.kundenlisteTable = new JTable();
+				this.kundenlisteTable
+						.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Vorname", "Nachname" }));
+				this.kundenlisteTable.getColumnModel().getColumn(0).setPreferredWidth(90);
+				this.kundenlisteTable.getColumnModel().getColumn(1).setPreferredWidth(90);
+				this.kundenlisteTable.setBounds(10, 11, 264, 228);
+				this.kundenlistePanel.add(this.kundenlisteTable);
+			}
+			{
+				this.scrollPane = new JScrollPane(kundenlisteTable);
+				this.scrollPane.setBounds(0, 0, 284, 250);
+				this.kundenlistePanel.add(this.scrollPane);
+			}
 		}
-	}
 	{
 		this.kundenlisteLabel = new JLabel("Kundenliste:");
 		this.kundenlisteLabel.setBounds(340, 51, 185, 14);
@@ -272,6 +278,9 @@ public class Kundenverwaltung extends JFrame {
 		kundenlisteTable.setCellSelectionEnabled(true);
 	    ListSelectionModel cellSelectionModel = kundenlisteTable.getSelectionModel();
 	    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    /*JScrollPane scroll = new JScrollPane(kundenlisteTable);
+	    scroll.setVerticalScrollBarPolicy(scroll.VERTICAL_SCROLLBAR_ALWAYS);
+	    this.contentPane.add(kundenlisteTable);*/
 
 	    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
 	      public void valueChanged(ListSelectionEvent e) {

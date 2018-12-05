@@ -15,7 +15,7 @@ public class DBVerbindungHerstellen {
 	private static Connection connect() throws ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
 		// Verzeichnispfad hängt davon ab wo eine Datei ist
-		String datei = "C:\\Users\\supervisor\\Desktop\\Programme\\test.db3";
+		String datei = "H:\\test.db3";
 		String url = "jdbc:sqlite:" + datei;
 		Connection conn = null;
 		// try-catch versucht Verbindung zu SQLite aufzubauen
