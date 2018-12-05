@@ -278,9 +278,6 @@ public class Kundenverwaltung extends JFrame {
 		kundenlisteTable.setCellSelectionEnabled(true);
 	    ListSelectionModel cellSelectionModel = kundenlisteTable.getSelectionModel();
 	    cellSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	    /*JScrollPane scroll = new JScrollPane(kundenlisteTable);
-	    scroll.setVerticalScrollBarPolicy(scroll.VERTICAL_SCROLLBAR_ALWAYS);
-	    this.contentPane.add(kundenlisteTable);*/
 
 	    cellSelectionModel.addListSelectionListener(new ListSelectionListener() {
 	      public void valueChanged(ListSelectionEvent e) {
