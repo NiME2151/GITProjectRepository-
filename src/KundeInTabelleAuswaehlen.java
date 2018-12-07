@@ -27,7 +27,7 @@ public class KundeInTabelleAuswaehlen {
 						System.out.println(ausgewaehlterKunde);
 					}
 				}
-
+				System.out.println(ausgewaehlterKunde);
 			}
 		});
 	}

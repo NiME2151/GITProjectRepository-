@@ -1,9 +1,11 @@
 import java.awt.EventQueue;
+import java.awt.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
+import javax.swing.SwingWorker;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -16,6 +18,8 @@ import net.proteanit.sql.DbUtils;
 
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 
 public class Ausleihfenster extends JFrame {
@@ -27,7 +31,19 @@ public class Ausleihfenster extends JFrame {
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
 	private JScrollPane scrollPane;
-
+	private JButton kundenAnlegenButton;
+	private JLabel leihdauerInTagenLabel;
+	private JTextField leihdauerInTagenTextField;
+	private JLabel ausleihpreisLabel;
+	private JTextField ausleihpreisTextField;
+	private double ausleihpreis;
+	private double gesamtausleihpreis;
+	private JLabel ausleihmengeLabel;
+	private JTextField ausleihmengeTextField;	
+	private JButton preisBerechnenButton;
+	
+	String pattern = "#0.00";
+	DecimalFormat df = new DecimalFormat(pattern);
 	/**
 	 * Launch the application.
 	 */
@@ -46,8 +62,10 @@ public class Ausleihfenster extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws ClassNotFoundException 
+	 * @throws SQLException 
 	 */
-	public Ausleihfenster() {
+	public Ausleihfenster() throws ClassNotFoundException, SQLException {
 		initGUI();
 	}
 	private void initGUI() {
@@ -59,7 +77,7 @@ public class Ausleihfenster extends JFrame {
 		this.contentPane.setLayout(null);
 		{
 			this.kundensucheTextField = new JTextField();
-			this.kundensucheTextField.setBounds(10, 11, 465, 20);
+			this.kundensucheTextField.setBounds(155, 11, 320, 20);
 			this.contentPane.add(this.kundensucheTextField);
 			this.kundensucheTextField.setColumns(10);
 		}
@@ -116,11 +134,74 @@ public class Ausleihfenster extends JFrame {
 			this.kundenlisteLabel.setBounds(10, 42, 185, 14);
 			this.contentPane.add(this.kundenlisteLabel);
 		}
+		{
+			this.kundenAnlegenButton = new JButton("Kunden anlegen");
+			this.kundenAnlegenButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					do_kundeAnlegenButton_actionPerformed(arg0);
+				}
+			});
+			this.kundenAnlegenButton.setBounds(10, 10, 135, 23);
+			this.contentPane.add(this.kundenAnlegenButton);
+		}
+		{
+			this.leihdauerInTagenLabel = new JLabel("Leihdauer (in Tagen):");
+			this.leihdauerInTagenLabel.setBounds(304, 61, 171, 14);
+			this.contentPane.add(this.leihdauerInTagenLabel);
+		}
+		{
+			this.leihdauerInTagenTextField = new JTextField();
+			this.leihdauerInTagenTextField.setBounds(485, 58, 89, 20);
+			this.contentPane.add(this.leihdauerInTagenTextField);
+			this.leihdauerInTagenTextField.setColumns(10);
+		}
+		{
+			this.ausleihpreisLabel = new JLabel("Ausleihpreis:");
+			this.ausleihpreisLabel.setBounds(304, 148, 171, 14);
+			this.contentPane.add(this.ausleihpreisLabel);
+		}
+		{
+			this.ausleihpreisTextField = new JTextField();
+			this.ausleihpreisTextField.setBounds(485, 145, 89, 20);
+			this.contentPane.add(this.ausleihpreisTextField);
+			this.ausleihpreisTextField.setColumns(10);
+		}
+		{
+			this.ausleihmengeLabel = new JLabel("Ausleihmenge:");
+			this.ausleihmengeLabel.setBounds(304, 86, 171, 14);
+			this.contentPane.add(this.ausleihmengeLabel);
+		}
+		{
+			this.ausleihmengeTextField = new JTextField();
+			this.ausleihmengeTextField.setBounds(485, 83, 89, 20);
+			this.contentPane.add(this.ausleihmengeTextField);
+			this.ausleihmengeTextField.setColumns(10);
+		}
+		{
+			this.preisBerechnenButton = new JButton("Preis berechnen");
+			this.preisBerechnenButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					do_preisBerechnenButton_actionPerformed(e);
+				}
+			});
+			this.preisBerechnenButton.setBounds(370, 111, 135, 23);
+			this.contentPane.add(this.preisBerechnenButton);
+		}
 	}
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		ResultSet rs=DBVerbindungHerstellen.getResultSetForKundenName(kundensucheTextField.getText());
+		ResultSet rs = KundenverwaltungDAO.selectKunde(kundensucheTextField.getText());
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 
 		KundeInTabelleAuswaehlen kundeAuswaehlen = new KundeInTabelleAuswaehlen(kundenlisteTable);
+	}
+	protected void do_kundeAnlegenButton_actionPerformed(ActionEvent arg0) {
+		Kundenverwaltung.main(null);
+	}
+	protected void do_preisBerechnenButton_actionPerformed(ActionEvent e) {
+		// ausleihpreis muss noch vom Spieledetailfenster geholt werden
+		this.ausleihpreis = 0;
+		this.gesamtausleihpreis = (Double.valueOf(this.leihdauerInTagenTextField.getText()) + Double.valueOf(this.ausleihpreis));
+		this.gesamtausleihpreis = this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText());
+		this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.ausleihpreis).replace('.', ',')) + " EUR");
 	}
 }
