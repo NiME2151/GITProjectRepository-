@@ -85,10 +85,10 @@ public class Kundenverwaltung extends JFrame {
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(this.contentPane);
-		this.contentPane.setLayout(null);
+		contentPane.setLayout(null);
 		{
 			this.kundendatenPanel = new JPanel();
-			this.kundendatenPanel.setBounds(10, 11, 320, 339);
+			kundendatenPanel.setBounds(10, 11, 320, 339);
 			this.kundendatenPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 			this.contentPane.add(this.kundendatenPanel);
 			this.kundendatenPanel.setLayout(null);
@@ -198,13 +198,13 @@ public class Kundenverwaltung extends JFrame {
 		}
 		{
 			this.suchenTextField = new JTextField();
-			this.suchenTextField.setBounds(340, 11, 284, 20);
+			suchenTextField.setBounds(340, 11, 284, 20);
 			this.contentPane.add(this.suchenTextField);
 			this.suchenTextField.setColumns(10);
 		}
 		{
 			this.suchenButton = new JButton("Suchen");
-			this.suchenButton.setBounds(535, 42, 89, 23);
+			suchenButton.setBounds(535, 42, 89, 23);
 			this.suchenButton.addActionListener(new ActionListener() {
 
 	public void actionPerformed(ActionEvent e) {
@@ -220,7 +220,7 @@ public class Kundenverwaltung extends JFrame {
 		}
 		{
 			this.schliessenButton = new JButton("Schlie\u00DFen");
-			this.schliessenButton.setBounds(524, 327, 100, 23);
+			schliessenButton.setBounds(524, 327, 100, 23);
 			this.schliessenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					do_schliessenButton_actionPerformed(e);
@@ -231,8 +231,8 @@ public class Kundenverwaltung extends JFrame {
 	
 		{
 			this.kundenlistePanel = new JPanel();
+			kundenlistePanel.setBounds(340, 70, 284, 250);
 			this.kundenlistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			this.kundenlistePanel.setBounds(340, 70, 284, 250);
 			this.contentPane.add(this.kundenlistePanel);
 			this.kundenlistePanel.setLayout(null);
 			{
@@ -252,9 +252,18 @@ public class Kundenverwaltung extends JFrame {
 		}
 	{
 		this.kundenlisteLabel = new JLabel("Kundenliste:");
-		this.kundenlisteLabel.setBounds(340, 51, 185, 14);
+		kundenlisteLabel.setBounds(340, 51, 185, 14);
 		this.contentPane.add(this.kundenlisteLabel);
 	}
+	
+	JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
+	zurueckgebenButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			ZurueckgebenFenster.main(null);
+		}
+	});
+	zurueckgebenButton.setBounds(350, 327, 107, 23);
+	contentPane.add(zurueckgebenButton);
 	}
 
 	protected void do_aendernButton_actionPerformed(ActionEvent arg0) {
@@ -266,7 +275,7 @@ public class Kundenverwaltung extends JFrame {
 
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 		ResultSet rs = KundenverwaltungDAO.selectKunde(suchenTextField.getText());
-		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+		//this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 
 		KundeInTabelleAuswaehlen kundeAuswaehlen = new KundeInTabelleAuswaehlen(kundenlisteTable);
 	}
