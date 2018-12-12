@@ -74,15 +74,16 @@ public class Ausleihfenster extends JFrame {
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(this.contentPane);
-		this.contentPane.setLayout(null);
+		contentPane.setLayout(null);
 		{
 			this.kundensucheTextField = new JTextField();
-			this.kundensucheTextField.setBounds(155, 11, 320, 20);
+			kundensucheTextField.setBounds(155, 11, 320, 20);
 			this.contentPane.add(this.kundensucheTextField);
 			this.kundensucheTextField.setColumns(10);
 		}
 		{
 			this.suchenButton = new JButton("Suchen");
+			suchenButton.setBounds(485, 10, 89, 23);
 			this.suchenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -93,14 +94,13 @@ public class Ausleihfenster extends JFrame {
 					}
 				}
 			});
-			this.suchenButton.setBounds(485, 10, 89, 23);
 			this.contentPane.add(this.suchenButton);
 		}
 		{
 			this.kundenlistePanel = new JPanel();
+			kundenlistePanel.setBounds(10, 61, 284, 290);
 			this.kundenlistePanel.setLayout(null);
 			this.kundenlistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			this.kundenlistePanel.setBounds(10, 61, 284, 290);
 			this.contentPane.add(this.kundenlistePanel);
 			{
 				this.kundenlisteTable = new JTable();
@@ -131,60 +131,60 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.kundenlisteLabel = new JLabel("Kundenliste:");
-			this.kundenlisteLabel.setBounds(10, 42, 185, 14);
+			kundenlisteLabel.setBounds(10, 42, 185, 14);
 			this.contentPane.add(this.kundenlisteLabel);
 		}
 		{
 			this.kundenAnlegenButton = new JButton("Kunden anlegen");
+			kundenAnlegenButton.setBounds(10, 10, 135, 23);
 			this.kundenAnlegenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					do_kundeAnlegenButton_actionPerformed(arg0);
 				}
 			});
-			this.kundenAnlegenButton.setBounds(10, 10, 135, 23);
 			this.contentPane.add(this.kundenAnlegenButton);
 		}
 		{
 			this.leihdauerInTagenLabel = new JLabel("Leihdauer (in Tagen):");
-			this.leihdauerInTagenLabel.setBounds(304, 61, 171, 14);
+			leihdauerInTagenLabel.setBounds(304, 61, 171, 14);
 			this.contentPane.add(this.leihdauerInTagenLabel);
 		}
 		{
 			this.leihdauerInTagenTextField = new JTextField();
-			this.leihdauerInTagenTextField.setBounds(485, 58, 89, 20);
+			leihdauerInTagenTextField.setBounds(485, 58, 89, 20);
 			this.contentPane.add(this.leihdauerInTagenTextField);
 			this.leihdauerInTagenTextField.setColumns(10);
 		}
 		{
 			this.ausleihpreisLabel = new JLabel("Ausleihpreis:");
-			this.ausleihpreisLabel.setBounds(304, 148, 171, 14);
+			ausleihpreisLabel.setBounds(304, 148, 171, 14);
 			this.contentPane.add(this.ausleihpreisLabel);
 		}
 		{
 			this.ausleihpreisTextField = new JTextField();
-			this.ausleihpreisTextField.setBounds(485, 145, 89, 20);
+			ausleihpreisTextField.setBounds(485, 145, 89, 20);
 			this.contentPane.add(this.ausleihpreisTextField);
 			this.ausleihpreisTextField.setColumns(10);
 		}
 		{
 			this.ausleihmengeLabel = new JLabel("Ausleihmenge:");
-			this.ausleihmengeLabel.setBounds(304, 86, 171, 14);
+			ausleihmengeLabel.setBounds(304, 86, 171, 14);
 			this.contentPane.add(this.ausleihmengeLabel);
 		}
 		{
 			this.ausleihmengeTextField = new JTextField();
-			this.ausleihmengeTextField.setBounds(485, 83, 89, 20);
+			ausleihmengeTextField.setBounds(485, 83, 89, 20);
 			this.contentPane.add(this.ausleihmengeTextField);
 			this.ausleihmengeTextField.setColumns(10);
 		}
 		{
 			this.preisBerechnenButton = new JButton("Preis berechnen");
+			preisBerechnenButton.setBounds(370, 111, 135, 23);
 			this.preisBerechnenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					do_preisBerechnenButton_actionPerformed(e);
 				}
 			});
-			this.preisBerechnenButton.setBounds(370, 111, 135, 23);
 			this.contentPane.add(this.preisBerechnenButton);
 		}
 	}
