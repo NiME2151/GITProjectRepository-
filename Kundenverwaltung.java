@@ -251,6 +251,7 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_aendernButton_actionPerformed(ActionEvent arg0) {
+		
 	}
 
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {

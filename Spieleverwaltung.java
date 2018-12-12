@@ -6,6 +6,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
+
+import emailVerwaltung.EmailKontaktDao;
+import emailVerwaltungNeu.EmailKontakt;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -41,6 +45,11 @@ public class Spieleverwaltung extends JFrame {
 	private JButton suchenButton;
 	private JButton schliessenButton;
 
+	
+	private SpielverwaltungSetAndGet spieleverwaltungSetAndGet;
+	private SpieleverwaltungDAO spieleverwaltungDAO;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -235,15 +244,20 @@ public class Spieleverwaltung extends JFrame {
 		}
 	}
 
-	protected void do_suchenButton_actionPerformed(ActionEvent e) {
+	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		DBVerbindungHerstellen.select(suchenTextField.getText());
 	}
+	
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
 	}
+	
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
 	}
+	
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) {
 	}
+	
 	protected void do_aendernButton_actionPerformed(ActionEvent e) {
 	}
 }
