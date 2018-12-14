@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
@@ -6,3 +7,26 @@
 	<classpathentry kind="lib" path="H:/GITProjectRepository-_/sqlite-jdbc-3.23.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
+=======
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="GUI/src/" kind="src" path=""/>
+	<classpathentry kind="src" path="GUI/src"/>
+	<classpathentry kind="lib" path="//vlsu/nico280/Download/rs2xml.jar"/>
+	<classpathentry kind="lib" path="//vlsu/nico280/Download/sqlite-jdbc-3.23.1.jar"/>
+	<classpathentry kind="output" path="GUI/bin"/>
+</classpath>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="GUI/src/" kind="src" path=""/>
+	<classpathentry kind="src" path="GUI/src"/>
+	<classpathentry kind="lib" path="//vlsu/nico280/Download/rs2xml.jar"/>
+	<classpathentry kind="lib" path="//vlsu/nico280/Download/sqlite-jdbc-3.23.1.jar"/>
+	<classpathentry kind="output" path="GUI/bin"/>
+</classpath>
+>>>>>>> c9f69b1e6e2b83be1ce05b75b3c9d572fb9e115c
+>>>>>>> 210b9c96296de825c737a89edf86a3c4b0a4d511
