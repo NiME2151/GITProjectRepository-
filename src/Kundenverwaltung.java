@@ -260,7 +260,9 @@ public class Kundenverwaltung extends JFrame {
 	JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
 	zurueckgebenButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			ZurueckgebenFenster.main(null);
+			ZurueckgebenFenster fenster = new ZurueckgebenFenster();
+			fenster.setVisible(true);
+			
 		}
 	});
 	zurueckgebenButton.setBounds(350, 327, 107, 23);
