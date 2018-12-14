@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path=""/>
-	<classpathentry kind="lib" path="H:/eclipse/workspace/RP-Projekt/rs2xml.jar"/>
-	<classpathentry kind="lib" path="H:/eclipse/workspace/RP-Projekt/sqlite-jdbc-3.23.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="lib" path="//vlsu/marcel817/Download/rs2xml.jar"/>
+	<classpathentry kind="output" path=""/>
 </classpath>
