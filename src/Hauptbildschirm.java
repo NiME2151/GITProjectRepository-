@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
-public class Hauptbildschrim extends JFrame {
+public class Hauptbildschirm extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel buttonMenuePanel;
@@ -49,7 +49,7 @@ public class Hauptbildschrim extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Hauptbildschrim frame = new Hauptbildschrim();
+					Hauptbildschirm frame = new Hauptbildschirm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +61,7 @@ public class Hauptbildschrim extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Hauptbildschrim() {
+	public Hauptbildschirm() {
 		initGUI();
 	}
 	private void initGUI() {
