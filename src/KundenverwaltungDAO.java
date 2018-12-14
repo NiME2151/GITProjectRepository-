@@ -11,7 +11,7 @@ public class KundenverwaltungDAO {
 			String sql = "SELECT DISTINCT * FROM test WHERE LOWER(vorname) = '" + kunde.toLowerCase() + "'";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
-			Connection conn = ConnectToDB.connectToDB;
+			Connection conn = ConnectToDB.connectToDB();
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 			// Gibt Nachricht aus bei funktionierendem SELECT
