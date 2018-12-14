@@ -1,5 +1,5 @@
 
-public class Spiele {
+public class Spiel {
 	
 	private int id;
 	private String titel;
@@ -10,7 +10,7 @@ public class Spiele {
 	private String verfuegbarkeit;
 	private String sprache;
 	
-	public Spiele() {
+	public Spiel() {
 		this.id = id;
 		this.titel = titel;
 		this.veroeffentlichkeitsdatum = veroeffentlichkeitsdatum;

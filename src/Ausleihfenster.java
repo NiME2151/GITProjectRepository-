@@ -38,31 +38,19 @@ public class Ausleihfenster extends JFrame {
 	private JLabel ausleihmengeLabel;
 	private JTextField ausleihmengeTextField;	
 	private JButton preisBerechnenButton;
-	
+	private Spiel spiel;
+		
 	String pattern = "#0.00";
 	DecimalFormat df = new DecimalFormat(pattern);
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Ausleihfenster frame = new Ausleihfenster();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 * @throws ClassNotFoundException 
 	 * @throws SQLException 
 	 */
-	public Ausleihfenster() throws ClassNotFoundException, SQLException {
+	
+	public Ausleihfenster(Spiel spiel)  {
+		this.spiel = spiel;
 		initGUI();
 	}
 	private void initGUI() {
@@ -196,9 +184,9 @@ public class Ausleihfenster extends JFrame {
 	}
 	protected void do_preisBerechnenButton_actionPerformed(ActionEvent e) {
 		// ausleihpreis muss noch vom Spieledetailfenster geholt werden
-		this.ausleihpreis = 0;
-		this.gesamtausleihpreis = (Double.valueOf(this.leihdauerInTagenTextField.getText()) + Double.valueOf(this.ausleihpreis));
+		this.ausleihpreis = Double.valueOf(spiel.getPreis());
+		this.gesamtausleihpreis = (Double.valueOf(this.leihdauerInTagenTextField.getText()) + ausleihpreis);
 		this.gesamtausleihpreis = this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText());
-		this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.ausleihpreis).replace('.', ',')) + " EUR");
+		this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.gesamtausleihpreis).replace('.', ',')) + " EUR");
 	}
 }
