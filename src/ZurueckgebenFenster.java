@@ -49,7 +49,7 @@ public class ZurueckgebenFenster extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"blablacar", "FSK", "Datum", "Spiel"
+				"New column", "FSK", "Datum", "Spiel"
 			}
 		));
 		table.setBounds(-265, 0, 535, 191);
