@@ -14,6 +14,8 @@ import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import java.awt.Component;
 
 public class Hauptbildschirm extends JFrame {
 
@@ -41,6 +43,8 @@ public class Hauptbildschirm extends JFrame {
 	private JLabel genreFilterLabel;
 	private JLabel uskFilterLabel;
 	private JLabel preisSortierenLabel;
+	private JPanel spielelistePanel;
+	private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
@@ -142,7 +146,7 @@ public class Hauptbildschirm extends JFrame {
 		{
 			this.linkesMenuePanel = new JPanel();
 			this.linkesMenuePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			this.linkesMenuePanel.setBounds(0, 49, 225, 312);
+			this.linkesMenuePanel.setBounds(0, 49, 225, 313);
 			this.contentPane.add(this.linkesMenuePanel);
 			this.linkesMenuePanel.setLayout(null);
 			{
@@ -250,6 +254,16 @@ public class Hauptbildschirm extends JFrame {
 			});
 			this.seiteVorwaertsButton.setBounds(594, 329, 90, 23);
 			this.contentPane.add(this.seiteVorwaertsButton);
+		}
+		{
+			this.spielelistePanel = new JPanel();
+			this.spielelistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+			this.spielelistePanel.setBounds(224, 49, 535, 270);
+			this.contentPane.add(this.spielelistePanel);
+			{
+				this.scrollPane = new JScrollPane((Component) null);
+				this.spielelistePanel.add(this.scrollPane);
+			}
 		}
 	}
 	protected void do_hilfeButton_actionPerformed(ActionEvent e) {
