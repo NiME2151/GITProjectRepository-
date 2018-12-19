@@ -54,6 +54,7 @@ public class Kundenverwaltung extends JFrame {
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
 	private JScrollPane scrollPane;
+	private KundenverwaltungDAO kundenDAO;
 
 	/**
 	 * Launch the application.
@@ -274,7 +275,7 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		ResultSet rs = KundenverwaltungDAO.selectKunde(suchenTextField.getText());
+		ResultSet rs = kundenDAO.selectKunde(suchenTextField.getText());
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 
 		KundeInTabelleAuswaehlen kundeAuswaehlen = new KundeInTabelleAuswaehlen(kundenlisteTable);

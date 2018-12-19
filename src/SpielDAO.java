@@ -7,13 +7,15 @@ import java.sql.Statement;
 
 public class SpielDAO {
 	
+	ConnectToDB connect = new ConnectToDB();
+	
 	public Spiel select(int id) throws ClassNotFoundException, SQLException {
 		Spiel spiel = new Spiel();
 		try {
 			String sql = "";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
-			Connection conn = ConnectToDB.connectToDB();
+			Connection conn = connect.connectToDB();
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 			rs.next();
