@@ -1,0 +1,39 @@
+DROP TABLE Spiele
+DROP TABLE KundeSpiele
+DROP TABLE Kunde
+
+CREATE TABLE Spiele (
+Titel Varchar (50),
+Genre Varchar (30),
+Veröffentlichkeitsdatum Date,
+USK varchar (2),
+Preis numeric (4,2),
+Lageranzahl varchar (3),
+Verfügbarkeit varchar (15),
+Sprache varchar (15),
+primary key (Titel)
+)
+
+CREATE TABLE KundeSpiele (
+Spiel varchar(100),
+Kdnnachname varchar(40),
+KdnIBAN char(22),
+Preis numeric(4, 2),
+Menge varchar(3),
+Faelligkeitsdatum Date,
+Ausleihdatum Date DEFAULT CURRENT_DATE,
+primary key (Kdnnachname, Spiel, Ausleihdatum)
+)
+
+CREATE TABLE Kunde (
+ID char(5),
+Vorname varchar(40),
+Nachname varchar(40),
+IBAN char(22),
+Email varchar(35),
+Telefonnummer varchar(15),
+Strasse varchar(40),
+PLZ char(5),
+Ort varchar(40),
+primary key (Nachname, ID)
+)
