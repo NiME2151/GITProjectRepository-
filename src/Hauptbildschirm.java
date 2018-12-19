@@ -16,6 +16,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import java.awt.Component;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class Hauptbildschirm extends JFrame {
 
@@ -44,7 +46,7 @@ public class Hauptbildschirm extends JFrame {
 	private JLabel uskFilterLabel;
 	private JLabel preisSortierenLabel;
 	private JPanel spielelistePanel;
-	private JScrollPane scrollPane;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -76,6 +78,25 @@ public class Hauptbildschirm extends JFrame {
 		this.contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setContentPane(this.contentPane);
 		this.contentPane.setLayout(null);
+		{
+			this.spielelistePanel = new JPanel();
+			this.spielelistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+			this.spielelistePanel.setBounds(224, 49, 535, 270);
+			this.contentPane.add(this.spielelistePanel);
+			this.spielelistePanel.setLayout(null);
+			{
+				this.table = new JTable();
+				this.table.setModel(new DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+						"test"
+					}
+				));
+				this.table.setBounds(10, 11, 515, 248);
+				this.spielelistePanel.add(this.table);
+			}
+		}
 		{
 			this.buttonMenuePanel = new JPanel();
 			this.buttonMenuePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -255,17 +276,8 @@ public class Hauptbildschirm extends JFrame {
 			this.seiteVorwaertsButton.setBounds(594, 329, 90, 23);
 			this.contentPane.add(this.seiteVorwaertsButton);
 		}
-		{
-			this.spielelistePanel = new JPanel();
-			this.spielelistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			this.spielelistePanel.setBounds(224, 49, 535, 270);
-			this.contentPane.add(this.spielelistePanel);
-			{
-				this.scrollPane = new JScrollPane((Component) null);
-				this.spielelistePanel.add(this.scrollPane);
-			}
-		}
 	}
+	
 	protected void do_hilfeButton_actionPerformed(ActionEvent e) {
 	}
 	protected void do_suchenButton_actionPerformed(ActionEvent e) {
