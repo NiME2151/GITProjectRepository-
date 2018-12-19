@@ -7,7 +7,7 @@ import javax.swing.event.ListSelectionListener;
 public class KundeInTabelleAuswaehlen {
 
 	public KundeInTabelleAuswaehlen(JTable kundenlisteTable) {
-		// TODO Auto-generated constructor stub
+		// test
 	}
 
 	public void kundeInTabelleAuswaehlen(JTable kundenlisteTable) {
