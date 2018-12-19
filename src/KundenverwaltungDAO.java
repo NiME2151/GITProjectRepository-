@@ -1,7 +1,3 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-
 //import net.proteanit.sql.DbUtils;
 
 import java.sql.*;
@@ -24,5 +20,26 @@ public class KundenverwaltungDAO {
 			System.out.println(e.getMessage());
 			return null;
 		}
+	}
+	public void Zurueckgeben (Kundenverwaltung kundenverwaltung) {
+		//Connection conn = ConnectToDB.connectToDB();
+		
+		try {
+			Kundenverwaltung kunde = new Kundenverwaltung();
+			/*int id = kunde.getId();
+			String name = kunde.getName();
+			String fsk = kunde.getFsk();
+			String datum = kunde.getDatum();
+			String beschreibung = kunde.getBeschreibung();
+			Statement statement;
+			statement = this.conn.createStatement();
+			statement.executeUpdate("INSERT INTO EMAIL VALUES (" + id + ", " + name + ", " + fsk + ", " + datum + ", "+ beschreibung + ")");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); */ 
+		}finally {
+			
+		}
+		
 	}
 }

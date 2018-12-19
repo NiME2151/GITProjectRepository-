@@ -1,35 +1,30 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
-
 //import net.proteanit.sql.DbUtils;
 
 import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.beans.Statement;
-import java.sql.*;
-import java.beans.*;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.AbstractListModel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
 import net.proteanit.sql.DbUtils;
 
 public class Kundenverwaltung extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6758682203782717301L;
 	private JPanel contentPane;
 	private JLabel vornameLabel;
 	private JPanel kundendatenPanel;
@@ -54,6 +49,7 @@ public class Kundenverwaltung extends JFrame {
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
 	private JScrollPane scrollPane;
+	 
 
 	/**
 	 * Launch the application.
@@ -63,6 +59,7 @@ public class Kundenverwaltung extends JFrame {
 			public void run() {
 				try {
 					Kundenverwaltung frame = new Kundenverwaltung();
+					
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -211,7 +208,7 @@ public class Kundenverwaltung extends JFrame {
 					try {
 						do_suchenButton_actionPerformed(e);
 					} catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
+						
 						e1.printStackTrace();
 					}
 				}
@@ -276,6 +273,7 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+
 		ResultSet rs = KundenverwaltungDAO.selectKunde(suchenTextField.getText());
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 

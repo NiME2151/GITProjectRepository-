@@ -42,6 +42,7 @@ public class Ausleihfenster extends JFrame {
 	private JTextField ausleihmengeTextField;	
 	private JButton preisBerechnenButton;
 	
+	
 	String pattern = "#0.00";
 	DecimalFormat df = new DecimalFormat(pattern);
 	/**
@@ -189,10 +190,11 @@ public class Ausleihfenster extends JFrame {
 		}
 	}
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		ResultSet rs = Kundenverwaltung.selectKunde(kundensucheTextField.getText());
+		ResultSet rs = KundenverwaltungDAO.selectKunde(kundensucheTextField.getText());
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 
-		KundeInTabelleAuswaehlen kundeAuswaehlen = new KundeInTabelleAuswaehlen(kundenlisteTable);
+		KundeInTabelleAuswaehlen kundeInTabelleAuswaehlen = new KundeInTabelleAuswaehlen(kundenlisteTable);
+		kundeInTabelleAuswaehlen.kundeInTabelleAuswaehlen(kundenlisteTable);
 	}
 	protected void do_kundeAnlegenButton_actionPerformed(ActionEvent arg0) {
 		Kundenverwaltung.main(null);
