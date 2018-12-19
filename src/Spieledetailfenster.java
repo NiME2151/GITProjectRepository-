@@ -30,6 +30,13 @@ public class Spieledetailfenster extends JFrame {
 	private JLabel spielzeitLabel;
 	private JLabel spracheLabel;
 	private JTextField titelTextField;
+	public JTextField getTitelTextField() {
+		return titelTextField;
+	}
+
+	public void setTitelTextField(JTextField titelTextField) {
+		this.titelTextField = titelTextField;
+	}
 	private JTextField preisTextField;
 	private JTextField releaseDatumTextField;
 	private JTextField genreTextField;
@@ -45,7 +52,6 @@ public class Spieledetailfenster extends JFrame {
 	private JTextField beschreibungTextField;
 	private JButton ausleihenButton;
 	private JTextField verfuegbarkeitTextField;
-	private Spiel spiel;
 
 	/**
 	 * Launch the application.
@@ -249,12 +255,10 @@ public class Spieledetailfenster extends JFrame {
 			this.contentPane.add(this.ausleihenButton);
 		}
 	}
-	
 	protected void do_suchenButton_actionPerformed(ActionEvent arg0) {
 	}
 	protected void do_ausleihenButton_actionPerformed(ActionEvent e) {
-		Ausleihfenster fenster = new Ausleihfenster(spiel);
-		fenster.setVisible(true);
+		Ausleihfenster.main(null);
 	}
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
