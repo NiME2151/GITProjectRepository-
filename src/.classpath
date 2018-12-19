@@ -2,7 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path=""/>
+<<<<<<< HEAD
+=======
 	<classpathentry kind="lib" path="H:/eclipse/RP-Projekt/rs2xml.jar"/>
 	<classpathentry kind="lib" path="H:/eclipse/RP-Projekt/sqlite-jdbc-3.23.1.jar"/>
+>>>>>>> 83693bef24e67228db7dc89c24df8588da739dd6
 	<classpathentry kind="output" path=""/>
 </classpath>
