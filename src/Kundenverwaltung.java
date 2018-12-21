@@ -54,7 +54,7 @@ public class Kundenverwaltung extends JFrame {
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
 	private JScrollPane kundenlisteScrollPane;
-	private KundenverwaltungDAO kundenDAO;
+	private KundenDAO kundenDAO;
 
 	/**
 	 * Launch the application.

@@ -40,7 +40,7 @@ public class Ausleihfenster extends JFrame {
 	private JButton preisBerechnenButton;
 	private Spiel spiel;
 	private ConnectToDB connectToDB;
-	private KundenverwaltungDAO kundenDAO;
+	private KundenDAO kundenDAO;
 		
 	String pattern = "#0.00";
 	DecimalFormat df = new DecimalFormat(pattern);
