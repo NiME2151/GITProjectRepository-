@@ -12,7 +12,7 @@ public class DBVerbindungHerstellen {
 	
 
 	// Methode zum Aufbau einer Verbindung mit SQLite
-	private static Connection connect() throws ClassNotFoundException {
+	public static Connection connect() throws ClassNotFoundException {
 		Class.forName("org.sqlite.JDBC");
 		// Verzeichnispfad hängt davon ab wo eine Datei ist
 		String datei = "C:\\Users\\supervisor\\Desktop\\Programme\\test.db3";
