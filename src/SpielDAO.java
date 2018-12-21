@@ -9,10 +9,10 @@ public class SpielDAO {
 	
 	ConnectToDB connect = new ConnectToDB();
 	
-	public Spiel select(int id) throws ClassNotFoundException, SQLException {
+	public Spiel selectSpiel(int id) throws ClassNotFoundException, SQLException {
 		Spiel spiel = new Spiel();
 		try {
-			String sql = "";
+			String sql = "SELECT * FROM ";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
 			Connection conn = connect.connectToDB();

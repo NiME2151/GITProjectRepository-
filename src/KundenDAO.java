@@ -3,7 +3,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.*;
 
-public class KundenverwaltungDAO {
+public class KundenDAO {
 	
 	ConnectToDB connect = new ConnectToDB();
 	
