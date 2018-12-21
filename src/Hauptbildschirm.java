@@ -53,6 +53,8 @@ public class Hauptbildschirm extends JFrame {
 	private JScrollPane spielelisteScrollPane;
 	private KundenverwaltungDAO kundenDAO;
 	private HauptbildschirmDAO hauptDAO;
+	private Spiel spiel;
+	private SpielDAO spielDAO;
 
 	/**
 	 * Launch the application.
@@ -96,7 +98,7 @@ public class Hauptbildschirm extends JFrame {
 					new Object[][] {
 					},
 					new String[] {
-						"test"
+						"Titel" , "Genre", "Veröffentlichkeitsdatum", "Verfügbar"
 					}
 				));
 				this.spielelisteTable.setBounds(10, 11, 515, 248);
@@ -297,9 +299,7 @@ public class Hauptbildschirm extends JFrame {
 		protected void do_hilfeButton_actionPerformed(ActionEvent e) {
 		}
 		protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-			ResultSet rs = kundenDAO.selectKunde(String.valueOf(alphabetischFilterComboBox.getSelectedItem()));
-			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-			hauptDAO.orderBy(String.valueOf(alphabetischFilterComboBox.getSelectedItem()));
+			
 		}
 		protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 			System.exit(1);
@@ -318,11 +318,20 @@ public class Hauptbildschirm extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == this.alphabetischFilterComboBox) {
-				do_alphabetischFilterComboBox_actionPerformed(e);
+				try {
+					do_alphabetischFilterComboBox_actionPerformed(e);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
-		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) {
+		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+			System.out.println("jalla");
 			String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
-			HauptbildschirmDAO hauptbildschirmDAO = new HauptbildschirmDAO(alphabetischFilterWert);
+			//HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO(alphabetischFilterWert);
+			ResultSet rs = hauptDAO.orderBy("absteigend");
+			System.out.println(rs);
+			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
 }
