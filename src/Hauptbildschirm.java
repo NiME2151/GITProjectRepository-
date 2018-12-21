@@ -52,6 +52,7 @@ public class Hauptbildschirm extends JFrame {
 	private JTable spielelisteTable;
 	private JScrollPane spielelisteScrollPane;
 	private KundenverwaltungDAO kundenDAO;
+	private HauptbildschirmDAO hauptDAO;
 
 	/**
 	 * Launch the application.
@@ -293,25 +294,35 @@ public class Hauptbildschirm extends JFrame {
 		}
 	}
 	
-	protected void do_hilfeButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		ResultSet rs = kundenDAO.selectKunde(String.valueOf(alphabetischFilterComboBox.getSelectedItem()));
-		this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-	}
-	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
-		System.exit(1);
-	}
-	protected void do_seiteZurueckButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_seiteVorwaertsButton_actionPerformed(ActionEvent e) {
-	}
+		protected void do_hilfeButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+			ResultSet rs = kundenDAO.selectKunde(String.valueOf(alphabetischFilterComboBox.getSelectedItem()));
+			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+			hauptDAO.orderBy(String.valueOf(alphabetischFilterComboBox.getSelectedItem()));
+		}
+		protected void do_schliessenButton_actionPerformed(ActionEvent e) {
+			System.exit(1);
+		}
+		protected void do_seiteZurueckButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_seiteVorwaertsButton_actionPerformed(ActionEvent e) {
+		}
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == this.alphabetischFilterComboBox) {
+				do_alphabetischFilterComboBox_actionPerformed(e);
+			}
+		}
+		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) {
+			String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
+			HauptbildschirmDAO hauptbildschirmDAO = new HauptbildschirmDAO(alphabetischFilterWert);
+		}
 }
