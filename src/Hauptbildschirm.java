@@ -12,12 +12,15 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import net.proteanit.sql.DbUtils;
 
 public class Hauptbildschirm extends JFrame {
 
@@ -46,7 +49,10 @@ public class Hauptbildschirm extends JFrame {
 	private JLabel uskFilterLabel;
 	private JLabel preisSortierenLabel;
 	private JPanel spielelistePanel;
-	private JTable table;
+	private JTable spielelisteTable;
+	private JScrollPane spielelisteScrollPane;
+	private KundenverwaltungDAO kundenDAO;
+	private HauptbildschirmDAO hauptDAO;
 
 	/**
 	 * Launch the application.
@@ -85,16 +91,21 @@ public class Hauptbildschirm extends JFrame {
 			this.contentPane.add(this.spielelistePanel);
 			this.spielelistePanel.setLayout(null);
 			{
-				this.table = new JTable();
-				this.table.setModel(new DefaultTableModel(
+				this.spielelisteTable = new JTable();
+				this.spielelisteTable.setModel(new DefaultTableModel(
 					new Object[][] {
 					},
 					new String[] {
 						"test"
 					}
 				));
-				this.table.setBounds(10, 11, 515, 248);
-				this.spielelistePanel.add(this.table);
+				this.spielelisteTable.setBounds(10, 11, 515, 248);
+				this.spielelistePanel.add(this.spielelisteTable);
+			}
+			{
+				this.spielelisteScrollPane = new JScrollPane(spielelisteTable);
+				this.spielelisteScrollPane.setBounds(10, 11, 515, 248);
+				this.spielelistePanel.add(this.spielelisteScrollPane);
 			}
 		}
 		{
@@ -180,7 +191,12 @@ public class Hauptbildschirm extends JFrame {
 				this.suchenButton = new JButton("Suchen");
 				this.suchenButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						do_suchenButton_actionPerformed(e);
+						try {
+							do_suchenButton_actionPerformed(e);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				this.suchenButton.setBounds(10, 42, 80, 23);
@@ -278,23 +294,35 @@ public class Hauptbildschirm extends JFrame {
 		}
 	}
 	
-	protected void do_hilfeButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_suchenButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
-		System.exit(1);
-	}
-	protected void do_seiteZurueckButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
-	}
-	protected void do_seiteVorwaertsButton_actionPerformed(ActionEvent e) {
-	}
+		protected void do_hilfeButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+			ResultSet rs = kundenDAO.selectKunde(String.valueOf(alphabetischFilterComboBox.getSelectedItem()));
+			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+			hauptDAO.orderBy(String.valueOf(alphabetischFilterComboBox.getSelectedItem()));
+		}
+		protected void do_schliessenButton_actionPerformed(ActionEvent e) {
+			System.exit(1);
+		}
+		protected void do_seiteZurueckButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
+		}
+		protected void do_seiteVorwaertsButton_actionPerformed(ActionEvent e) {
+		}
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == this.alphabetischFilterComboBox) {
+				do_alphabetischFilterComboBox_actionPerformed(e);
+			}
+		}
+		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) {
+			String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
+			HauptbildschirmDAO hauptbildschirmDAO = new HauptbildschirmDAO(alphabetischFilterWert);
+		}
 }
