@@ -1,6 +1,7 @@
 
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -25,10 +26,12 @@ import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import net.proteanit.sql.DbUtils;
+
 
 public class Kundenverwaltung extends JFrame {
 
@@ -269,6 +272,7 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_aendernButton_actionPerformed(ActionEvent arg0) {
+		
 	}
 
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
@@ -286,5 +290,14 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) {
+		
+
+		
+		
+	
+		
+		
+		
 	}
+
 }
