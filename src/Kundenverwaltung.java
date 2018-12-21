@@ -53,7 +53,7 @@ public class Kundenverwaltung extends JFrame {
 	private JPanel kundenlistePanel;
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
-	private JScrollPane scrollPane;
+	private JScrollPane kundenlisteScrollPane;
 	private KundenverwaltungDAO kundenDAO;
 
 	/**
@@ -246,9 +246,9 @@ public class Kundenverwaltung extends JFrame {
 				this.kundenlistePanel.add(this.kundenlisteTable);
 			}
 			{
-				this.scrollPane = new JScrollPane(kundenlisteTable);
-				this.scrollPane.setBounds(0, 0, 284, 250);
-				this.kundenlistePanel.add(this.scrollPane);
+				this.kundenlisteScrollPane = new JScrollPane(kundenlisteTable);
+				this.kundenlisteScrollPane.setBounds(0, 0, 284, 250);
+				this.kundenlistePanel.add(this.kundenlisteScrollPane);
 			}
 		}
 	{
