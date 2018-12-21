@@ -51,6 +51,7 @@ public class Hauptbildschirm extends JFrame {
 	private JPanel spielelistePanel;
 	private JTable spielelisteTable;
 	private JScrollPane spielelisteScrollPane;
+	private KundenDAO kundenDAO;
 	private KundenverwaltungDAO kundenDAO;
 	private HauptbildschirmDAO hauptDAO;
 
