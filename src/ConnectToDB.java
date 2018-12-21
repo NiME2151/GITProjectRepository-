@@ -12,7 +12,7 @@ public class ConnectToDB {
 			// Verzeichnispfad hängt davon ab wo eine Datei ist
 			// dateiNico nicht anfassen!
 			// String dateiNico = "C:\\Users/supervisor/Desktop/Programme/test.db3";
-			URL datei = getClass().getResource("/test.db3");
+			URL datei = getClass().getResource("\\test.db3");
 			String url = "jdbc:sqlite::resource" + datei;
 			// try-catch versucht Verbindung zu SQLite aufzubauen
 			try {

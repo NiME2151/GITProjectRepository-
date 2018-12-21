@@ -9,11 +9,15 @@ public class SpielDAO {
 	
 	ConnectToDB connect = new ConnectToDB();
 	
+	public Spiel selectSpiel(String titel) throws ClassNotFoundException, SQLException {
+		Spiel spiel = new Spiel();
+		try {
+			String sql = "SELECT * FROM Spiel WHERE titel = " + titel;
 	public Spiel selectSpiel(int id) throws ClassNotFoundException, SQLException {
 		Spiel spiel = new Spiel();
 		try {
 			String sql = "SELECT * FROM ";
-			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+			// connect()-Methode wird ausgefÃ¼hrt um eine Verbindung zur Datenbank
 			// herzustellen
 			Connection conn = connect.connectToDB();
 			Statement statement = conn.createStatement();
@@ -21,11 +25,11 @@ public class SpielDAO {
 			rs.next();
 			spiel.setId(rs.getInt("id"));
 			spiel.setTitel(rs.getString("titel"));
-			spiel.setVeroeffentlichkeitsdatum(rs.getString("veröffentilichkeitsdatum"));
+			spiel.setVeroeffentlichkeitsdatum(rs.getString("verÃ¶ffentilichkeitsdatum"));
 			spiel.setUsk(rs.getString("usk"));
 			spiel.setPreis(rs.getDouble("preis"));
 			spiel.setLageranzahl(rs.getInt("lageranzahl"));
-			spiel.setVerfuegbarkeit(rs.getString("verfügbarkeit"));
+			spiel.setVerfuegbarkeit(rs.getString("verfÃ¼gbarkeit"));
 			spiel.setSprache(rs.getString("sprache"));
 			// Gibt Nachricht aus bei funktionierendem SELECT
 			System.out.println("SQL-SELECT funzt");

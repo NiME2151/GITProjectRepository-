@@ -3,6 +3,7 @@ public class Spiel {
 	
 	private int id;
 	private String titel;
+	private String genre;
 	private String veroeffentlichkeitsdatum;
 	private String usk;
 	private double preis;
@@ -13,6 +14,7 @@ public class Spiel {
 	public Spiel() {
 		this.id = id;
 		this.titel = titel;
+		this.genre = genre;
 		this.veroeffentlichkeitsdatum = veroeffentlichkeitsdatum;
 		this.usk = usk;
 		this.preis = preis;
@@ -35,6 +37,14 @@ public class Spiel {
 
 	public void setTitel(String titel) {
 		this.titel = titel;
+	}
+	
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.titel = genre;
 	}
 
 	public String getVeroeffentlichkeitsdatum() {

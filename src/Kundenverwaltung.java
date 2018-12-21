@@ -277,7 +277,6 @@ public class Kundenverwaltung extends JFrame {
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 		ResultSet rs = kundenDAO.selectKunde(suchenTextField.getText());
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-
 		KundeInTabelleAuswaehlen kundeAuswaehlen = new KundeInTabelleAuswaehlen(kundenlisteTable);
 	}
 
