@@ -8,15 +8,15 @@ public class ConnectToDB {
 
 	public static void main(String[] args) throws ClassNotFoundException {
 		ConnectToDB connect = new ConnectToDB();
-		connect.connectToKunde();
+		connect.connectToDB();
 	}
 
 	// Methode zum Aufbau einer Verbindung mit der Kunden-Datenbank
-	public Connection connectToKunde() throws ClassNotFoundException {
+	public Connection connectToDB() throws ClassNotFoundException {
 		// Connection conn = null;
 		Class.forName("org.sqlite.JDBC");
 		// Relativer Pfad zur Datenbank-Datei
-		String datei = "DB/Kunde.db3";
+		String datei = "DB/ProgrammDB.db3";
 		String url = "jdbc:sqlite:" + datei;
 		// try-catch versucht Verbindung zu SQLite aufzubauen
 		try {
@@ -30,41 +30,4 @@ public class ConnectToDB {
 		}
 	}
 
-	// Methode zum Aufbau einer Verbindung mit der Spiele-Datenbank
-	public Connection connectToSpiel() throws ClassNotFoundException {
-		// Connection conn = null;
-		Class.forName("org.sqlite.JDBC");
-		// Relativer Pfad zur Datenbank-Datei
-		String datei = "DB/Spiele.db3";
-		String url = "jdbc:sqlite:" + datei;
-		// try-catch versucht Verbindung zu SQLite aufzubauen
-		try {
-			Connection conn = DriverManager.getConnection(url);
-			// Gibt Nachricht aus bei funktionierender Verbindung
-			System.out.println("DB gefunden!");
-			return conn;
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
-	}
-
-	// Methode zum Aufbau einer Verbindung mit der KundenSpiele-Datenbank
-	public Connection connectToKundenSpiele() throws ClassNotFoundException {
-		// Connection conn = null;
-		Class.forName("org.sqlite.JDBC");
-		// Relativer Pfad zur Datenbank-Datei
-		String datei = "DB/Kunden-Spiele.db3";
-		String url = "jdbc:sqlite:" + datei;
-		// try-catch versucht Verbindung zu SQLite aufzubauen
-		try {
-			Connection conn = DriverManager.getConnection(url);
-			// Gibt Nachricht aus bei funktionierender Verbindung
-			System.out.println("DB gefunden!");
-			return conn;
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
-	}
 }

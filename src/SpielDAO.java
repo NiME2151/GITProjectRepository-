@@ -7,29 +7,30 @@ import java.sql.Statement;
 
 public class SpielDAO {
 	
-	ConnectToDB connect = new ConnectToDB();	
+	ConnectToDB connect = new ConnectToDB();
 	Spiel spiel = new Spiel();
 	
-	public Spiel selectSpiel(int id) throws ClassNotFoundException, SQLException {
-		Spiel spiel = new Spiel();
+	public Spiel selectSpiel(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
+		Connection conn = connect.connectToDB();
 		try {
-			String sql = "SELECT * FROM ";
+			String sql = "SELECT * FROM Spiele WHERE id = '" + ausgewaehltesSpiel + "'";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
-			Connection conn = connect.connectToSpiel();
-			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery(sql);
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();
 			rs.next();
-			spiel.setId(rs.getInt("id"));
+			spiel.setId(rs.getString("id"));
 			spiel.setTitel(rs.getString("titel"));
-			spiel.setVeroeffentlichkeitsdatum(rs.getString("veröffentilichkeitsdatum"));
+			spiel.setGenre(rs.getString("genre"));
+			spiel.setVeroeffentlichkeitsdatum(rs.getString("veroeffentlichkeitsdatum"));
 			spiel.setUsk(rs.getString("usk"));
 			spiel.setPreis(rs.getDouble("preis"));
 			spiel.setLageranzahl(rs.getInt("lageranzahl"));
-			spiel.setVerfuegbarkeit(rs.getString("verfügbarkeit"));
+			spiel.setVerfuegbarkeit(rs.getString("verfuegbarkeit"));
 			spiel.setSprache(rs.getString("sprache"));
 			// Gibt Nachricht aus bei funktionierendem SELECT
 			System.out.println("SQL-SELECT funzt");
+			System.out.println(spiel.getTitel());
 			return spiel;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
