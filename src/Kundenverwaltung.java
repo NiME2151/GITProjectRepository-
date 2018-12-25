@@ -54,7 +54,8 @@ public class Kundenverwaltung extends JFrame {
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
 	private JScrollPane kundenlisteScrollPane;
-	private KundenDAO kundenDAO;
+
+	KundenDAO kundenDAO = new KundenDAO();
 
 	/**
 	 * Launch the application.
@@ -239,7 +240,13 @@ public class Kundenverwaltung extends JFrame {
 			{
 				this.kundenlisteTable = new JTable();
 				this.kundenlisteTable
-						.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Vorname", "Nachname" }));
+						.setModel(new DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+						"Vorname", "Nachname", "Stra\u00DFe"
+					}
+				));
 				this.kundenlisteTable.getColumnModel().getColumn(0).setPreferredWidth(90);
 				this.kundenlisteTable.getColumnModel().getColumn(1).setPreferredWidth(90);
 				this.kundenlisteTable.setBounds(10, 11, 264, 228);

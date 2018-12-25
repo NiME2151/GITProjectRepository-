@@ -21,6 +21,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import net.proteanit.sql.DbUtils;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class Hauptbildschirm extends JFrame {
 
@@ -52,11 +54,9 @@ public class Hauptbildschirm extends JFrame {
 	private JTable spielelisteTable;
 	private JScrollPane spielelisteScrollPane;
 	private KundenDAO kundenDAO;
-	private KundenverwaltungDAO kundenDAO;
-	private HauptbildschirmDAO hauptDAO;
 	private Spiel spiel;
 	private SpielDAO spielDAO;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -207,7 +207,22 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.alphabetischFilterComboBox = new JComboBox();
-				this.alphabetischFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"absteigend", "aufsteigend"}));
+				this.alphabetischFilterComboBox.addItemListener(new ItemListener() {
+					public void itemStateChanged(ItemEvent arg0) {
+						do_alphabetischFilterComboBox_itemStateChanged(arg0);
+					}
+				});
+				this.alphabetischFilterComboBox.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							do_alphabetischFilterComboBox_actionPerformed(arg0);
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+				this.alphabetischFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "absteigend", "aufsteigend"}));
 				this.alphabetischFilterComboBox.setToolTipText("");
 				this.alphabetischFilterComboBox.setBounds(10, 100, 205, 20);
 				this.linkesMenuePanel.add(this.alphabetischFilterComboBox);
@@ -219,21 +234,21 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.genreFilterComboBox = new JComboBox();
-				this.genreFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"Action", "Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
+				this.genreFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Action", "Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
 				this.genreFilterComboBox.setToolTipText("");
 				this.genreFilterComboBox.setBounds(10, 156, 205, 20);
 				this.linkesMenuePanel.add(this.genreFilterComboBox);
 			}
 			{
 				this.uskFilterComboBox = new JComboBox();
-				this.uskFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"0", "6", "12", "16", "18"}));
+				this.uskFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "0", "6", "12", "16", "18"}));
 				this.uskFilterComboBox.setToolTipText("");
 				this.uskFilterComboBox.setBounds(10, 212, 205, 20);
 				this.linkesMenuePanel.add(this.uskFilterComboBox);
 			}
 			{
 				this.preisFilterComboBox = new JComboBox();
-				this.preisFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"teuerste", "billigste"}));
+				this.preisFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "teuerste", "billigste"}));
 				this.preisFilterComboBox.setToolTipText("");
 				this.preisFilterComboBox.setBounds(10, 268, 205, 20);
 				this.linkesMenuePanel.add(this.preisFilterComboBox);
@@ -328,11 +343,16 @@ public class Hauptbildschirm extends JFrame {
 			}
 		}
 		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-			System.out.println("jalla");
-			String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
-			//HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO(alphabetischFilterWert);
-			ResultSet rs = hauptDAO.orderBy("absteigend");
+			
+		}
+	protected void do_alphabetischFilterComboBox_itemStateChanged(ItemEvent arg0) {
+		String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
+		if (alphabetischFilterWert != null) {
+			HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO(alphabetischFilterWert);
+			ResultSet rs = hauptDAO.orderBy(alphabetischFilterWert);
 			System.out.println(rs);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
+
+	}
 }
