@@ -7,19 +7,16 @@ import java.sql.Statement;
 
 public class SpielDAO {
 	
-	ConnectToDB connect = new ConnectToDB();
+	ConnectToDB connect = new ConnectToDB();	
+	Spiel spiel = new Spiel();
 	
-	public Spiel selectSpiel(String titel) throws ClassNotFoundException, SQLException {
-		Spiel spiel = new Spiel();
-		try {
-			String sql = "SELECT * FROM Spiel WHERE titel = " + titel;
 	public Spiel selectSpiel(int id) throws ClassNotFoundException, SQLException {
 		Spiel spiel = new Spiel();
 		try {
 			String sql = "SELECT * FROM ";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
-			Connection conn = connect.connectToDB();
+			Connection conn = connect.connectToSpiel();
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 			rs.next();

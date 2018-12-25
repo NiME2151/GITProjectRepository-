@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 public class HauptbildschirmDAO {
 	
-	private ConnectToDB connect;
+	ConnectToDB connect = new ConnectToDB();
+	
 	private String alphabetischFilterWert;
 	private Spiel spiel;
 	private String sortierung;
@@ -27,22 +28,10 @@ public class HauptbildschirmDAO {
 			sortierung = "ASC";
 		}
 		try {
-			String sql = "SELECT * FROM Spiele ORDER BY TITEL " + sortierung;
-			Connection conn = connect.connectToDB();
+			String sql = "SELECT titel, genre, veröffentlichkeitsdatum, verfügbarkeit FROM Spiele ORDER BY TITEL " + sortierung;
+			Connection conn = connect.connectToSpiel();
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
-			/**
-			 * 	for (int i = 0; i < rs.length; i++) {
-				spiel = new Spiel();
-				spiel.setTitel(rs.getString("titel"));
-				spiel.setGenre(rs.getString("genre"));
-				spiel.setTitel(rs.getString("veröffentlichkeitsdatum"));
-				spiel.setTitel(rs.getString("verfügbarkeit"));
-				spieleliste.add(spiel);
-			}
-			 */
-
-
 			return rs;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -14,6 +14,13 @@ Sprache varchar (15),
 primary key (Titel)
 )
 
+insert into Spiele values (
+'Meine Kraft', 'Open-World', '1.1.2010', '6', '25,00', '4', 'verfügbar', 'Deutsch'
+)
+insert into Spiele values (
+'schlaftfeld 1', 'Action', '1.12.2018', '18', '50,00', '2', 'verfügbar', 'Deutsch'
+)
+
 CREATE TABLE KundeSpiele (
 Spiel varchar(100),
 Kdnnachname varchar(40),
@@ -36,4 +43,8 @@ Strasse varchar(40),
 PLZ char(5),
 Ort varchar(40),
 primary key (Nachname, ID)
+)
+
+insert into Kunde values (
+'00001', 'Nico', 'Meyer', '1234567890123456789012', 'nicomeyer@email.com', '420 1337666', 'Breem-Straße 42', '28217', 'Bremen'
 )
