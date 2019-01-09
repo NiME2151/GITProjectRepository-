@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.*;
+import javax.sql.rowset.CachedRowSet;
 
 public class HauptbildschirmDAO {
 	
@@ -15,12 +17,17 @@ public class HauptbildschirmDAO {
 	private Spiel spiel;
 	private String sortierung;
 	private ArrayList<Spiel> spieleliste;
+	private Connection conn = null;
+	private ResultSet rs = null;
+	private Statement statement = null;
 
 	public HauptbildschirmDAO(String eingabe) {
 		this.alphabetischFilterWert = eingabe;
 	}
 	
-	public ResultSet orderBy(String eingabe) {		
+	// Funzt grade nicht. Es kann kein ResultSet zurückgegeben werden und die Verbindung geschlossen werden!
+	// Herr Heidemann muss um Rat gebeten werden
+	public ResultSet orderBy(String eingabe) throws SQLException {		
 		if (eingabe.equalsIgnoreCase("absteigend")) {
 			sortierung = "DESC";
 		}
@@ -29,14 +36,19 @@ public class HauptbildschirmDAO {
 		}
 		try {
 			String sql = "SELECT Spiele.id, Spiele.titel, Spiele.genre, Spiele.veroeffentlichkeitsdatum, Spiele.verfuegbarkeit FROM Spiele ORDER BY TITEL " + sortierung;
-			Connection conn = connect.connectToDB();
-			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery(sql);
-			return rs;
+			conn = connect.connectToDB();
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+		finally {
+			conn.close();
+			rs.close();
+			statement.close();
+		}
+		return rs;
 	}
 	
 	public ResultSet sucheNachSpiel(String eingabe) throws ClassNotFoundException {

@@ -6,6 +6,9 @@ import java.sql.Statement;
 
 public class KundenSpieleDAO {
 	
+	private Connection conn = null;
+	private PreparedStatement statement = null;
+	
 	ConnectToDB connect = new ConnectToDB();
 	Spiel spiel = new Spiel();
 	KundenSpiele kundenSpiele = new KundenSpiele();
@@ -22,13 +25,11 @@ public class KundenSpieleDAO {
 			String ausleihdatum = kundenSpiele.getAusleihdatum();
 			String sql = "INSERT INTO KundenSpiele VALUES (" + spieltitel + ", " + spielRelease + ", " + kundennachname + ", " + kundenIBAN + 
 					", " + preis + ", " + menge + ", " + faelligkeitsdatum + ", " + ausleihdatum + ")";
-			Connection conn = connect.connectToDB();
-			PreparedStatement statement = conn.prepareStatement(sql);
+			conn = connect.connectToDB();
+			statement = conn.prepareStatement(sql);
 			statement.executeUpdate();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-
 	}
 }
