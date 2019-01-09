@@ -230,7 +230,7 @@ public class Hauptbildschirm extends JFrame {
 					public void itemStateChanged(ItemEvent arg0) {
 						try {
 							do_alphabetischFilterComboBox_itemStateChanged(arg0);
-						} catch (ClassNotFoundException e) {
+						} catch (ClassNotFoundException | SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
@@ -371,7 +371,7 @@ public class Hauptbildschirm extends JFrame {
 		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 			
 		}
-	protected void do_alphabetischFilterComboBox_itemStateChanged(ItemEvent arg0) throws ClassNotFoundException {
+	protected void do_alphabetischFilterComboBox_itemStateChanged(ItemEvent arg0) throws ClassNotFoundException, SQLException {
 		String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
 		if (alphabetischFilterWert != null) {
 			HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO(alphabetischFilterWert);

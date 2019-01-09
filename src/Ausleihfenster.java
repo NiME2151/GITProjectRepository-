@@ -53,6 +53,7 @@ public class Ausleihfenster extends JFrame {
 	String pattern = "#0.00";
 	DecimalFormat df = new DecimalFormat(pattern);
 	private JButton ausleihenButton;
+	private JTextField waehrungTextField;
 
 	/**
 	 * Create the frame.
@@ -164,7 +165,7 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.ausleihpreisTextField = new JTextField();
-			ausleihpreisTextField.setBounds(485, 145, 89, 20);
+			ausleihpreisTextField.setBounds(485, 145, 50, 20);
 			this.contentPane.add(this.ausleihpreisTextField);
 			this.ausleihpreisTextField.setColumns(10);
 		}
@@ -215,6 +216,14 @@ public class Ausleihfenster extends JFrame {
 			this.ausleihenButton.setBounds(370, 173, 135, 23);
 			this.contentPane.add(this.ausleihenButton);
 		}
+		{
+			this.waehrungTextField = new JTextField();
+			this.waehrungTextField.setText("EUR");
+			this.waehrungTextField.setEditable(false);
+			this.waehrungTextField.setBounds(545, 145, 29, 20);
+			this.contentPane.add(this.waehrungTextField);
+			this.waehrungTextField.setColumns(10);
+		}
 	}
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 		ResultSet rs = kundenDAO.selectKunde(kundensucheTextField.getText());
@@ -228,7 +237,7 @@ public class Ausleihfenster extends JFrame {
 		System.out.println(ausleihpreisProTag);
 		this.gesamtausleihpreis = (Double.valueOf(this.leihdauerInTagenTextField.getText()) * ausleihpreisProTag);
 		this.gesamtausleihpreis = this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText());
-		this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.gesamtausleihpreis).replace('.', ',')) + " EUR");
+		this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.gesamtausleihpreis).replace('.', ',')));
 	}
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
 		String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
@@ -238,6 +247,7 @@ public class Ausleihfenster extends JFrame {
 		return spiel;
 	}
 	protected void do_ausleihenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
+		setKundenSpieleDaten(spiel);
 		kundenSpieleDAO.insertToKundenSpiele(null);
 		String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
 		this.ausleihpreisTextField.getText();
@@ -250,7 +260,7 @@ public class Ausleihfenster extends JFrame {
 		kundenSpiele.setSpielRelease(spiel.getVeroeffentlichkeitsdatum());
 		String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
 		kundenSpiele.setKundennachname(String.valueOf(kundenlisteTable.getSelectedRow()));
-		kundenSpiele.setPreis(Double.valueOf(this.ausleihpreisTextField.getText()));
+		kundenSpiele.setPreis(Double.valueOf(this.ausleihpreisTextField.getText().replace(',', '.')));
 		kundenSpiele.setMenge(this.ausleihmengeTextField.getText());
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate localDate = LocalDate.now();
