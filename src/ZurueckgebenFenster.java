@@ -13,13 +13,15 @@ import java.awt.Component;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ZurueckgebenFenster extends JFrame {
 
 	private JPanel contentPane;
 	private JTable spieleTabelle;
 	private JTextField suchenTextField;
-	private JTable table;
+	private JTable ausgabeTabelle;
 
 	/**
 	 * Launch the application.
@@ -57,18 +59,38 @@ public class ZurueckgebenFenster extends JFrame {
 		scrollPane_1.setBounds(0, 0, 546, 176);
 		panel.add(scrollPane_1);
 		
-		table = new JTable();
-		scrollPane_1.setViewportView(table);
+		ausgabeTabelle = new JTable();
+		ausgabeTabelle.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Spiel","Kundennachname", "IBAN", "Preis", "Menge", "Fälligkeitsdatum", "Ausleihdatum"
+			}
+		));
+		scrollPane_1.setViewportView(ausgabeTabelle);
 		
 		JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
 		zurueckgebenButton.setBounds(10, 11, 122, 23);
 		contentPane.add(zurueckgebenButton);
 		
 		JButton suchenButton = new JButton("Suchen");
+		suchenButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+				
+			}
+		});
 		suchenButton.setBounds(283, 11, 107, 23);
 		contentPane.add(suchenButton);
 		
 		suchenTextField = new JTextField();
+		suchenTextField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		suchenTextField.setBounds(400, 12, 156, 20);
 		contentPane.add(suchenTextField);
 		suchenTextField.setColumns(10);

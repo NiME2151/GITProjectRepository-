@@ -1,8 +1,8 @@
-//import net.proteanit.sql.DbUtils;
+import net.proteanit.sql.DbUtils;
 
 import java.sql.*;
 
-public class KundenverwaltungDAO {
+public class KundenDAO {
 
 	// Methode zum Anzeigen aller Datensätze der Spalte name
 	public static ResultSet selectKunde(String kunde) throws ClassNotFoundException {
@@ -21,23 +21,20 @@ public class KundenverwaltungDAO {
 			return null;
 		}
 	}
-	public void Zurueckgeben (Kundenverwaltung kundenverwaltung) {
-		//Connection conn = ConnectToDB.connectToDB();
-		
+	public void Zurueckgeben (Spiele spiele) throws ClassNotFoundException {
+		Connection conn = ConnectToDB.connectToDB();
+		Spiele spiel = new Spiele();
+
 		try {
-			Kundenverwaltung kunde = new Kundenverwaltung();
-			/*int id = kunde.getId();
-			String name = kunde.getName();
-			String fsk = kunde.getFsk();
-			String datum = kunde.getDatum();
-			String beschreibung = kunde.getBeschreibung();
+			String titel = Spiele.getTitel();
+			String kdnnachname = getKdnnachname();
 			Statement statement;
-			statement = this.conn.createStatement();
-			statement.executeUpdate("INSERT INTO EMAIL VALUES (" + id + ", " + name + ", " + fsk + ", " + datum + ", "+ beschreibung + ")");
+			statement = conn.createStatement();
+			statement.executeUpdate("SELECT * FROM Kunde-Spiele where Spiel =" );
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace(); */ 
-		}finally {
+			e.printStackTrace();  
+		}finally  {
 			
 		}
 		

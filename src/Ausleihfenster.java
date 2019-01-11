@@ -190,10 +190,10 @@ public class Ausleihfenster extends JFrame {
 		}
 	}
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		ResultSet rs = KundenverwaltungDAO.selectKunde(kundensucheTextField.getText());
+		ResultSet rs = KundenDAO.selectKunde(kundensucheTextField.getText());
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 
-		KundeInTabelleAuswaehlen kundeInTabelleAuswaehlen = new KundeInTabelleAuswaehlen(kundenlisteTable);
+		GetWertInZeile kundeInTabelleAuswaehlen = new GetWertInZeile(kundenlisteTable);
 		kundeInTabelleAuswaehlen.kundeInTabelleAuswaehlen(kundenlisteTable);
 	}
 	protected void do_kundeAnlegenButton_actionPerformed(ActionEvent arg0) {
