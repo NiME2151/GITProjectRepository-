@@ -29,6 +29,7 @@ primary key (Nachname, ID)
 );
 
 CREATE TABLE KundenSpiele (
+ID char(5),
 Spiel varchar(50),
 SpieleRelease Date,
 Kdnnachname varchar(40),
@@ -37,7 +38,7 @@ Preis numeric(4, 2),
 Menge varchar(3),
 Faelligkeitsdatum Date,
 Ausleihdatum Date DEFAULT CURRENT_DATE,
-primary key (Kdnnachname, Spiel, SpieleRelease, Ausleihdatum)
+primary key (ID, SpieleRelease, Kdnnachname, Ausleihdatum)
 );
 
 insert into Spiele values (

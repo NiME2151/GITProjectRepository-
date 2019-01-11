@@ -253,7 +253,7 @@ public class Kundenverwaltung extends JFrame {
 					new Object[][] {
 					},
 					new String[] {
-						"Vorname", "Nachname", "Stra\u00DFe"
+						"ID", "Vorname", "Nachname", "Strasse"
 					}
 				));
 				this.kundenlisteTable.getColumnModel().getColumn(0).setPreferredWidth(90);

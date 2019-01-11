@@ -1,6 +1,7 @@
 
 public class KundenSpiele {
 	
+	private int id;
 	private String spieltitel;
 	private String spielRelease;
 	private String kundennachname;
@@ -11,6 +12,7 @@ public class KundenSpiele {
 	private String ausleihdatum;
 	
 	public KundenSpiele() {
+		this.id = id;
 		this.spieltitel = spieltitel;
 		this.spielRelease = spielRelease;
 		this.kundennachname = kundennachname;
@@ -21,6 +23,12 @@ public class KundenSpiele {
 		this.ausleihdatum = ausleihdatum;
 	}
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getSpieltitel() {
 		return spieltitel;
 	}
@@ -31,7 +39,7 @@ public class KundenSpiele {
 		return spielRelease;
 	}
 	public void setSpielRelease(String spielRelease) {
-		spielRelease = spielRelease;
+		this.spielRelease = spielRelease;
 	}
 	public String getKundennachname() {
 		return kundennachname;
