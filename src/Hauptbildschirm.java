@@ -59,6 +59,7 @@ public class Hauptbildschirm extends JFrame {
 	private KundenDAO kundenDAO;
 	private SpielDAO spielDAO;
 	
+	
 	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
 	Spiel spiel = new Spiel();
 	
