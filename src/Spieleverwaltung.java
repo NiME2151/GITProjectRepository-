@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Spieleverwaltung extends JFrame {
 
@@ -28,7 +30,6 @@ public class Spieleverwaltung extends JFrame {
 	private JTextField titelTextField;
 	private JTextField preisTextField;
 	private JTextField releaseDatumTextField;
-	private JTextField genreTextField;
 	private JTextField uskFreigabeTextField;
 	private JTextField lageranzahlTextField;
 	private JTextField verfuegbarkeitTextField;
@@ -40,6 +41,7 @@ public class Spieleverwaltung extends JFrame {
 	private JTextField suchenTextField;
 	private JButton suchenButton;
 	private JButton schliessenButton;
+	private JComboBox genreComboBox;
 
 	/**
 	 * Launch the application.
@@ -141,12 +143,6 @@ public class Spieleverwaltung extends JFrame {
 				this.panel.add(this.releaseDatumTextField);
 			}
 			{
-				this.genreTextField = new JTextField();
-				this.genreTextField.setColumns(10);
-				this.genreTextField.setBounds(120, 83, 190, 20);
-				this.panel.add(this.genreTextField);
-			}
-			{
 				this.uskFreigabeTextField = new JTextField();
 				this.uskFreigabeTextField.setColumns(10);
 				this.uskFreigabeTextField.setBounds(120, 108, 190, 20);
@@ -205,6 +201,13 @@ public class Spieleverwaltung extends JFrame {
 				});
 				this.aendernButton.setBounds(120, 305, 82, 23);
 				this.panel.add(this.aendernButton);
+			}
+			{
+				this.genreComboBox = new JComboBox();
+				this.genreComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Action", "Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
+				this.genreComboBox.setToolTipText("");
+				this.genreComboBox.setBounds(120, 83, 190, 20);
+				this.panel.add(this.genreComboBox);
 			}
 		}
 		{

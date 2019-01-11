@@ -1,3 +1,4 @@
+import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -5,24 +6,28 @@ import java.sql.SQLException;
 
 public class ConnectToDB {
 
-	// Methode zum Aufbau einer Verbindung mit SQLite
-		public Connection connectToDB() throws ClassNotFoundException {
-			Connection conn = null;
-			Class.forName("org.sqlite.JDBC");
-			// Verzeichnispfad hängt davon ab wo eine Datei ist
-			// dateiNico nicht anfassen!
-			// String dateiNico = "C:\\Users/supervisor/Desktop/Programme/test.db3";
-			URL datei = getClass().getResource("\\test.db3");
-			String url = "jdbc:sqlite::resource" + datei;
-			// try-catch versucht Verbindung zu SQLite aufzubauen
-			try {
-				conn = DriverManager.getConnection(url);
-				// Gibt Nachricht aus bei funktionierender Verbindung
-				System.out.println("DB gefunden!");
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
+	public static void main(String[] args) throws ClassNotFoundException {
+		ConnectToDB connect = new ConnectToDB();
+		connect.connectToDB();
+	}
+
+	// Methode zum Aufbau einer Verbindung mit der Kunden-Datenbank
+	public Connection connectToDB() throws ClassNotFoundException {
+		// Connection conn = null;
+		Class.forName("org.sqlite.JDBC");
+		// Relativer Pfad zur Datenbank-Datei
+		String datei = "DB/ProgrammDB.db3";
+		String url = "jdbc:sqlite:" + datei;
+		// try-catch versucht Verbindung zu SQLite aufzubauen
+		try {
+			Connection conn = DriverManager.getConnection(url);
+			// Gibt Nachricht aus bei funktionierender Verbindung
+			System.out.println("DB gefunden!");
 			return conn;
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
 		}
+	}
 
 }

@@ -9,11 +9,11 @@ public class KundenDAO {
 	
 	// Methode zum Anzeigen aller Datensätze der Spalte name
 	public ResultSet selectKunde(String kunde) throws ClassNotFoundException {
+		Connection conn = connect.connectToDB();
 		try {
-			String sql = "SELECT DISTINCT * FROM test WHERE LOWER(vorname) = '" + kunde.toLowerCase() + "'";
+			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.vorname) = '" + kunde.toLowerCase() + "'";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
-			Connection conn = connect.connectToDB();
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 			// Gibt Nachricht aus bei funktionierendem SELECT

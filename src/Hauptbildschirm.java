@@ -13,6 +13,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -21,6 +22,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import net.proteanit.sql.DbUtils;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Hauptbildschirm extends JFrame {
 
@@ -52,11 +57,11 @@ public class Hauptbildschirm extends JFrame {
 	private JTable spielelisteTable;
 	private JScrollPane spielelisteScrollPane;
 	private KundenDAO kundenDAO;
-	private KundenverwaltungDAO kundenDAO;
-	private HauptbildschirmDAO hauptDAO;
-	private Spiel spiel;
 	private SpielDAO spielDAO;
-
+	
+	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
+	Spiel spiel = new Spiel();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -95,11 +100,25 @@ public class Hauptbildschirm extends JFrame {
 			this.spielelistePanel.setLayout(null);
 			{
 				this.spielelisteTable = new JTable();
+				this.spielelisteTable.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						try {
+							do_spielelisteTable_mouseClicked(arg0);
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
 				this.spielelisteTable.setModel(new DefaultTableModel(
 					new Object[][] {
 					},
 					new String[] {
-						"Titel" , "Genre", "Veröffentlichkeitsdatum", "Verfügbar"
+						"ID", "Titel", "Genre", "Ver\u00F6ffentlichkeitsdatum", "Verf\u00FCgbar"
 					}
 				));
 				this.spielelisteTable.setBounds(10, 11, 515, 248);
@@ -207,7 +226,27 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.alphabetischFilterComboBox = new JComboBox();
-				this.alphabetischFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"absteigend", "aufsteigend"}));
+				this.alphabetischFilterComboBox.addItemListener(new ItemListener() {
+					public void itemStateChanged(ItemEvent arg0) {
+						try {
+							do_alphabetischFilterComboBox_itemStateChanged(arg0);
+						} catch (ClassNotFoundException | SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+				this.alphabetischFilterComboBox.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							do_alphabetischFilterComboBox_actionPerformed(arg0);
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+				this.alphabetischFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "absteigend", "aufsteigend"}));
 				this.alphabetischFilterComboBox.setToolTipText("");
 				this.alphabetischFilterComboBox.setBounds(10, 100, 205, 20);
 				this.linkesMenuePanel.add(this.alphabetischFilterComboBox);
@@ -219,21 +258,21 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.genreFilterComboBox = new JComboBox();
-				this.genreFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"Action", "Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
+				this.genreFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Action", "Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
 				this.genreFilterComboBox.setToolTipText("");
 				this.genreFilterComboBox.setBounds(10, 156, 205, 20);
 				this.linkesMenuePanel.add(this.genreFilterComboBox);
 			}
 			{
 				this.uskFilterComboBox = new JComboBox();
-				this.uskFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"0", "6", "12", "16", "18"}));
+				this.uskFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "0", "6", "12", "16", "18"}));
 				this.uskFilterComboBox.setToolTipText("");
 				this.uskFilterComboBox.setBounds(10, 212, 205, 20);
 				this.linkesMenuePanel.add(this.uskFilterComboBox);
 			}
 			{
 				this.preisFilterComboBox = new JComboBox();
-				this.preisFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"teuerste", "billigste"}));
+				this.preisFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "teuerste", "billigste"}));
 				this.preisFilterComboBox.setToolTipText("");
 				this.preisFilterComboBox.setBounds(10, 268, 205, 20);
 				this.linkesMenuePanel.add(this.preisFilterComboBox);
@@ -300,7 +339,19 @@ public class Hauptbildschirm extends JFrame {
 		protected void do_hilfeButton_actionPerformed(ActionEvent e) {
 		}
 		protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-			
+			String gesuchtesSpiel = String.valueOf(suchfeldTextField.getText());
+			if (!gesuchtesSpiel.equalsIgnoreCase("")) {
+				HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO(gesuchtesSpiel);
+				ResultSet rs = hauptDAO.sucheNachSpiel(gesuchtesSpiel);
+				System.out.println(rs);
+				this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+			}
+			else if (gesuchtesSpiel.equalsIgnoreCase("")) {
+				HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO(gesuchtesSpiel);
+				ResultSet rs = hauptDAO.sucheNachSpiel(gesuchtesSpiel);
+				System.out.println(rs);
+				this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+			}
 		}
 		protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 			System.exit(1);
@@ -317,22 +368,21 @@ public class Hauptbildschirm extends JFrame {
 		}
 		protected void do_seiteVorwaertsButton_actionPerformed(ActionEvent e) {
 		}
-		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == this.alphabetischFilterComboBox) {
-				try {
-					do_alphabetischFilterComboBox_actionPerformed(e);
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		}
 		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-			System.out.println("jalla");
-			String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
-			//HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO(alphabetischFilterWert);
-			ResultSet rs = hauptDAO.orderBy("absteigend");
+			
+		}
+	protected void do_alphabetischFilterComboBox_itemStateChanged(ItemEvent arg0) throws ClassNotFoundException, SQLException {
+		String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
+		if (alphabetischFilterWert != null) {
+			HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO(alphabetischFilterWert);
+			ResultSet rs = hauptDAO.orderBy(alphabetischFilterWert);
 			System.out.println(rs);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
+	}
+	protected void do_spielelisteTable_mouseClicked(MouseEvent arg0) throws ClassNotFoundException, SQLException {
+		String ausgewaehltesSpiel = spielAuswaehlen.getWertInZeile(spielelisteTable);
+		Spieledetailfenster fenster = new Spieledetailfenster(ausgewaehltesSpiel);
+		fenster.setVisible(true);
+	}
 }
