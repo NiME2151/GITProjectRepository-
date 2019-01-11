@@ -56,9 +56,11 @@ public class Kundenverwaltung extends JFrame {
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
 	private JScrollPane kundenlisteScrollPane;
-
+	private JFrame that=this;
+	
 	KundenDAO kundenDAO = new KundenDAO();
 	GetWertInZeile kundeAuswaehlen = new GetWertInZeile();
+
 
 	/**
 	 * Launch the application.
@@ -276,7 +278,10 @@ public class Kundenverwaltung extends JFrame {
 	JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
 	zurueckgebenButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			ZurueckgebenFenster.main(null);
+			ZurueckgebenFenster fenster = new ZurueckgebenFenster();
+			that.setVisible(false);
+					
+		
 		}
 	});
 	zurueckgebenButton.setBounds(350, 327, 107, 23);
