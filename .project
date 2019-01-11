@@ -1,6 +1,25 @@
 <<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+	<name>Videospielethek</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+</projectDescription>
+=======
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
 	<name>RP-Projekt</name>
 	<comment></comment>
 	<projects>
@@ -35,3 +54,4 @@
 	</natures>
 </projectDescription>
 >>>>>>> c9f69b1e6e2b83be1ce05b75b3c9d572fb9e115c
+>>>>>>> 210b9c96296de825c737a89edf86a3c4b0a4d511
