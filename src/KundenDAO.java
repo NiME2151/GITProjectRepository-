@@ -7,12 +7,12 @@ public class KundenDAO {
 	
 	ConnectToDB connect = new ConnectToDB();
 	
-	// Methode zum Anzeigen aller Datensï¿½tze der Spalte name
+	// Methode zum Anzeigen aller Datensätze der Spalte name
 	public ResultSet selectKunde(String kunde) throws ClassNotFoundException {
 		Connection conn = connect.connectToDB();
 		try {
 			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.vorname) = '" + kunde.toLowerCase() + "'";
-			// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
+			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
