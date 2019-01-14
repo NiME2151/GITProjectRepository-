@@ -143,8 +143,8 @@ public class HauptbildschirmDAO {
 			System.out.println("fehler in HauptbildschirmDAO (itemState-Check)");
 		}
 		
-		String sqlWHERE = "SELECT Spiele.id, Spiele.titel, Spiele.genre, Spiele.usk, Spiele.veroeffentlichkeitsdatum, Spiele.preis AS 'Preis (Euro)' , Spiele.verfuegbarkeit FROM Spiele WHERE usk = " + eingabe;
-		String sqlOrderBy = "SELECT Spiele.id, Spiele.titel, Spiele.genre, Spiele.usk, Spiele.veroeffentlichkeitsdatum, Spiele.preis AS 'Preis (Euro)' , Spiele.verfuegbarkeit FROM Spiele ORDER BY usk " + sortierung;
+		String sqlWHERE = "SELECT " + spalten + " FROM Spiele WHERE usk = " + eingabe;
+		String sqlOrderBy = "SELECT " + spalten + " FROM Spiele ORDER BY usk " + sortierung;
 		
 		if (welcherSQLBefehl == 1) {
 			sql = sqlOrderBy;
