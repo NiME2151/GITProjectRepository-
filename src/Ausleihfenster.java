@@ -2,9 +2,12 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -211,6 +214,9 @@ public class Ausleihfenster extends JFrame {
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 			});
@@ -247,14 +253,14 @@ public class Ausleihfenster extends JFrame {
 		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
 		return spiel;
 	}
-	protected void do_ausleihenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
+	protected void do_ausleihenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException, ParseException {
 		KundenSpiele ks = setKundenSpieleDaten(spiel);
 		kundenSpieleDAO.insertToKundenSpiele(ks);
 		//String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
 		//this.ausleihpreisTextField.getText();
 	}
 	
-	public KundenSpiele setKundenSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
+	public KundenSpiele setKundenSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException, ParseException {
 		System.out.println("test:" + ausgewaehltesSpiel);
 		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
@@ -269,11 +275,20 @@ public class Ausleihfenster extends JFrame {
 		System.out.println("preis: " + this.ausleihpreisTextField.getText());
 		kundenSpiele.setPreis(Double.valueOf(this.ausleihpreisTextField.getText().replace(',', '.')));
 		kundenSpiele.setMenge(this.ausleihmengeTextField.getText());
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-		LocalDate localDate = LocalDate.now();
-		System.out.println(dtf.format(localDate));
-		String ausleihdatum = dtf.format(localDate);
-		kundenSpiele.setFaelligkeitsdatum(this.leihdauerInTagenTextField.getText() + ausleihdatum);
+		// gibt falschen Wert zurück. Siehe emittelFaelligkeitsdatum-Methode!
+		kundenSpiele.setFaelligkeitsdatum(String.valueOf(ermittelFaelligkeitsdatum()));
 		return kundenSpiele;
+	}
+	
+	public Date ermittelFaelligkeitsdatum() throws ParseException {
+		// Methode funzt noch nicht!
+		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+		LocalDate localDate = LocalDate.now();
+		String currentDateString = String.valueOf(localDate);
+		int leihdauer = Integer.valueOf(this.leihdauerInTagenTextField.getText());
+		Date currentDate = myFormat.parse(currentDateString);
+	    //Date faelligkeitsdatum = currentDate.getTime() + leihdauer;
+	    //System.out.println("faellig: " + faelligkeitsdatum);
+		return null;
 	}
 }
