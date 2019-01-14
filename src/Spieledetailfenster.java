@@ -277,7 +277,7 @@ public class Spieledetailfenster extends JFrame {
 	public Spiel setDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
 		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
 		System.out.println(spiel.getId());
-		this.idTextField.setText(spiel.getId());
+		this.idTextField.setText(String.valueOf(spiel.getId()));
 		this.titelTextField.setText(spiel.getTitel());
 		this.genreTextField.setText(spiel.getGenre());
 		this.releaseDatumTextField.setText(spiel.getVeroeffentlichkeitsdatum());

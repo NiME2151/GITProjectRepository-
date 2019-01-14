@@ -66,6 +66,7 @@ public class Ausleihfenster extends JFrame {
 		initGUI();
 	}
 	private void initGUI() {
+		setTitle("Ausleihfenster");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		this.contentPane = new JPanel();
@@ -111,7 +112,7 @@ public class Ausleihfenster extends JFrame {
 					new Object[][] {
 					},
 					new String[] {
-						"ID", "Vorname", "Nachname", "Stra\u00DFe"
+						"ID", "Vorname", "Nachname", "IBAN", "Strasse"
 					}
 				) {
 					boolean[] columnEditables = new boolean[] {
@@ -226,7 +227,7 @@ public class Ausleihfenster extends JFrame {
 		}
 	}
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		ResultSet rs = kundenDAO.selectKunde(kundensucheTextField.getText());
+		ResultSet rs = kundenDAO.selectKundeAusleihfenster(kundensucheTextField.getText());
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 	}
 	protected void do_kundeAnlegenButton_actionPerformed(ActionEvent arg0) {
@@ -234,40 +235,45 @@ public class Ausleihfenster extends JFrame {
 	}
 	protected void do_preisBerechnenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
 		this.ausleihpreisProTag = Double.valueOf(getSpieleDaten(spiel).getPreis());
-		System.out.println(ausleihpreisProTag);
 		this.gesamtausleihpreis = (Double.valueOf(this.leihdauerInTagenTextField.getText()) * ausleihpreisProTag);
 		this.gesamtausleihpreis = this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText());
 		this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.gesamtausleihpreis).replace('.', ',')));
+		System.out.println("preisRechnen: " + this.ausleihpreisTextField.getText());
 	}
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
-		String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
+		String ausgewaehlterKunde = kundeAuswaehlen.getKundennachnameInTable(kundenlisteTable);
 	}
 	public Spiel getSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
 		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
 		return spiel;
 	}
 	protected void do_ausleihenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
-		setKundenSpieleDaten(spiel);
-		kundenSpieleDAO.insertToKundenSpiele(null);
-		String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
-		this.ausleihpreisTextField.getText();
+		KundenSpiele ks = setKundenSpieleDaten(spiel);
+		kundenSpieleDAO.insertToKundenSpiele(ks);
+		//String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
+		//this.ausleihpreisTextField.getText();
 	}
 	
 	public KundenSpiele setKundenSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
-		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
+		System.out.println("test:" + ausgewaehltesSpiel);
+		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
+		kundenSpiele.setId(spiel.getId());
 		kundenSpiele.setSpieltitel(spiel.getTitel());
 		kundenSpiele.setSpielRelease(spiel.getVeroeffentlichkeitsdatum());
-		String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
-		kundenSpiele.setKundennachname(String.valueOf(kundenlisteTable.getSelectedRow()));
+		System.out.println("sRelease: " + kundenSpiele.getSpielRelease());
+		String kundenIBAN = kundeAuswaehlen.getIBANInTable(kundenlisteTable);
+		String ausgewaehlterKunde = kundeAuswaehlen.getKundennachnameInTable(kundenlisteTable);
+		kundenSpiele.setKundennachname(ausgewaehlterKunde);
+		kundenSpiele.setKundenIBAN(kundenIBAN);
+		System.out.println("preis: " + this.ausleihpreisTextField.getText());
 		kundenSpiele.setPreis(Double.valueOf(this.ausleihpreisTextField.getText().replace(',', '.')));
 		kundenSpiele.setMenge(this.ausleihmengeTextField.getText());
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		LocalDate localDate = LocalDate.now();
-		System.out.println(localDate);
+		System.out.println(dtf.format(localDate));
 		String ausleihdatum = dtf.format(localDate);
 		kundenSpiele.setFaelligkeitsdatum(this.leihdauerInTagenTextField.getText() + ausleihdatum);
-		
 		return kundenSpiele;
 	}
 }
