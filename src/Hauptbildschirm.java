@@ -346,12 +346,24 @@ public class Hauptbildschirm extends JFrame {
 				ResultSet rs = hauptDAO.sucheNachSpiel(gesuchtesSpiel);
 				System.out.println(rs);
 				this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+				try {
+					rs.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			else if (gesuchtesSpiel.equalsIgnoreCase("")) {
 				HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO(gesuchtesSpiel);
 				ResultSet rs = hauptDAO.sucheNachSpiel(gesuchtesSpiel);
 				System.out.println(rs);
 				this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+				try {
+					rs.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		protected void do_schliessenButton_actionPerformed(ActionEvent e) {

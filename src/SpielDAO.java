@@ -7,19 +7,20 @@ import java.sql.Statement;
 
 public class SpielDAO {
 	
-	ConnectToDB connect = new ConnectToDB();
+	private PreparedStatement statement = null;
 	Spiel spiel = new Spiel();
 	
 	public Spiel selectSpiel(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
-		Connection conn = connect.connectToDB();
+		ResultSet rs = null;
+		Connection conn = ConnectToDB.getConnection();
 		try {
 			String sql = "SELECT * FROM Spiele WHERE id = '" + ausgewaehltesSpiel + "'";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet rs = statement.executeQuery();
+			statement = conn.prepareStatement(sql);
+			rs = statement.executeQuery();
 			rs.next();
-			spiel.setId(rs.getString("id"));
+			spiel.setId(rs.getInt("id"));
 			spiel.setTitel(rs.getString("titel"));
 			spiel.setGenre(rs.getString("genre"));
 			spiel.setVeroeffentlichkeitsdatum(rs.getString("veroeffentlichkeitsdatum"));
@@ -31,10 +32,10 @@ public class SpielDAO {
 			// Gibt Nachricht aus bei funktionierendem SELECT
 			System.out.println("SQL-SELECT funzt");
 			System.out.println(spiel.getTitel());
-			return spiel;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return null;
 		}
+		return spiel;
 	}
 }
