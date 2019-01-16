@@ -279,7 +279,7 @@ public class Kundenverwaltung extends JFrame {
 	zurueckgebenButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			ZurueckgebenFenster fenster = new ZurueckgebenFenster();
-			that.setVisible(false);
+			fenster.setVisible(true);
 					
 		
 		}
