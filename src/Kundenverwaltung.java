@@ -10,7 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
-//import net.proteanit.sql.DbUtils;
+import net.proteanit.sql.DbUtils;
 
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -31,6 +31,8 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import net.proteanit.sql.DbUtils;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class Kundenverwaltung extends JFrame {
@@ -58,7 +60,12 @@ public class Kundenverwaltung extends JFrame {
 	private JPanel kundenlistePanel;
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
-	private JScrollPane scrollPane;
+	private JScrollPane kundenlisteScrollPane;
+	private JFrame that=this;
+	
+	KundenDAO kundenDAO = new KundenDAO();
+	GetWertInZeile kundeAuswaehlen = new GetWertInZeile();
+
 
 	/**
 	 * Launch the application.
@@ -242,17 +249,29 @@ public class Kundenverwaltung extends JFrame {
 			this.kundenlistePanel.setLayout(null);
 			{
 				this.kundenlisteTable = new JTable();
+				this.kundenlisteTable.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						do_kundenlisteTable_mouseClicked(e);
+					}
+				});
 				this.kundenlisteTable
-						.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Vorname", "Nachname" }));
+						.setModel(new DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+						"ID", "Vorname", "Nachname", "Strasse"
+					}
+				));
 				this.kundenlisteTable.getColumnModel().getColumn(0).setPreferredWidth(90);
 				this.kundenlisteTable.getColumnModel().getColumn(1).setPreferredWidth(90);
 				this.kundenlisteTable.setBounds(10, 11, 264, 228);
 				this.kundenlistePanel.add(this.kundenlisteTable);
 			}
 			{
-				this.scrollPane = new JScrollPane(kundenlisteTable);
-				this.scrollPane.setBounds(0, 0, 284, 250);
-				this.kundenlistePanel.add(this.scrollPane);
+				this.kundenlisteScrollPane = new JScrollPane(kundenlisteTable);
+				this.kundenlisteScrollPane.setBounds(0, 0, 284, 250);
+				this.kundenlistePanel.add(this.kundenlisteScrollPane);
 			}
 		}
 	{
@@ -264,7 +283,10 @@ public class Kundenverwaltung extends JFrame {
 	JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
 	zurueckgebenButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			ZurueckgebenFenster.main(null);
+			ZurueckgebenFenster fenster = new ZurueckgebenFenster();
+			that.setVisible(false);
+					
+		
 		}
 	});
 	zurueckgebenButton.setBounds(350, 327, 107, 23);
@@ -280,10 +302,8 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		ResultSet rs = KundenverwaltungDAO.selectKunde(suchenTextField.getText());
-		//this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-
-		KundeInTabelleAuswaehlen kundeAuswaehlen = new KundeInTabelleAuswaehlen(kundenlisteTable);
+		ResultSet rs = kundenDAO.selectKunde(suchenTextField.getText());
+		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 	}
 
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
@@ -299,5 +319,11 @@ public class Kundenverwaltung extends JFrame {
 		
 		
 	}
+<<<<<<< HEAD
 
+=======
+	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
+		kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+	}
+>>>>>>> 8b8b7a1178b40ff715b389e4ec8fc62f13795b46
 }

@@ -13,6 +13,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Spieleverwaltung extends JFrame {
 
@@ -30,7 +32,6 @@ public class Spieleverwaltung extends JFrame {
 	private JTextField titelTextField;
 	private JTextField preisTextField;
 	private JTextField releaseDatumTextField;
-	private JTextField genreTextField;
 	private JTextField uskFreigabeTextField;
 	private JTextField lageranzahlTextField;
 	private JTextField verfuegbarkeitTextField;
@@ -42,7 +43,13 @@ public class Spieleverwaltung extends JFrame {
 	private JTextField suchenTextField;
 	private JButton suchenButton;
 	private JButton schliessenButton;
+	private JComboBox genreComboBox;
 
+	
+	private int spiele;
+	private SpieleverwaltungDAO spieleverwaltungDAO;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -143,12 +150,6 @@ public class Spieleverwaltung extends JFrame {
 				this.panel.add(this.releaseDatumTextField);
 			}
 			{
-				this.genreTextField = new JTextField();
-				this.genreTextField.setColumns(10);
-				this.genreTextField.setBounds(120, 83, 190, 20);
-				this.panel.add(this.genreTextField);
-			}
-			{
 				this.uskFreigabeTextField = new JTextField();
 				this.uskFreigabeTextField.setColumns(10);
 				this.uskFreigabeTextField.setBounds(120, 108, 190, 20);
@@ -182,7 +183,12 @@ public class Spieleverwaltung extends JFrame {
 				this.hinzufuegenButton = new JButton("Hinzuf\u00FCgen");
 				this.hinzufuegenButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						do_hinzufuegenButton_actionPerformed(e);
+						try {
+							do_hinzufuegenButton_actionPerformed(e);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				this.hinzufuegenButton.setBounds(10, 305, 98, 23);
@@ -192,7 +198,12 @@ public class Spieleverwaltung extends JFrame {
 				this.entfernenButton = new JButton("Entfernen");
 				this.entfernenButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						do_entfernenButton_actionPerformed(e);
+						try {
+							do_entfernenButton_actionPerformed(e);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				this.entfernenButton.setBounds(212, 305, 98, 23);
@@ -208,6 +219,13 @@ public class Spieleverwaltung extends JFrame {
 				this.aendernButton.setBounds(120, 305, 82, 23);
 				this.panel.add(this.aendernButton);
 			}
+			{
+				this.genreComboBox = new JComboBox();
+				this.genreComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Action", "Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
+				this.genreComboBox.setToolTipText("");
+				this.genreComboBox.setBounds(120, 83, 190, 20);
+				this.panel.add(this.genreComboBox);
+			}
 		}
 		{
 			this.suchenTextField = new JTextField();
@@ -215,15 +233,24 @@ public class Spieleverwaltung extends JFrame {
 			this.contentPane.add(this.suchenTextField);
 			this.suchenTextField.setColumns(10);
 		}
-		{
-			this.suchenButton = new JButton("Suchen");
-			this.suchenButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					do_suchenButton_actionPerformed(e);
-				}
-			});
-			this.suchenButton.setBounds(535, 42, 89, 23);
-			this.contentPane.add(this.suchenButton);
+		try {
+			{
+				this.suchenButton = new JButton("Suchen");
+				this.suchenButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							do_suchenButton_actionPerformed(e);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}}
+				});
+				this.suchenButton.setBounds(535, 42, 89, 23);
+				this.contentPane.add(this.suchenButton);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		{
 			this.schliessenButton = new JButton("Schlie\u00DFen");
@@ -237,15 +264,52 @@ public class Spieleverwaltung extends JFrame {
 		}
 	}
 
-	protected void do_suchenButton_actionPerformed(ActionEvent e) {
+	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		DBVerbindungHerstellen.select(suchenTextField.getText());
+		titelTextField.setText(titelTextField.getText().trim());
+		releaseDatumTextField.setText(releaseDatumTextField.getText().trim());
+		preisTextField.setText(preisTextField.getText().trim());
+		genreTextField.setText(genreTextField.getText().trim());
+		uskFreigabeTextField.setText(uskFreigabeTextField.getText().trim());
+		lageranzahlTextField.setText(null);
 	}
-	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
+	
+
+
+
+	
+	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		titelTextField.setText(null);
+		releaseDatumTextField.setText(null);
+		preisTextField.setText(null);
+		genreTextField.setText(null);
+		uskFreigabeTextField.setText(null);
+		lageranzahlTextField.setText(null);
+		spiele = spieleverwaltungDAO.insert(null) ;
+		
+		
 	}
+	
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
 	}
-	protected void do_entfernenButton_actionPerformed(ActionEvent e) {
+	
+	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		String titel = titelTextField.getText().toString();
+		spieleverwaltungDAO.delete(titel);
+		
+
 	}
+	
 	protected void do_aendernButton_actionPerformed(ActionEvent e) {
+		Spiele s = new Spiele();
+		s.setTitel(titelTextField.getText());
+		try {
+			spieleverwaltungDAO.update(s);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
 }

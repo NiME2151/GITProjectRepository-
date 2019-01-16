@@ -1,9 +1,14 @@
 
+<<<<<<< HEAD:src/Spiele.java
 
 public class Spiele {
+=======
+public class Spiel {
+>>>>>>> 8b8b7a1178b40ff715b389e4ec8fc62f13795b46:src/Spiel.java
 	
 	private int id;
 	private String titel;
+	private String genre;
 	private String veroeffentlichkeitsdatum;
 	private String usk;
 	private double preis;
@@ -11,9 +16,10 @@ public class Spiele {
 	private String verfuegbarkeit;
 	private String sprache;
 	
-	public Spiele() {
+	public Spiel() {
 		this.id = id;
 		this.titel = titel;
+		this.genre = genre;
 		this.veroeffentlichkeitsdatum = veroeffentlichkeitsdatum;
 		this.usk = usk;
 		this.preis = preis;
@@ -36,6 +42,14 @@ public class Spiele {
 
 	public void setTitel(String titel) {
 		this.titel = titel;
+	}
+	
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 	public String getVeroeffentlichkeitsdatum() {
@@ -85,6 +99,4 @@ public class Spiele {
 	public void setSprache(String sprache) {
 		this.sprache = sprache;
 	}
-
-	
 }
