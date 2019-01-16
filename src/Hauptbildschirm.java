@@ -42,10 +42,6 @@ public class Hauptbildschirm extends JFrame {
 	private JButton suchenButton;
 	private JComboBox alphabetischFilterComboBox;
 	private JCheckBox spielVerfuegbarCheckBox;
-	private JTextField aktuelleSeiteLinksTextField;
-	private JButton seiteZurueckButton;
-	private JTextField aktuelleSeiteRechtsTextField;
-	private JButton seiteVorwaertsButton;
 	private JComboBox genreFilterComboBox;
 	private JComboBox uskFilterComboBox;
 	private JComboBox preisFilterComboBox;
@@ -96,7 +92,7 @@ public class Hauptbildschirm extends JFrame {
 		{
 			this.spielelistePanel = new JPanel();
 			this.spielelistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			this.spielelistePanel.setBounds(224, 49, 535, 270);
+			this.spielelistePanel.setBounds(224, 49, 535, 313);
 			this.contentPane.add(this.spielelistePanel);
 			this.spielelistePanel.setLayout(null);
 			{
@@ -127,7 +123,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.spielelisteScrollPane = new JScrollPane(spielelisteTable);
-				this.spielelisteScrollPane.setBounds(10, 11, 515, 248);
+				this.spielelisteScrollPane.setBounds(0, 0, 535, 313);
 				this.spielelistePanel.add(this.spielelisteScrollPane);
 			}
 		}
@@ -319,42 +315,6 @@ public class Hauptbildschirm extends JFrame {
 				this.linkesMenuePanel.add(this.preisSortierenLabel);
 			}
 		}
-		{
-			this.aktuelleSeiteLinksTextField = new JTextField();
-			this.aktuelleSeiteLinksTextField.setEditable(false);
-			this.aktuelleSeiteLinksTextField.setText("Seite 1");
-			this.aktuelleSeiteLinksTextField.setBounds(235, 330, 55, 20);
-			this.contentPane.add(this.aktuelleSeiteLinksTextField);
-			this.aktuelleSeiteLinksTextField.setColumns(10);
-		}
-		{
-			this.seiteZurueckButton = new JButton("Zur\u00FCck");
-			this.seiteZurueckButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					do_seiteZurueckButton_actionPerformed(e);
-				}
-			});
-			this.seiteZurueckButton.setBounds(300, 329, 90, 23);
-			this.contentPane.add(this.seiteZurueckButton);
-		}
-		{
-			this.aktuelleSeiteRechtsTextField = new JTextField();
-			this.aktuelleSeiteRechtsTextField.setEditable(false);
-			this.aktuelleSeiteRechtsTextField.setText("Seite 1");
-			this.aktuelleSeiteRechtsTextField.setBounds(694, 330, 55, 20);
-			this.contentPane.add(this.aktuelleSeiteRechtsTextField);
-			this.aktuelleSeiteRechtsTextField.setColumns(10);
-		}
-		{
-			this.seiteVorwaertsButton = new JButton("Vorw\u00E4rts");
-			this.seiteVorwaertsButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					do_seiteVorwaertsButton_actionPerformed(e);
-				}
-			});
-			this.seiteVorwaertsButton.setBounds(594, 329, 90, 23);
-			this.contentPane.add(this.seiteVorwaertsButton);
-		}
 	}
 	
 		protected void do_hilfeButton_actionPerformed(ActionEvent e) {
@@ -387,8 +347,6 @@ public class Hauptbildschirm extends JFrame {
 		protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 			System.exit(1);
 		}
-		protected void do_seiteZurueckButton_actionPerformed(ActionEvent e) {
-		}
 		protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
 		}
 		protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
@@ -396,8 +354,6 @@ public class Hauptbildschirm extends JFrame {
 		protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
 		}
 		protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
-		}
-		protected void do_seiteVorwaertsButton_actionPerformed(ActionEvent e) {
 		}
 		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 			
