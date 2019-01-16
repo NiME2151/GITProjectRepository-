@@ -23,7 +23,7 @@ public class KundenSpieleDAO {
 			String faelligkeitsdatum = kundenSpiele.getFaelligkeitsdatum();
 			//String ausleihdatum = kundenSpiele.getAusleihdatum();
 			String sql = "INSERT INTO KundenSpiele VALUES ('"  + spielID + "', '" + spieltitel + "', '" + spielRelease + "', '" + kundennachname + "', '" + kundenIBAN + 
-					"', '" + preis + "', '" + menge + "', '" + faelligkeitsdatum + "', 'CURRENT_DATE')";
+					"', '" + preis + "', '" + menge + "', '" + faelligkeitsdatum + "', CURRENT_DATE)";
 			Connection conn = ConnectToDB.getConnection();
 			statement = conn.prepareStatement(sql);
 			statement.executeUpdate();
