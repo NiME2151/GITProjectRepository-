@@ -12,6 +12,8 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -37,6 +39,7 @@ public class Spieleverwaltung extends JFrame {
 	private JTextField verfuegbarkeitTextField;
 	private JTextField spielzeitTextField;
 	private JTextField spracheTextField;
+	private JTextField genreTextField;
 	private JButton hinzufuegenButton;
 	private JButton entfernenButton;
 	private JButton aendernButton;
@@ -44,10 +47,7 @@ public class Spieleverwaltung extends JFrame {
 	private JButton suchenButton;
 	private JButton schliessenButton;
 	private JComboBox genreComboBox;
-
-	
-	private int spiele;
-	private SpieleverwaltungDAO spieleverwaltungDAO;
+	private SpielDAO spielDAO;
 	
 	
 	/**
@@ -239,7 +239,12 @@ public class Spieleverwaltung extends JFrame {
 				this.suchenButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
-							do_suchenButton_actionPerformed(e);
+							try {
+								do_suchenButton_actionPerformed(e);
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 						} catch (ClassNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -264,8 +269,8 @@ public class Spieleverwaltung extends JFrame {
 		}
 	}
 
-	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		DBVerbindungHerstellen.select(suchenTextField.getText());
+	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
+		spielDAO.selectSpiel(suchenTextField.getText());
 		titelTextField.setText(titelTextField.getText().trim());
 		releaseDatumTextField.setText(releaseDatumTextField.getText().trim());
 		preisTextField.setText(preisTextField.getText().trim());
@@ -279,13 +284,15 @@ public class Spieleverwaltung extends JFrame {
 
 	
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		spielDAO.insert();
+		
 		titelTextField.setText(null);
 		releaseDatumTextField.setText(null);
 		preisTextField.setText(null);
 		genreTextField.setText(null);
 		uskFreigabeTextField.setText(null);
 		lageranzahlTextField.setText(null);
-		spiele = spieleverwaltungDAO.insert(null) ;
+		spiele = spielDAO.insert(null) ;
 		
 		
 	}
@@ -296,16 +303,16 @@ public class Spieleverwaltung extends JFrame {
 	
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 		String titel = titelTextField.getText().toString();
-		spieleverwaltungDAO.delete(titel);
+		spielDAO.delete(titel);
 		
 
 	}
 	
 	protected void do_aendernButton_actionPerformed(ActionEvent e) {
-		Spiele s = new Spiele();
+		Spiel s = new Spiel();
 		s.setTitel(titelTextField.getText());
 		try {
-			spieleverwaltungDAO.update(s);
+			spielDAO.update(s);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
