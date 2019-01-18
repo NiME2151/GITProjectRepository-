@@ -13,7 +13,7 @@ public class KundenverwaltungDAO {
 			String sql = "SELECT DISTINCT * FROM test WHERE LOWER(vorname) = '" + kunde.toLowerCase() + "'";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
-			Connection conn = ConnectToDB.connectToDB();
+			Connection conn = ConnectToDB.getConnection();
 			Statement statement = conn.createStatement();
 			ResultSet rs = statement.executeQuery(sql);
 			// Gibt Nachricht aus bei funktionierendem SELECT
@@ -25,16 +25,16 @@ public class KundenverwaltungDAO {
 		}
 	}
 	
-	public void delete(Kundenverwaltung kundenVerwaltung) {
-		Connection conn = ConnectToDB.connectToDB();
+	/*public void delete(Kundenverwaltung kundenVerwaltung) {
+		Connection conn = ConnectToDB.getConnection();
 		kundenverwaltung = new Kundenverwaltung();
 		try {
-			String sql = "DELETE FROM Kunde WHERE id = "+ kundenverwaltung.getId();
+			String sql = "DELETE FROM Kunde WHERE id = " + kundenverwaltung.getId();
 			PreparedStatement statement = ((Connection) this.conn).prepareStatement(sql);
 			ResultSet resultSet = statement.executeQuery();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
