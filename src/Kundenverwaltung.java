@@ -1,4 +1,7 @@
+
+
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -23,12 +26,14 @@ import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import net.proteanit.sql.DbUtils;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 
 public class Kundenverwaltung extends JFrame {
 
@@ -56,9 +61,11 @@ public class Kundenverwaltung extends JFrame {
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
 	private JScrollPane kundenlisteScrollPane;
-
+	private JFrame that=this;
+	
 	KundenDAO kundenDAO = new KundenDAO();
 	GetWertInZeile kundeAuswaehlen = new GetWertInZeile();
+
 
 	/**
 	 * Launch the application.
@@ -253,7 +260,7 @@ public class Kundenverwaltung extends JFrame {
 					new Object[][] {
 					},
 					new String[] {
-						"Vorname", "Nachname", "Stra\u00DFe"
+						"ID", "Vorname", "Nachname", "Strasse"
 					}
 				));
 				this.kundenlisteTable.getColumnModel().getColumn(0).setPreferredWidth(90);
@@ -276,7 +283,10 @@ public class Kundenverwaltung extends JFrame {
 	JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
 	zurueckgebenButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			ZurueckgebenFenster.main(null);
+			ZurueckgebenFenster fenster = new ZurueckgebenFenster();
+			fenster.setVisible(true);
+					
+		
 		}
 	});
 	zurueckgebenButton.setBounds(350, 327, 107, 23);
@@ -300,8 +310,20 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) {
+		
+
+		
+		
+	
+		
+		
+		
 	}
+<<<<<<< HEAD
+
+=======
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
 		kundeAuswaehlen.getWertInZeile(kundenlisteTable);
 	}
+>>>>>>> 8b8b7a1178b40ff715b389e4ec8fc62f13795b46
 }

@@ -7,22 +7,23 @@ import java.sql.Statement;
 
 public class SpielDAO {
 	
-	ConnectToDB connect = new ConnectToDB();
+	private PreparedStatement statement = null;
 	Spiel spiel = new Spiel();
 	
 	private int id;
 	
 	
 	public Spiel selectSpiel(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
-		Connection conn = connect.connectToDB();
+		ResultSet rs = null;
+		Connection conn = ConnectToDB.getConnection();
 		try {
 			String sql = "SELECT * FROM Spiele WHERE id = '" + ausgewaehltesSpiel + "'";
 			// connect()-Methode wird ausgefÃ¼hrt um eine Verbindung zur Datenbank
 			// herzustellen
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet rs = statement.executeQuery();
+			statement = conn.prepareStatement(sql);
+			rs = statement.executeQuery();
 			rs.next();
-			spiel.setId(rs.getString("id"));
+			spiel.setId(rs.getInt("id"));
 			spiel.setTitel(rs.getString("titel"));
 			spiel.setGenre(rs.getString("genre"));
 			spiel.setVeroeffentlichkeitsdatum(rs.getString("veroeffentlichkeitsdatum"));
@@ -34,7 +35,6 @@ public class SpielDAO {
 			// Gibt Nachricht aus bei funktionierendem SELECT
 			System.out.println("SQL-SELECT funzt");
 			System.out.println(spiel.getTitel());
-			return spiel;
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
@@ -46,7 +46,7 @@ public class SpielDAO {
 			Connection conn = connect.connectToDB();
 			PreparedStatement preparedStatement = null;
 			try {
-				// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+				// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 				// herzustellen	
 				String sql = "INSERT INTO Spiele (Titel, ******* ) VALUES ( vorname = ?, nachname = ?, email = ? )" ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
@@ -73,7 +73,7 @@ public class SpielDAO {
 			PreparedStatement preparedStatement = null;
 			Connection conn = connect.connectToDB();
 			try {
-				// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+				// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 				// herzustellen
 				String sql = "DELETE FROM Spiele WHERE Titel  = ?" ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
@@ -99,7 +99,7 @@ public class SpielDAO {
 			PreparedStatement preparedStatement = null;
 			Connection conn = connect.connectToDB();
 			try {
-				// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+				// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 				// herzustellen
 				String sql = "UPDATE ********************  SET vorname = ?, SET nachname = ?, SET email = ?  WHERE id LIKE ?" ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
@@ -138,11 +138,11 @@ public class SpielDAO {
 				spiele.setVerfuegbarkeit(resultSet.getString("verfuegbarkeit"));
 				spiele.setSprache(resultSet.getString("sprache"));
 			}catch(SQLException e) {
-				System.out.println("Hier läuft was falsch");
+				System.out.println("Hier lï¿½uft was falsch");
 			}
 
 			return spiele;
 		}
 		*/
-
+		return spiel;
 	}

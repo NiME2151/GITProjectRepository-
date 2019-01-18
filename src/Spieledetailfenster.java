@@ -1,4 +1,10 @@
+<<<<<<< HEAD
+
+
+import java.awt.BorderLayout;
+=======
 import java.awt.Color;
+>>>>>>> 8b8b7a1178b40ff715b389e4ec8fc62f13795b46
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -277,7 +283,7 @@ public class Spieledetailfenster extends JFrame {
 	public Spiel setDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
 		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
 		System.out.println(spiel.getId());
-		this.idTextField.setText(spiel.getId());
+		this.idTextField.setText(String.valueOf(spiel.getId()));
 		this.titelTextField.setText(spiel.getTitel());
 		this.genreTextField.setText(spiel.getGenre());
 		this.releaseDatumTextField.setText(spiel.getVeroeffentlichkeitsdatum());
