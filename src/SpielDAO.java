@@ -38,12 +38,12 @@ public class SpielDAO {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-			return null;
+			return spiel;
 		}
 		
 		
 		public int insert(Spiel spiele) throws ClassNotFoundException {
-			Connection conn = connect.connectToDB();
+			Connection conn = ConnectToDB.getConnection();
 			PreparedStatement preparedStatement = null;
 			try {
 				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
@@ -71,7 +71,7 @@ public class SpielDAO {
 		
 		public  Spiel delete (String titel) throws ClassNotFoundException  {
 			PreparedStatement preparedStatement = null;
-			Connection conn = connect.connectToDB();
+			Connection conn = ConnectToDB.getConnection();
 			try {
 				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
 				// herzustellen
@@ -97,7 +97,7 @@ public class SpielDAO {
 		
 		public void update(Spiel spiel) throws ClassNotFoundException  {
 			PreparedStatement preparedStatement = null;
-			Connection conn = connect.connectToDB();
+			Connection conn = ConnectToDB.getConnection();
 			try {
 				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
 				// herzustellen
@@ -144,5 +144,4 @@ public class SpielDAO {
 			return spiele;
 		}
 		*/
-		return spiel;
 	}

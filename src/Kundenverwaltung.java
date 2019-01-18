@@ -1,5 +1,3 @@
-
-
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
@@ -310,20 +308,8 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) {
-		
-
-		
-		
-	
-		
-		
-		
 	}
-<<<<<<< HEAD
-
-=======
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
 		kundeAuswaehlen.getWertInZeile(kundenlisteTable);
 	}
->>>>>>> 8b8b7a1178b40ff715b389e4ec8fc62f13795b46
 }

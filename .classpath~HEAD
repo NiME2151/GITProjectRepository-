@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="GUI/src/" kind="src" path=""/>
+	<classpathentry kind="src" path="GUI/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="H:/RP-Projekt/rs2xml.jar"/>
+	<classpathentry kind="output" path="GUI/bin"/>
+</classpath>
