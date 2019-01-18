@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>src</name>
+	<name>Videospielethek</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -14,4 +14,8 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+<<<<<<< HEAD
 </projectDescription>
+=======
+</projectDescription>
+>>>>>>> 8b8b7a1178b40ff715b389e4ec8fc62f13795b46
