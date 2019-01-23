@@ -1,15 +1,17 @@
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
-import javax.swing.JTextField;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -18,6 +20,10 @@ import java.awt.event.ActionEvent;
 
 public class Spieledetailfenster extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3706194479046457310L;
 	private JPanel contentPane;
 	private JLabel titelLabel;
 	private JPanel panel;
@@ -44,7 +50,7 @@ public class Spieledetailfenster extends JFrame {
 	private JButton ausleihenButton;
 	private JTextField verfuegbarkeitTextField;
 	private String spiel;
-	
+
 	//Spiel spiel = new Spiel();
 	SpielDAO spielDAO = new SpielDAO();
 	private JLabel idLabel;
@@ -258,7 +264,7 @@ public class Spieledetailfenster extends JFrame {
 		}
 
 	}
-	
+
 	protected void do_suchenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
 	}
 	protected void do_ausleihenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
@@ -268,11 +274,11 @@ public class Spieledetailfenster extends JFrame {
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
 	}
-	
+
 	public Spiel setDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
 		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
 		System.out.println(spiel.getId());
-		this.idTextField.setText(spiel.getId());
+		this.idTextField.setText(String.valueOf(spiel.getId()));
 		this.titelTextField.setText(spiel.getTitel());
 		this.genreTextField.setText(spiel.getGenre());
 		this.releaseDatumTextField.setText(spiel.getVeroeffentlichkeitsdatum());

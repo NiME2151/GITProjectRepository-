@@ -10,24 +10,16 @@ import java.*;
 import javax.sql.rowset.CachedRowSet;
 
 public class HauptbildschirmDAO {
-	
-	ConnectToDB connect = new ConnectToDB();
-	
+		
 	private String alphabetischFilterWert;
 	private Spiel spiel;
 	private String sortierung;
 	private ArrayList<Spiel> spieleliste;
-	private Connection conn = null;
-	private ResultSet rs = null;
 	private Statement statement = null;
-
-	public HauptbildschirmDAO(String eingabe) {
-		this.alphabetischFilterWert = eingabe;
-	}
+	private String spalten = "Spiele.id, Spiele.titel, Spiele.genre, Spiele.usk, Spiele.veroeffentlichkeitsdatum, Spiele.preis AS 'Preis (Euro)' , Spiele.verfuegbarkeit";
 	
-	// Funzt grade nicht. Es kann kein ResultSet zurückgegeben werden und die Verbindung geschlossen werden!
-	// Herr Heidemann muss um Rat gebeten werden
 	public ResultSet orderBy(String eingabe) throws SQLException {		
+		ResultSet rs = null;
 		if (eingabe.equalsIgnoreCase("absteigend")) {
 			sortierung = "DESC";
 		}
@@ -35,40 +27,145 @@ public class HauptbildschirmDAO {
 			sortierung = "ASC";
 		}
 		try {
-			String sql = "SELECT Spiele.id, Spiele.titel, Spiele.genre, Spiele.veroeffentlichkeitsdatum, Spiele.verfuegbarkeit FROM Spiele ORDER BY TITEL " + sortierung;
-			conn = connect.connectToDB();
+			String sql = "SELECT " + spalten + " FROM Spiele ORDER BY TITEL" + sortierung;
+			Connection conn = ConnectToDB.getConnection();
 			statement = conn.createStatement();
 			rs = statement.executeQuery(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		finally {
-			conn.close();
-			rs.close();
-			statement.close();
-		}
 		return rs;
 	}
 	
 	public ResultSet sucheNachSpiel(String eingabe) throws ClassNotFoundException {
-		String sql = "SELECT Spiele.id, Spiele.titel, Spiele.genre, Spiele.veroeffentlichkeitsdatum, Spiele.verfuegbarkeit FROM Spiele WHERE titel LIKE '%" + eingabe + "%' LIMIT 10";
+		ResultSet rs = null;
+		String sql = "SELECT " + spalten + " FROM Spiele WHERE titel LIKE '%" + eingabe + "%'";
 		if (eingabe.equalsIgnoreCase("")) {
-			sql = "SELECT Spiele.id, Spiele.titel, Spiele.genre, Spiele.veroeffentlichkeitsdatum, Spiele.verfuegbarkeit FROM Spiele";
+			sql = "SELECT " + spalten + " FROM Spiele";
 		}
 		try {
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
-			Connection conn = connect.connectToDB();
-			Statement statement = conn.createStatement();
-			ResultSet rs = statement.executeQuery(sql);
+			Connection conn = ConnectToDB.getConnection();
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
 			// Gibt Nachricht aus bei funktionierendem SELECT
 			System.out.println("SQL-SELECT funzt");
-			return rs;
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return null;
 		}
+		return rs;
+	}
+	
+	public ResultSet sucheVerfuegbareSpiele(boolean eingabe) {
+		ResultSet rs = null;
+		String eingabeString = null;
+		
+		if (eingabe) {
+			eingabeString = "verfügbar";
+		}
+		else if (!eingabe) {
+			eingabeString = "verliehen";
+		}
+		else {
+			System.out.println("fehler");
+		}
+		try {
+			String sql = "SELECT " + spalten + " FROM Spiele WHERE verfuegbarkeit = '" + eingabeString + "'";
+			System.out.println(sql);
+			Connection conn = ConnectToDB.getConnection();
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return rs;
+	}
+	
+	public ResultSet sortiereNachPreis(String eingabe) {
+		ResultSet rs = null;
+		if (eingabe.equalsIgnoreCase("teuerste")) {
+			sortierung = "DESC";
+		}
+		else if (eingabe.equalsIgnoreCase("billigste")) {
+			sortierung = "ASC";
+		}
+		try {
+			String sql = "SELECT " + spalten + " FROM Spiele ORDER BY PREIS " + sortierung;
+			Connection conn = ConnectToDB.getConnection();
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return rs;
+	}
+	
+	public ResultSet sortiereNachUSK(String eingabe) {
+		String sortierung = null;
+		String sql = null;
+		int welcherSQLBefehl = 0;
+		
+		ResultSet rs = null;
+		if (eingabe.equalsIgnoreCase("Von USK 18 bis USK 0")) {
+			sortierung = "DESC";
+			welcherSQLBefehl = 1;
+		}
+		else if (eingabe.equalsIgnoreCase("Von USK 0 bis USK 18")) {
+			sortierung = "ASC";
+			welcherSQLBefehl = 1;
+		}
+		else if (eingabe.equalsIgnoreCase("Nur USK 0")) {
+			eingabe = "0";
+			welcherSQLBefehl = 2;
+		}
+		else if (eingabe.equalsIgnoreCase("Nur USK 6")) {
+			eingabe = "6";
+			welcherSQLBefehl = 2;
+		}
+		else if (eingabe.equalsIgnoreCase("Nur USK 12")) {
+			eingabe = "12";
+			welcherSQLBefehl = 2;
+		}
+		else if (eingabe.equalsIgnoreCase("Nur USK 16")) {
+			eingabe = "16";
+			welcherSQLBefehl = 2;
+		}
+		else if (eingabe.equalsIgnoreCase("Nur USK 18")) {
+			eingabe = "18";
+			welcherSQLBefehl = 2;
+		}
+		else {
+			System.out.println("fehler in HauptbildschirmDAO (itemState-Check)");
+		}
+		
+		String sqlWHERE = "SELECT " + spalten + " FROM Spiele WHERE usk = " + eingabe;
+		String sqlOrderBy = "SELECT " + spalten + " FROM Spiele ORDER BY usk " + sortierung;
+		
+		if (welcherSQLBefehl == 1) {
+			sql = sqlOrderBy;
+		}
+		else if (welcherSQLBefehl == 2) {
+			sql = sqlWHERE;
+		}
+		else {
+			System.out.println("fehler in HauptbildschirmDAO (sqlBefehl-Check)");
+		}
+		
+		try {
+			System.out.println(sql);
+			Connection conn = ConnectToDB.getConnection();
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return rs;
 	}
 }
 
