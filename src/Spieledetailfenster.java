@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-
-
 import java.awt.BorderLayout;
-=======
 import java.awt.Color;
->>>>>>> 8b8b7a1178b40ff715b389e4ec8fc62f13795b46
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
