@@ -1,16 +1,10 @@
-<<<<<<< HEAD
-
-.metadata
-bin/
-=======
-﻿########################################################
+﻿#########################################################
 # UMBEDINGT UNVERÄNDERT LASSEN!!!!!!!!!!!!!!!!!!!!!!!! #
-########################################################
+#########################################################
 
 .metadata
 bin/
 DB/
->>>>>>> fb983ea5a2203d3b93d18a0ec665582df1bffc00
 tmp/
 *.tmp
 *.bak
@@ -20,6 +14,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.classpath
 
 # External tool builders
 .externalToolBuilders/
@@ -63,8 +58,4 @@ local.properties
 # Scala IDE specific (Scala & Java development for Eclipse)
 .cache-main
 .scala_dependencies
-<<<<<<< HEAD
-.worksheet
-=======
-.worksheet
->>>>>>> fb983ea5a2203d3b93d18a0ec665582df1bffc00
+
