@@ -1,5 +1,6 @@
 
 
+
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
@@ -26,7 +27,6 @@ import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -319,11 +319,8 @@ public class Kundenverwaltung extends JFrame {
 		
 		
 	}
-<<<<<<< HEAD
 
-=======
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
 		kundeAuswaehlen.getWertInZeile(kundenlisteTable);
 	}
->>>>>>> 8b8b7a1178b40ff715b389e4ec8fc62f13795b46
 }
