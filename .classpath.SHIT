@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry excluding="GUI/src/" kind="src" path=""/>
-	<classpathentry kind="src" path="GUI/src"/>
-	<classpathentry kind="lib" path="//vlsu/nico280/Download/rs2xml.jar"/>
-	<classpathentry kind="lib" path="//vlsu/nico280/Download/sqlite-jdbc-3.23.1.jar"/>
-	<classpathentry kind="output" path="GUI/bin"/>
-</classpath>
