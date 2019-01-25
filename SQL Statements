@@ -29,7 +29,7 @@ primary key (Nachname, ID)
 );
 
 CREATE TABLE KundenSpiele (
-ID char(5),
+ID Integer,
 Spiel varchar(50),
 SpieleRelease Date,
 Kdnnachname varchar(40),
@@ -42,40 +42,40 @@ primary key (ID, SpieleRelease, Kdnnachname, Ausleihdatum)
 );
 
 insert into Spiele values (
-'00001', 'Meine Kraft', 'Open-World', '1.1.2010', '6', '2,00', '4', 'verfügbar', 'Deutsch'
+'00001', 'Meine Kraft', 'Open-World', '2010-1-1', '6', '2,00', '4', 'verfügbar', 'Deutsch'
 );
 insert into Spiele values (
-'00002', 'Schlaftfeld 1', 'Action', '1.12.2018', '18', '5,00', '2', 'verfügbar', 'Deutsch'
+'00002', 'Schlaftfeld 1', 'Action', '2018-12-1', '18', '5,00', '2', 'verfügbar', 'Deutsch'
 );
 insert into Spiele values (
-'00003', 'Schlaftfeld Weltkrieg 2', 'Action', '1.8.2016', '18', '6,00', '1', 'verfügbar', 'Englisch'
+'00003', 'Schlaftfeld Weltkrieg 2', 'Action', '2016-8-6', '18', '6,00', '1', 'verfügbar', 'Englisch'
 );
 insert into Spiele values (
-'00004', 'Rand des Himmels', 'Open-World', '4.6.2011', '16', '3,00', '5', 'verfügbar', 'Deutsch'
+'00004', 'Rand des Himmels', 'Open-World', '2011-4-6', '16', '3,00', '5', 'verfügbar', 'Deutsch'
 );
 insert into Spiele values (
-'00005', 'Hentai World Xtreme', 'Erotik', '12.10.2017', '18', '2,00', '1', 'verfügbar', 'Englisch'
+'00005', 'Hentai World Xtreme', 'Erotik', '2017-10-12', '18', '2,00', '1', 'verfügbar', 'Englisch'
 );
 insert into Spiele values (
-'00006', 'N/A Game', 'RPG', '20.4.2014', '6', '2,00', '0', 'verliehen', 'Englisch'
+'00006', 'N/A Game', 'RPG', '2014-4-16', '6', '2,00', '0', 'verliehen', 'Englisch'
 );
 insert into Spiele values (
-'00007', 'N/A Game 2', 'RPG', '16.6.2016', '6', '3,00', '0', 'verliehen', 'Deutsch'
+'00007', 'N/A Game 2', 'RPG', '2016-6-16', '6', '3,00', '0', 'verliehen', 'Deutsch'
 );
 insert into Spiele values (
-'00008', 'Pixelville', 'Adventure', '10.4.1998', '12', '3,00', '2', 'verfügbar', 'Deutsch'
+'00008', 'Pixelville', 'Adventure', '1998-4-10', '12', '3,00', '2', 'verfügbar', 'Deutsch'
 );
 insert into Spiele values (
-'00009', 'Pixelville 2', 'Adventure', '14.7.1999', '12', '4,00', '6', 'verfügbar', 'Deutsch'
+'00009', 'Pixelville 2', 'Adventure', '1999-4-17', '12', '4,00', '6', 'verfügbar', 'Deutsch'
 );
 insert into Spiele values (
-'00010', 'Pixelville 3', 'Adventure', '13.7.2001', '12', '4,00', '5', 'verfügbar', 'Deutsch'
+'00010', 'Pixelville 3', 'Adventure', '2013-7-13', '12', '4,00', '5', 'verfügbar', 'Deutsch'
 );
 insert into Spiele values (
-'00011', 'Pixelville 4', 'Open-World', '6.4.2004', '12', '4,00', '3', 'verfügbar', 'Deutsch'
+'00011', 'Pixelville 4', 'Open-World', '2004-6-4', '12', '4,00', '3', 'verfügbar', 'Deutsch'
 );
 insert into Spiele values (
-'00012', 'Pixelville', 'Open-World', '4.9.2007', '12', '4,00', '2', 'verfügbar', 'Englisch'
+'00012', 'Pixelville', 'Open-World', '2007-7-9', '12', '4,00', '2', 'verfügbar', 'Englisch'
 );
 
 insert into Kunden values (

@@ -32,7 +32,7 @@ public class KundenDAO {
 		ResultSet rs = null;
 		Connection conn = connect.connectToDB();
 		try {
-			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.iban, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.vorname) = '" + kunde.toLowerCase() + "'";
+			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.iban, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.nachname) = '" + kunde.toLowerCase() + "'";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
 			statement = conn.createStatement();

@@ -27,7 +27,7 @@ public class HauptbildschirmDAO {
 			sortierung = "ASC";
 		}
 		try {
-			String sql = "SELECT " + spalten + " FROM Spiele ORDER BY TITEL " + sortierung;
+			String sql = "SELECT " + spalten + " FROM Spiele ORDER BY TITEL" + sortierung;
 			Connection conn = ConnectToDB.getConnection();
 			statement = conn.createStatement();
 			rs = statement.executeQuery(sql);
@@ -40,7 +40,7 @@ public class HauptbildschirmDAO {
 	
 	public ResultSet sucheNachSpiel(String eingabe) throws ClassNotFoundException {
 		ResultSet rs = null;
-		String sql = "SELECT " + spalten + " FROM Spiele WHERE titel LIKE '%" + eingabe + "%' LIMIT 10";
+		String sql = "SELECT " + spalten + " FROM Spiele WHERE titel LIKE '%" + eingabe + "%'";
 		if (eingabe.equalsIgnoreCase("")) {
 			sql = "SELECT " + spalten + " FROM Spiele";
 		}
