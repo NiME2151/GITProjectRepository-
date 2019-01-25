@@ -1,7 +1,7 @@
 
 public class Spiel {
 	
-	private int id;
+	private String id;
 	private String titel;
 	private String genre;
 	private String veroeffentlichkeitsdatum;
@@ -23,11 +23,11 @@ public class Spiel {
 		this.sprache = sprache;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
