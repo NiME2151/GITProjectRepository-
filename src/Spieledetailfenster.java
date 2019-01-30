@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> b1f400e6f3865b379b89770990db2a8e00ae4b68
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -12,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
@@ -67,6 +73,7 @@ public class Spieledetailfenster extends JFrame {
 		initGUI();
 		setDaten(ausgewaehltesSpiel);
 	}
+	
 	private void initGUI() throws ClassNotFoundException, SQLException {
 		setTitle("Spieleausleihfenster");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -268,6 +275,7 @@ public class Spieledetailfenster extends JFrame {
 	protected void do_suchenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
 	}
 	protected void do_ausleihenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
+		
 		Ausleihfenster fenster = new Ausleihfenster(spiel);
 		fenster.setVisible(true);
 	}
