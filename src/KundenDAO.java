@@ -31,7 +31,7 @@ public class KundenDAO {
 		ResultSet rs = null;
 		Connection conn = connect.connectToDB();
 		try {
-			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.iban, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.vorname) = '" + kunde.toLowerCase() + "'";
+			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.iban, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.nachname) = '" + kunde.toLowerCase() + "'";
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
 			statement = conn.createStatement();
@@ -39,6 +39,24 @@ public class KundenDAO {
 			// Gibt Nachricht aus bei funktionierendem SELECT
 			System.out.println("SQL-SELECT funzt");
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		return rs;
+	}
+	
+	public ResultSet delete(String kunde) throws ClassNotFoundException {
+		ResultSet rs = null;
+		Connection conn = connect.connectToDB();
+		try {
+			String sql = "DELETE FROM Kunden WHERE id = "+ kunde.toLowerCase();
+			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+			// herzustellen
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+			// Gibt Nachricht aus bei Funktionierenden Select
+			System.out.println("SQL-SELECT funzt");
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return null;
 		}

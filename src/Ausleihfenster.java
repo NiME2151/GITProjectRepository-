@@ -264,7 +264,7 @@ public class Ausleihfenster extends JFrame {
 		System.out.println("test:" + ausgewaehltesSpiel);
 		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
-		kundenSpiele.setId(spiel.getId());
+		kundenSpiele.setId(Integer.parseInt(spiel.getId()));
 		kundenSpiele.setSpieltitel(spiel.getTitel());
 		kundenSpiele.setSpielRelease(spiel.getVeroeffentlichkeitsdatum());
 		System.out.println("sRelease: " + kundenSpiele.getSpielRelease());
@@ -280,15 +280,15 @@ public class Ausleihfenster extends JFrame {
 		return kundenSpiele;
 	}
 	
-	public Date ermittelFaelligkeitsdatum() throws ParseException {
+	public LocalDate ermittelFaelligkeitsdatum() throws ParseException {
 		// Methode funzt noch nicht!
 		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
-		LocalDate localDate = LocalDate.now();
-		String currentDateString = String.valueOf(localDate);
 		int leihdauer = Integer.valueOf(this.leihdauerInTagenTextField.getText());
+		LocalDate date = LocalDate.now().plusDays(leihdauer);
+		/*String currentDateString = String.valueOf(localDate);
 		Date currentDate = myFormat.parse(currentDateString);
-	    //Date faelligkeitsdatum = currentDate.getTime() + leihdauer;
-	    //System.out.println("faellig: " + faelligkeitsdatum);
-		return null;
+	    Date faelligkeitsdatum = currentDate.getTime() + leihdauer;*/
+	    System.out.println("faellig: " + date);
+		return date;
 	}
 }

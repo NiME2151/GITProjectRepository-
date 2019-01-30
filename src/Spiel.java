@@ -1,12 +1,7 @@
 
-<<<<<<< HEAD:src/Spiele.java
-
-public class Spiele {
-=======
 public class Spiel {
->>>>>>> 8b8b7a1178b40ff715b389e4ec8fc62f13795b46:src/Spiel.java
 	
-	private int id;
+	private String id;
 	private String titel;
 	private String genre;
 	private String veroeffentlichkeitsdatum;
@@ -28,11 +23,11 @@ public class Spiel {
 		this.sprache = sprache;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
