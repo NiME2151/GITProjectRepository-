@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b1f400e6f3865b379b89770990db2a8e00ae4b68
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -53,7 +56,7 @@ public class Spieledetailfenster extends JFrame {
 	private JButton ausleihenButton;
 	private JTextField verfuegbarkeitTextField;
 	private String spiel;
-	
+
 	//Spiel spiel = new Spiel();
 	SpielDAO spielDAO = new SpielDAO();
 	private JLabel idLabel;
@@ -268,7 +271,7 @@ public class Spieledetailfenster extends JFrame {
 		}
 
 	}
-	
+
 	protected void do_suchenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
 	}
 	protected void do_ausleihenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
@@ -279,7 +282,7 @@ public class Spieledetailfenster extends JFrame {
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
 	}
-	
+
 	public Spiel setDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
 		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
 		System.out.println(spiel.getId());

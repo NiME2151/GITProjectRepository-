@@ -282,21 +282,25 @@ public class Spieleverwaltung extends JFrame {
 	
 
 
-
 	
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		spielDAO.insert();
-		
+		Spiel s = new Spiel();
+		s.setTitel(titelTextField.getText().trim());
+		s.setTitel(releaseDatumTextField.getText().trim());
+		try {
+			spielDAO.insert(s);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		titelTextField.setText(null);
 		releaseDatumTextField.setText(null);
 		preisTextField.setText(null);
 		genreTextField.setText(null);
 		uskFreigabeTextField.setText(null);
 		lageranzahlTextField.setText(null);
-		spiele = spielDAO.insert(null) ;
-		
-		
-	}
+		}
+	
 	
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
@@ -305,9 +309,7 @@ public class Spieleverwaltung extends JFrame {
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 		String titel = titelTextField.getText().toString();
 		spielDAO.delete(titel);
-		
-
-	}
+		}
 	
 	protected void do_aendernButton_actionPerformed(ActionEvent e) {
 		Spiel s = new Spiel();

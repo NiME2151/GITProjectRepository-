@@ -19,12 +19,12 @@ public class SpielDAO {
 		Connection conn = ConnectToDB.getConnection();
 		try {
 			String sql = "SELECT * FROM Spiele WHERE id = '" + ausgewaehltesSpiel + "'";
-			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+			// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
 			// herzustellen
 			statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			rs.next();
-			spiel.setId(rs.getInt("id"));
+			spiel.setId((rs.getInt("id")));
 			spiel.setTitel(rs.getString("titel"));
 			spiel.setGenre(rs.getString("genre"));
 			spiel.setVeroeffentlichkeitsdatum(rs.getString("veroeffentlichkeitsdatum"));
@@ -44,7 +44,7 @@ public class SpielDAO {
 		
 		
 		public int insert(Spiel spiele) throws ClassNotFoundException {
-			Connection conn = connect.connectToDB();
+			Connection conn = ConnectToDB.getConnection();
 			PreparedStatement preparedStatement = null;
 			try {
 				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
@@ -72,7 +72,7 @@ public class SpielDAO {
 		
 		public  Spiel delete (String titel) throws ClassNotFoundException  {
 			PreparedStatement preparedStatement = null;
-			Connection conn = connect.connectToDB();
+			Connection conn = ConnectToDB.getConnection();
 			try {
 				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
 				// herzustellen
@@ -98,7 +98,7 @@ public class SpielDAO {
 		
 		public void update(Spiel spiel) throws ClassNotFoundException  {
 			PreparedStatement preparedStatement = null;
-			Connection conn = connect.connectToDB();
+			Connection conn = ConnectToDB.getConnection();
 			try {
 				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
 				// herzustellen
@@ -117,7 +117,7 @@ public class SpielDAO {
 				e.printStackTrace();
 			}
 		}
-
+}
 		
 	/*	public Spiel select (String titel) throws Exception {
 			Spiel spiele = null;
@@ -144,6 +144,6 @@ public class SpielDAO {
 
 			return spiele;
 		}
-		*/
+		
 		return spiel;
-	}
+	}*/

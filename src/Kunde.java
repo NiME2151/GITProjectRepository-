@@ -3,7 +3,11 @@
 public class Kunde {
 
 
+
 	private int id;
+
+	private String id;
+
 	private String vorname;
 	private String nachname;
 	private String iban;
@@ -21,6 +25,7 @@ public class Kunde {
 		this.iban = iban;
 		this.email = email;
 		this.telefonnummer = telefonnummer;
+
 		this.ort = ort;
 		this.strasse = strasse;
 		this.plz = plz;
@@ -35,6 +40,20 @@ public class Kunde {
 		this.id = id;
 	}
 	
+
+		this.strasse = strasse;
+		this.plz = plz;
+		this.ort = ort;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getVorname() {
 		return vorname;
 	}
@@ -51,7 +70,6 @@ public class Kunde {
 		this.nachname = nachname;
 	}
 
-	
 
 	public String getIban() {
 		return iban;
@@ -69,7 +87,6 @@ public class Kunde {
 		this.email = email;
 	}
 
-
 	public String getTelefonnummer() {
 		return telefonnummer;
 	}
@@ -77,7 +94,7 @@ public class Kunde {
 	public void setTelefonnummer(String telefonnummer) {
 		this.telefonnummer = telefonnummer;
 	}
-	
+
 	public String getStrasse() {
 		return strasse;
 	}
@@ -86,7 +103,6 @@ public class Kunde {
 	public void setStrasse(String strasse) {
 		this.strasse = strasse;
 	}
-
 
 	public String getPlz() {
 		return plz;
@@ -103,4 +119,4 @@ public class Kunde {
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
-}
+

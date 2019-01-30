@@ -45,4 +45,22 @@ public class KundenDAO {
 		}
 		return rs;
 	}
+	
+	public ResultSet delete(String kunde) throws ClassNotFoundException {
+		ResultSet rs = null;
+		Connection conn = connect.connectToDB();
+		try {
+			String sql = "DELETE FROM Kunden WHERE id = "+ kunde.toLowerCase();
+			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+			// herzustellen
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+			// Gibt Nachricht aus bei Funktionierenden Select
+			System.out.println("SQL-SELECT funzt");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		return rs;
+	}
 }
