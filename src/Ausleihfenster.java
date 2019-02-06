@@ -265,6 +265,7 @@ public class Ausleihfenster extends JFrame {
 		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
 		kundenSpiele.setId(spiel.getId());
+		System.out.println(spiel.getId());
 		kundenSpiele.setSpieltitel(spiel.getTitel());
 		kundenSpiele.setSpielRelease(spiel.getVeroeffentlichkeitsdatum());
 		System.out.println("sRelease: " + kundenSpiele.getSpielRelease());

@@ -343,7 +343,7 @@ public class Hauptbildschirm extends JFrame {
 					e1.printStackTrace();
 				}
 			}
-		}
+}
 		protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 			System.exit(1);
 		}
