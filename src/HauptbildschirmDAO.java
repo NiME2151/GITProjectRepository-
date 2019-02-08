@@ -27,7 +27,7 @@ public class HauptbildschirmDAO {
 			sortierung = "ASC";
 		}
 		try {
-			String sql = "SELECT " + spalten + " FROM Spiele ORDER BY TITEL" + sortierung;
+			String sql = "SELECT " + spalten + " FROM Spiele ORDER BY TITEL " + sortierung;
 			Connection conn = ConnectToDB.getConnection();
 			statement = conn.createStatement();
 			rs = statement.executeQuery(sql);
