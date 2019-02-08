@@ -18,12 +18,4 @@ public class GetWertInZeile {
 		System.out.println("rückgabe:" + rueckgabewert);
 		return rueckgabewert;
 	}
-	
-	public String getIBANInTable(JTable table) {
-		int zeile = table.getSelectedRow();
-		System.out.println("testFehler");
-		String rueckgabewert = (String) table.getValueAt(zeile, 3);
-		System.out.println("rückgabe:" + rueckgabewert);
-		return rueckgabewert;
-	}
 }
