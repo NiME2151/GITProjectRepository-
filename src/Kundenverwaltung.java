@@ -42,13 +42,13 @@ public class Kundenverwaltung extends JFrame {
 	private JLabel ibanLabel;
 	private JLabel emailLabel;
 	private JLabel telefronnummerLabel;
-	private JLabel adresseLabel;
+	private JLabel ortLabel;
+	private JTextField idTextField;
 	private JTextField vornameTextField;
 	private JTextField nachnameTextField;
 	private JTextField ibanTextField;
 	private JTextField emailTextField;
-	private JTextField telefronnummerTextField;
-	private JTextField adresseTextField;
+	private JTextField telefonnummerTextField;
 	private JButton hinzufuegenButton;
 	private JButton entfernenButton;
 	private JButton aendernButton;
@@ -63,6 +63,9 @@ public class Kundenverwaltung extends JFrame {
 	
 	KundenDAO kundenDAO = new KundenDAO();
 	GetWertInZeile kundeAuswaehlen = new GetWertInZeile();
+	private JTextField strasseTextField;
+	private JTextField plzTextField;
+	private JTextField ortTextField;
 
 
 	/**
@@ -104,75 +107,69 @@ public class Kundenverwaltung extends JFrame {
 			this.kundendatenPanel.setLayout(null);
 			{
 				this.vornameLabel = new JLabel("Vorname:");
-				this.vornameLabel.setBounds(10, 11, 100, 14);
+				this.vornameLabel.setBounds(10, 36, 100, 14);
 				this.kundendatenPanel.add(this.vornameLabel);
 			}
 			{
 				this.nachnameLabel = new JLabel("Nachname:");
-				this.nachnameLabel.setBounds(10, 36, 100, 14);
+				this.nachnameLabel.setBounds(10, 61, 100, 14);
 				this.kundendatenPanel.add(this.nachnameLabel);
 			}
 			{
 				this.ibanLabel = new JLabel("IBAN:");
-				this.ibanLabel.setBounds(10, 61, 100, 14);
+				this.ibanLabel.setBounds(10, 86, 100, 14);
 				this.kundendatenPanel.add(this.ibanLabel);
 			}
 			{
 				this.emailLabel = new JLabel("Email:");
-				this.emailLabel.setBounds(10, 86, 100, 14);
+				this.emailLabel.setBounds(10, 111, 100, 14);
 				this.kundendatenPanel.add(this.emailLabel);
 			}
 			{
 				this.telefronnummerLabel = new JLabel("Telefonnummer:");
-				this.telefronnummerLabel.setBounds(10, 111, 100, 14);
+				this.telefronnummerLabel.setBounds(10, 136, 100, 14);
 				this.kundendatenPanel.add(this.telefronnummerLabel);
 			}
 			{
-				this.adresseLabel = new JLabel("Adresse:");
-				this.adresseLabel.setBounds(10, 136, 100, 14);
-				this.kundendatenPanel.add(this.adresseLabel);
+				this.ortLabel = new JLabel("Ort:");
+				this.ortLabel.setBounds(10, 215, 100, 14);
+				this.kundendatenPanel.add(this.ortLabel);
+			}
+			{
+				this.idTextField = new JTextField();
+				this.idTextField.setBounds(120, 8, 190, 20);
+				this.kundendatenPanel.add(this.idTextField);
+				this.idTextField.setColumns(10);
 			}
 			{
 				this.vornameTextField = new JTextField();
-				this.vornameTextField.setEditable(false);
-				this.vornameTextField.setBounds(120, 8, 190, 20);
-				this.kundendatenPanel.add(this.vornameTextField);
 				this.vornameTextField.setColumns(10);
+				this.vornameTextField.setBounds(120, 33, 190, 20);
+				this.kundendatenPanel.add(this.vornameTextField);
 			}
 			{
 				this.nachnameTextField = new JTextField();
-				this.nachnameTextField.setEditable(false);
 				this.nachnameTextField.setColumns(10);
-				this.nachnameTextField.setBounds(120, 33, 190, 20);
+				this.nachnameTextField.setBounds(120, 58, 190, 20);
 				this.kundendatenPanel.add(this.nachnameTextField);
 			}
 			{
 				this.ibanTextField = new JTextField();
-				this.ibanTextField.setEditable(false);
 				this.ibanTextField.setColumns(10);
-				this.ibanTextField.setBounds(120, 58, 190, 20);
+				this.ibanTextField.setBounds(120, 83, 190, 20);
 				this.kundendatenPanel.add(this.ibanTextField);
 			}
 			{
 				this.emailTextField = new JTextField();
-				this.emailTextField.setEditable(false);
 				this.emailTextField.setColumns(10);
-				this.emailTextField.setBounds(120, 83, 190, 20);
+				this.emailTextField.setBounds(120, 108, 190, 20);
 				this.kundendatenPanel.add(this.emailTextField);
 			}
 			{
-				this.telefronnummerTextField = new JTextField();
-				this.telefronnummerTextField.setEditable(false);
-				this.telefronnummerTextField.setColumns(10);
-				this.telefronnummerTextField.setBounds(120, 108, 190, 20);
-				this.kundendatenPanel.add(this.telefronnummerTextField);
-			}
-			{
-				this.adresseTextField = new JTextField();
-				this.adresseTextField.setEditable(false);
-				this.adresseTextField.setColumns(10);
-				this.adresseTextField.setBounds(120, 133, 190, 20);
-				this.kundendatenPanel.add(this.adresseTextField);
+				this.telefonnummerTextField = new JTextField();
+				this.telefonnummerTextField.setColumns(10);
+				this.telefonnummerTextField.setBounds(120, 133, 190, 20);
+				this.kundendatenPanel.add(this.telefonnummerTextField);
 			}
 			{
 				this.hinzufuegenButton = new JButton("Hinzuf\u00FCgen");
@@ -199,12 +196,44 @@ public class Kundenverwaltung extends JFrame {
 				this.aendernButton = new JButton("\u00C4ndern");
 				this.aendernButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						do_aendernButton_actionPerformed(arg0);
+						try {
+							do_aendernButton_actionPerformed(arg0);
+						} catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 				});
 				this.aendernButton.setBounds(120, 305, 82, 23);
 				this.kundendatenPanel.add(this.aendernButton);
 			}
+			
+			strasseTextField = new JTextField();
+			strasseTextField.setBounds(120, 159, 190, 20);
+			kundendatenPanel.add(strasseTextField);
+			strasseTextField.setColumns(10);
+			
+			plzTextField = new JTextField();
+			plzTextField.setBounds(120, 186, 190, 20);
+			kundendatenPanel.add(plzTextField);
+			plzTextField.setColumns(10);
+			
+			ortTextField = new JTextField();
+			ortTextField.setBounds(120, 212, 190, 20);
+			kundendatenPanel.add(ortTextField);
+			ortTextField.setColumns(10);
+			
+			JLabel plzLabel = new JLabel("Plz:");
+			plzLabel.setBounds(10, 189, 46, 14);
+			kundendatenPanel.add(plzLabel);
+			
+			JLabel strasseLabel = new JLabel("Strasse:");
+			strasseLabel.setBounds(10, 162, 98, 14);
+			kundendatenPanel.add(strasseLabel);
+			
+			JLabel idlabel = new JLabel("ID:");
+			idlabel.setBounds(10, 8, 46, 17);
+			kundendatenPanel.add(idlabel);
 		}
 		{
 			this.suchenTextField = new JTextField();
@@ -291,7 +320,13 @@ public class Kundenverwaltung extends JFrame {
 	contentPane.add(zurueckgebenButton);
 	}
 
-	protected void do_aendernButton_actionPerformed(ActionEvent arg0) {
+	protected void do_aendernButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException {
+		try {
+	kundenDAO.change(vornameTextField.getText(), nachnameTextField.getText(), strasseTextField.getText(), ibanTextField.getText(), emailTextField.getText(), telefonnummerTextField.getText(), plzTextField.getText(), ortTextField.getText());
+		}	catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 
@@ -305,6 +340,13 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
+		try {
+			kundenDAO.add(idTextField.getText(), idTextField.getText(), vornameTextField.getText(), telefonnummerTextField.getText(), nachnameTextField.getText(), ibanTextField.getText(), emailTextField.getText(), strasseTextField.getText(), ortTextField.getText());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
 
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) {
