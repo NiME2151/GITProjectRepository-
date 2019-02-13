@@ -256,8 +256,6 @@ public class Ausleihfenster extends JFrame {
 	protected void do_ausleihenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException, ParseException {
 		KundenSpiele ks = setKundenSpieleDaten(spiel);
 		kundenSpieleDAO.insertToKundenSpiele(ks);
-		//String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
-		//this.ausleihpreisTextField.getText();
 	}
 	
 	public KundenSpiele setKundenSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException, ParseException {
