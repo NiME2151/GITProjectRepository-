@@ -1,79 +1,65 @@
 
 public class KundenSpiele {
 	
-	private int id;
-	private String spieltitel;
-	private String spielRelease;
-	private String kundennachname;
-	private String kundenIBAN;
+	private String spieleID, kundenID;
 	private double preis;
-	private String menge;
+	private String ausleihmenge;
 	private String faelligkeitsdatum;
 	private String ausleihdatum;
 	
 	public KundenSpiele() {
-		this.id = id;
-		this.spieltitel = spieltitel;
-		this.spielRelease = spielRelease;
-		this.kundennachname = kundennachname;
-		this.kundenIBAN = kundenIBAN;
+		this.spieleID = spieleID;
+		this.kundenID = kundenID;
 		this.preis = preis;
-		this.menge = menge;
+		this.ausleihmenge = ausleihmenge;
 		this.faelligkeitsdatum = faelligkeitsdatum;
 		this.ausleihdatum = ausleihdatum;
 	}
 	
-	public int getId() {
-		return id;
+	public String getSpieleID() {
+		return spieleID;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setSpieleID(String spieleID) {
+		this.spieleID = spieleID;
 	}
-	public String getSpieltitel() {
-		return spieltitel;
+
+	public String getKundenID() {
+		return kundenID;
 	}
-	public void setSpieltitel(String spieltitel) {
-		this.spieltitel = spieltitel;
+
+	public void setKundenID(String kundenID) {
+		this.kundenID = kundenID;
 	}
-	public String getSpielRelease() {
-		return spielRelease;
-	}
-	public void setSpielRelease(String spielRelease) {
-		this.spielRelease = spielRelease;
-	}
-	public String getKundennachname() {
-		return kundennachname;
-	}
-	public void setKundennachname(String kundennachname) {
-		this.kundennachname = kundennachname;
-	}
-	public String getKundenIBAN() {
-		return kundenIBAN;
-	}
-	public void setKundenIBAN(String kundenIBAN) {
-		this.kundenIBAN = kundenIBAN;
-	}
+
 	public double getPreis() {
 		return preis;
 	}
+
 	public void setPreis(double preis) {
 		this.preis = preis;
 	}
-	public String getMenge() {
-		return menge;
+
+	public String getAusleihmenge() {
+		return ausleihmenge;
 	}
-	public void setMenge(String menge) {
-		this.menge = menge;
+
+	public void setAusleihmenge(String ausleihmenge) {
+		this.ausleihmenge = ausleihmenge;
 	}
+
 	public String getFaelligkeitsdatum() {
 		return faelligkeitsdatum;
 	}
+
 	public void setFaelligkeitsdatum(String faelligkeitsdatum) {
 		this.faelligkeitsdatum = faelligkeitsdatum;
 	}
+
 	public String getAusleihdatum() {
 		return ausleihdatum;
 	}
+
 	public void setAusleihdatum(String ausleihdatum) {
 		this.ausleihdatum = ausleihdatum;
 	}
