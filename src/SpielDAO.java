@@ -24,7 +24,7 @@ public class SpielDAO {
 			statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			rs.next();
-			spiel.setId((rs.getInt("id")));
+			spiel.setId(rs.getInt("id"));
 			spiel.setTitel(rs.getString("titel"));
 			spiel.setGenre(rs.getString("genre"));
 			spiel.setVeroeffentlichkeitsdatum(rs.getString("veroeffentlichkeitsdatum"));
@@ -39,7 +39,7 @@ public class SpielDAO {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-			return null;
+			return spiel;
 		}
 		
 		

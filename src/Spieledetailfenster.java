@@ -22,6 +22,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 
 public class Spieledetailfenster extends JFrame {
@@ -61,6 +62,8 @@ public class Spieledetailfenster extends JFrame {
 	SpielDAO spielDAO = new SpielDAO();
 	private JLabel idLabel;
 	private JTextField idTextField;
+	
+	DecimalFormat df = new DecimalFormat("####0");
 
 	/**
 	 * Create the frame.
@@ -286,7 +289,8 @@ public class Spieledetailfenster extends JFrame {
 	public Spiel setDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
 		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
 		System.out.println(spiel.getId());
-		this.idTextField.setText(String.valueOf(spiel.getId()));
+		this.idTextField.setText(String.valueOf(df.format(spiel.getId())));
+		System.out.println(df.format(spiel.getId()));
 		this.titelTextField.setText(spiel.getTitel());
 		this.genreTextField.setText(spiel.getGenre());
 		this.releaseDatumTextField.setText(spiel.getVeroeffentlichkeitsdatum());
