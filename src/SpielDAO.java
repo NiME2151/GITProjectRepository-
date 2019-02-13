@@ -1,3 +1,4 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,7 +19,7 @@ public class SpielDAO {
 		Connection conn = ConnectToDB.getConnection();
 		try {
 			String sql = "SELECT * FROM Spiele WHERE id = '" + ausgewaehltesSpiel + "'";
-			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+			// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 			// herzustellen
 			statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
@@ -46,7 +47,7 @@ public class SpielDAO {
 			Connection conn = ConnectToDB.getConnection();
 			PreparedStatement preparedStatement = null;
 			try {
-				// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+				// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 				// herzustellen	
 				String sql = "INSERT INTO Spiele (Titel, ******* ) VALUES ( vorname = ?, nachname = ?, email = ? )" ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
@@ -73,7 +74,7 @@ public class SpielDAO {
 			PreparedStatement preparedStatement = null;
 			Connection conn = ConnectToDB.getConnection();
 			try {
-				// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+				// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 				// herzustellen
 				String sql = "DELETE FROM Spiele WHERE Titel  = ?" ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
@@ -99,7 +100,7 @@ public class SpielDAO {
 			PreparedStatement preparedStatement = null;
 			Connection conn = ConnectToDB.getConnection();
 			try {
-				// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+				// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 				// herzustellen
 				String sql = "UPDATE ********************  SET vorname = ?, SET nachname = ?, SET email = ?  WHERE id LIKE ?" ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
@@ -138,7 +139,7 @@ public class SpielDAO {
 				spiele.setVerfuegbarkeit(resultSet.getString("verfuegbarkeit"));
 				spiele.setSprache(resultSet.getString("sprache"));
 			}catch(SQLException e) {
-				System.out.println("Hier läuft was falsch");
+				System.out.println("Hier lï¿½uft was falsch");
 			}
 
 			return spiele;

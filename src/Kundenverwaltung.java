@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
@@ -24,7 +25,6 @@ import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -326,9 +326,12 @@ public class Kundenverwaltung extends JFrame {
 		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
 		kundenDAO.delete(id);
 	}
+
+	
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
 		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
 		setKundenDaten(id);
+
 	}
 	public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
 		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
@@ -340,5 +343,5 @@ public class Kundenverwaltung extends JFrame {
 		telefonnummerTextField.setText(String.valueOf(kunde.getTelefonnummer()));
 		adresseTextField.setText(String.valueOf(kunde.getTelefonnummer()));
 		return kunde;
-}
+	}
 }

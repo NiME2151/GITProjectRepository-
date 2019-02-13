@@ -41,7 +41,7 @@ public class ConnectToDB {
 //	}
 
 	// Methode zum Aufbau einer Verbindung mit der Kunden-Datenbank
-	public Connection connectToDB() {
+	public static Connection connectToDB() {
 		return getConnection();
 	}
 	
