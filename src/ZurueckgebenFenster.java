@@ -13,9 +13,13 @@ import java.awt.Color;
 import javax.swing.JTable;
 import java.awt.Component;
 import javax.swing.table.DefaultTableModel;
+
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
 public class ZurueckgebenFenster extends JFrame {
@@ -24,6 +28,7 @@ public class ZurueckgebenFenster extends JFrame {
 	private JTable spieleTabelle;
 	private JTextField suchenTextField;
 	private JTable ausgabeTabelle;
+	KundenSpieleDAO kundenSpieleDao = new KundenSpieleDAO();
 
 	/**
 	 * Launch the application.
@@ -80,12 +85,12 @@ public class ZurueckgebenFenster extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String s = suchenTextField.getText();
 				
+				ResultSet rs = kundenSpieleDao.selectKundeSpieleDao(suchenTextField.getText());
+				ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
 				
 				
 				
-				System.out.println(s);
-				
-								
+				System.out.println(rs);				
 			}
 		});
 		suchenButton.setBounds(283, 11, 107, 23);

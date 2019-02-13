@@ -1,22 +1,22 @@
 DROP TABLE Spiele;
-DROP TABLE KundenSpiele;
 DROP TABLE Kunden;
+DROP TABLE KundenSpiele;
 
 CREATE TABLE Spiele (
-ID char (5),
+ID char (5) NOT NULL,
 Titel Varchar (50),
 Genre Varchar (30),
 Veroeffentlichkeitsdatum Date,
-USK varchar (2),
+USK char(2),
 Preis numeric (4,2),
 Lageranzahl varchar (3),
 Verfuegbarkeit varchar (15),
 Sprache varchar (15),
-primary key (ID, Titel)
+primary key (ID)
 );
 
 CREATE TABLE Kunden (
-ID char(5),
+ID char(5) NOT NULL,
 Vorname varchar(40),
 Nachname varchar(40),
 IBAN char(22),
@@ -25,24 +25,23 @@ Telefonnummer varchar(15),
 Strasse varchar(40),
 PLZ char(5),
 Ort varchar(40),
-primary key (Nachname, ID)
+primary key (ID)
 );
 
 CREATE TABLE KundenSpiele (
-ID Integer,
-Spiel varchar(50),
-SpieleRelease Date,
-Kdnnachname varchar(40),
-KdnIBAN char(22),
-Preis numeric(4, 2),
-Menge varchar(3),
+SpieleID char(5) NOT NULL,
+KundenID char(5) NOT NULL,
+Ausleihpreis numeric(4, 2),
+Ausleihmenge varchar(3),
 Faelligkeitsdatum Date,
 Ausleihdatum Date DEFAULT CURRENT_DATE,
-primary key (ID, SpieleRelease, Kdnnachname, Ausleihdatum)
+FOREIGN KEY (SpieleID) REFERENCES Spiele(ID),
+FOREIGN KEY (KundenID) REFERENCES Kunden(ID),
+primary key (SpieleID, KundenID, Faelligkeitsdatum, Ausleihdatum)
 );
 
 insert into Spiele values (
-'00001', 'Meine Kraft', 'Open-World', '2010-1-1', '6', '2,00', '4', 'verfügbar', 'Deutsch'
+'00001', 'Meine Kraft', 'Open-World', '2010-1-1', '06', '2,00', '4', 'verfügbar', 'Deutsch'
 );
 insert into Spiele values (
 '00002', 'Schlaftfeld 1', 'Action', '2018-12-1', '18', '5,00', '2', 'verfügbar', 'Deutsch'
@@ -57,10 +56,10 @@ insert into Spiele values (
 '00005', 'Hentai World Xtreme', 'Erotik', '2017-10-12', '18', '2,00', '1', 'verfügbar', 'Englisch'
 );
 insert into Spiele values (
-'00006', 'N/A Game', 'RPG', '2014-4-16', '6', '2,00', '0', 'verliehen', 'Englisch'
+'00006', 'N/A Game', 'RPG', '2014-4-16', '06', '2,00', '0', 'verliehen', 'Englisch'
 );
 insert into Spiele values (
-'00007', 'N/A Game 2', 'RPG', '2016-6-16', '6', '3,00', '0', 'verliehen', 'Deutsch'
+'00007', 'N/A Game 2', 'RPG', '2016-6-16', '06', '3,00', '0', 'verliehen', 'Deutsch'
 );
 insert into Spiele values (
 '00008', 'Pixelville', 'Adventure', '1998-4-10', '12', '3,00', '2', 'verfügbar', 'Deutsch'
@@ -81,3 +80,9 @@ insert into Spiele values (
 insert into Kunden values (
 '00001', 'Nico', 'Meyer', '1234567890123456789012', 'nicomeyer@email.com', '420 1337666', 'Breem-Straße 42', '28217', 'Bremen'
 );
+
+/*SELECT Kunden.id, Spiele.id, KundenSpiele.*
+FROM ((Kunden
+INNER JOIN Spiele ON Kunden.id = Spiele.id)
+INNER JOIN KundenSpiele ON Spiele.id = Kunden.id)
+WHERE KundenSpiele.Spiel = 'Pixelville'*/

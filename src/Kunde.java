@@ -2,11 +2,6 @@
 
 public class Kunde {
 
-
-
-	
-
-
 	private int id;
 	private String vorname;
 	private String nachname;
@@ -25,7 +20,6 @@ public class Kunde {
 		this.iban = iban;
 		this.email = email;
 		this.telefonnummer = telefonnummer;
-
 		this.ort = ort;
 		this.strasse = strasse;
 		this.plz = plz;
@@ -104,4 +98,5 @@ public class Kunde {
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
+}
 

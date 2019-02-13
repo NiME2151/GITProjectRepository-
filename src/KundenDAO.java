@@ -79,7 +79,7 @@ public class KundenDAO {
 			preparedStatement = conn.prepareStatement(sql);
 			preparedStatement.setString(1, id);
 			ResultSet rS = preparedStatement.executeQuery();
-			kunde.setId(rS.getString(1));
+			kunde.setId(rS.getInt(1));
 			System.out.println(kunde.getId());
 			kunde.setVorname(rS.getString(2));
 			kunde.setNachname(rS.getString(3));
