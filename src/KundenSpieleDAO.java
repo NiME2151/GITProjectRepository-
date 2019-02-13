@@ -10,24 +10,19 @@ public class KundenSpieleDAO {
 	private PreparedStatement statement = null;
 	
 	public void insertToKundenSpiele(KundenSpiele kundenSpiele) throws SQLException, ClassNotFoundException {
-		//Spiel spiel = new Spiel();
-		//KundenSpiele kundenSpiele = new KundenSpiele();
 		try {
-			int spielID = kundenSpiele.getId();
-			String spieltitel = kundenSpiele.getSpieltitel();
-			String spielRelease = kundenSpiele.getSpielRelease();
-			String kundennachname = kundenSpiele.getKundennachname();
-			String kundenIBAN = kundenSpiele.getKundenIBAN();
-			double preis = kundenSpiele.getPreis();
-			String menge = kundenSpiele.getMenge();
+			String spieleID = kundenSpiele.getSpieleID();
+			String kundenID = kundenSpiele.getKundenID();
+			double ausleihpreis = kundenSpiele.getPreis();
+			String ausleihmenge = kundenSpiele.getAusleihmenge();
 			String faelligkeitsdatum = kundenSpiele.getFaelligkeitsdatum();
-			//String ausleihdatum = kundenSpiele.getAusleihdatum();
-			String sql = "INSERT INTO KundenSpiele VALUES ('"  + spielID + "', '" + spieltitel + "', '" + spielRelease + "', '" + kundennachname + "', '" + kundenIBAN + 
-					"', '" + preis + "', '" + menge + "', '" + faelligkeitsdatum + "', CURRENT_DATE)";
+			String ausleihdatum = kundenSpiele.getAusleihdatum();
+			System.out.println(ausleihdatum);
+			String sql = "INSERT INTO KundenSpiele VALUES ('" + spieleID + "', '" + kundenID + "', '" + ausleihpreis + "', '" + ausleihmenge + "', '" + faelligkeitsdatum + "', " + "CURRENT_DATE)";
 			Connection conn = ConnectToDB.getConnection();
 			statement = conn.prepareStatement(sql);
 			statement.executeUpdate();
-			System.out.println(spielID + "\n" + spieltitel + "\n" + spielRelease + "\n" + kundennachname + "\n" + kundenIBAN + "\n" + preis + "\n" + menge + "\n" + faelligkeitsdatum + "\n");
+			System.out.println(spieleID + "\n" + kundenID+ "\n" + ausleihpreis + "\n" + ausleihmenge + "\n" + faelligkeitsdatum+ "\n" + ausleihdatum + "\n");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 

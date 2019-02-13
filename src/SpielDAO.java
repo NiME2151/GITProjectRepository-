@@ -23,7 +23,7 @@ public class SpielDAO {
 			statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			rs.next();
-			spiel.setId(rs.getInt("id"));
+			spiel.setId(rs.getString("id"));
 			spiel.setTitel(rs.getString("titel"));
 			spiel.setGenre(rs.getString("genre"));
 			spiel.setVeroeffentlichkeitsdatum(rs.getString("veroeffentlichkeitsdatum"));
