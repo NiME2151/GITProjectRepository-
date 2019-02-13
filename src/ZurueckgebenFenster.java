@@ -78,6 +78,12 @@ public class ZurueckgebenFenster extends JFrame {
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String s = suchenTextField.getText();
+				
+				
+				
+				
+				System.out.println(s);
 				
 								
 			}

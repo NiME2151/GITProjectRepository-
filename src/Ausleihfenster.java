@@ -262,11 +262,28 @@ public class Ausleihfenster extends JFrame {
 		System.out.println("test:" + ausgewaehltesSpiel);
 		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
+
 		Kunde kunde = new Kunde();
 		kundenSpiele.setSpieleID(spiel.getId());
 		System.out.println(spiel.getId());
 		kundenSpiele.setKundenID(kundeAuswaehlen.getWertInZeile(kundenlisteTable));
 		System.out.println("ausleihpreis: " + this.ausleihpreisTextField.getText());
+
+
+		kundenSpiele.setId(Integer.parseInt(spiel.getId()));
+
+		kundenSpiele.setId(spiel.getId());
+		System.out.println(spiel.getId());
+
+		kundenSpiele.setSpieltitel(spiel.getTitel());
+		kundenSpiele.setSpielRelease(spiel.getVeroeffentlichkeitsdatum());
+		System.out.println("sRelease: " + kundenSpiele.getSpielRelease());
+		String kundenIBAN = kundeAuswaehlen.getIBANInTable(kundenlisteTable);
+		String ausgewaehlterKunde = kundeAuswaehlen.getKundennachnameInTable(kundenlisteTable);
+		kundenSpiele.setKundennachname(ausgewaehlterKunde);
+		kundenSpiele.setKundenIBAN(kundenIBAN);
+		System.out.println("preis: " + this.ausleihpreisTextField.getText());
+
 		kundenSpiele.setPreis(Double.valueOf(this.ausleihpreisTextField.getText().replace(',', '.')));
 		kundenSpiele.setAusleihmenge(this.ausleihmengeTextField.getText());
 		LocalDate currentDate = null;
