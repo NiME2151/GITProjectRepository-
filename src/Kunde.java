@@ -4,10 +4,10 @@ public class Kunde {
 
 
 
+	
+
+
 	private int id;
-
-	private String id;
-
 	private String vorname;
 	private String nachname;
 	private String iban;
@@ -35,22 +35,7 @@ public class Kunde {
 		return id;
 	}
 
-
 	public void setId(int id) {
-		this.id = id;
-	}
-	
-
-		this.strasse = strasse;
-		this.plz = plz;
-		this.ort = ort;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -80,6 +80,11 @@ public class ZurueckgebenFenster extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String s = suchenTextField.getText();
 				
+				
+				
+				
+				System.out.println(s);
+				
 								
 			}
 		});

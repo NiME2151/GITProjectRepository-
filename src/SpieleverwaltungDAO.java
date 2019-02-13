@@ -8,15 +8,14 @@ import java.sql.SQLException;
 public class SpieleverwaltungDAO {
 	
 	private int id;
-	private Connection conn;
-
 	
+	Connection conn = ConnectToDB.getConnection();
+
 	public int insert(Spiele spiele) throws ClassNotFoundException {
 		PreparedStatement preparedStatement = null;
 		try {
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
-			conn = DBVerbindungHerstellen.connect();	
 			String sql = "INSERT INTO Spiele (Titel, ******* ) VALUES ( vorname = ?, nachname = ?, email = ? )" ;
 			PreparedStatement updateValues = conn.prepareStatement(sql);
 			updateValues.setString(1, spiele.getTitel());
