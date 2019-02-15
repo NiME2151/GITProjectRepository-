@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 
-
-=======
->>>>>>> b1f400e6f3865b379b89770990db2a8e00ae4b68
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -256,6 +252,7 @@ public class Spieledetailfenster extends JFrame {
 		});
 		btnZurckgeben.setBounds(524, 263, 100, 23);
 		contentPane.add(btnZurckgeben);
+		}
 
 	
 
