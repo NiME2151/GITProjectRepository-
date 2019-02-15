@@ -13,9 +13,13 @@ import java.awt.Color;
 import javax.swing.JTable;
 import java.awt.Component;
 import javax.swing.table.DefaultTableModel;
+
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 
 public class ZurueckgebenFenster extends JFrame {
@@ -24,11 +28,11 @@ public class ZurueckgebenFenster extends JFrame {
 	private JTable spieleTabelle;
 	private JTextField suchenTextField;
 	private JTable ausgabeTabelle;
-
+	ZurueckgebenFensterDAO zurueckDao = new ZurueckgebenFensterDAO();
 	/**
 	 * Launch the application.
 	 */
-	
+	//
 
 	/**
 	 * Create the frame.
@@ -66,7 +70,7 @@ public class ZurueckgebenFenster extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Spiel","Kdnname", "IBAN", "Preis", "Menge", "Fällig. Datum", "Ausleihdatum"
+				"ID","Vorname", "Nachname", "IBAN", "Strasse"
 			}
 		));
 		scrollPane_1.setViewportView(ausgabeTabelle);
@@ -77,9 +81,17 @@ public class ZurueckgebenFenster extends JFrame {
 		
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {		
+				ResultSet rs = null;
+				try {
+					rs = zurueckDao.selectKundeSpieleDao(suchenTextField.getText());
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
 				
-								
+				System.out.println(rs);				
 			}
 		});
 		suchenButton.setBounds(283, 11, 107, 23);
@@ -99,8 +111,8 @@ public class ZurueckgebenFenster extends JFrame {
 		scrollPane.setBounds(523, 239, -494, -151);
 		contentPane.add(scrollPane);
 		
-		JLabel spielelisteLabel = new JLabel("Ausgeliehende Spiele:");
-		spielelisteLabel.setBounds(10, 50, 156, 14);
-		contentPane.add(spielelisteLabel);
+		JLabel kundenlisteLabel = new JLabel("Kunden:");
+		kundenlisteLabel.setBounds(10, 50, 156, 14);
+		contentPane.add(kundenlisteLabel);
 	}
 }

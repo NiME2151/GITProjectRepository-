@@ -3,7 +3,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+//
 public class ConnectToDB {
 	
 	private static Connection conn;
@@ -41,7 +41,7 @@ public class ConnectToDB {
 //	}
 
 	// Methode zum Aufbau einer Verbindung mit der Kunden-Datenbank
-	public Connection connectToDB() {
+	public static Connection connectToDB() {
 		return getConnection();
 	}
 	
