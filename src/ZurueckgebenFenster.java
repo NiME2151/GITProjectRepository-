@@ -70,7 +70,7 @@ public class ZurueckgebenFenster extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Spiel","Kdnname", "IBAN", "Preis", "Menge", "Fällig. Datum", "Ausleihdatum"
+				"ID","Vorname", "Nachname", "IBAN", "Strasse"
 			}
 		));
 		scrollPane_1.setViewportView(ausgabeTabelle);
@@ -111,8 +111,8 @@ public class ZurueckgebenFenster extends JFrame {
 		scrollPane.setBounds(523, 239, -494, -151);
 		contentPane.add(scrollPane);
 		
-		JLabel spielelisteLabel = new JLabel("Ausgeliehende Spiele:");
-		spielelisteLabel.setBounds(10, 50, 156, 14);
-		contentPane.add(spielelisteLabel);
+		JLabel kundenlisteLabel = new JLabel("Kunden:");
+		kundenlisteLabel.setBounds(10, 50, 156, 14);
+		contentPane.add(kundenlisteLabel);
 	}
 }

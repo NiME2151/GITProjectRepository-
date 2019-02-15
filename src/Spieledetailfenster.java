@@ -48,8 +48,6 @@ public class Spieledetailfenster extends JFrame {
 	private JTextField uskFreigabeTextField;
 	private JTextField lageranzahlTextField;
 	private JTextField spracheTextField;
-	private JTextField suchenTextField;
-	private JButton suchenButton;
 	private JButton schliessenButton;
 	private JPanel beschreibungPanel;
 	private JLabel beschreibungLabel;
@@ -201,30 +199,6 @@ public class Spieledetailfenster extends JFrame {
 			}
 		}
 		{
-			this.suchenTextField = new JTextField();
-			this.suchenTextField.setBounds(340, 11, 284, 20);
-			this.contentPane.add(this.suchenTextField);
-			this.suchenTextField.setColumns(10);
-		}
-		{
-			this.suchenButton = new JButton("Suchen");
-			this.suchenButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-						do_suchenButton_actionPerformed(arg0);
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			});
-			this.suchenButton.setBounds(535, 42, 89, 23);
-			this.contentPane.add(this.suchenButton);
-		}
-		{
 			this.schliessenButton = new JButton("Schlie\u00DFen");
 			this.schliessenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -237,7 +211,7 @@ public class Spieledetailfenster extends JFrame {
 		{
 			this.beschreibungPanel = new JPanel();
 			this.beschreibungPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			this.beschreibungPanel.setBounds(340, 75, 285, 240);
+			this.beschreibungPanel.setBounds(340, 11, 285, 240);
 			this.contentPane.add(this.beschreibungPanel);
 			this.beschreibungPanel.setLayout(null);
 			{
@@ -269,9 +243,19 @@ public class Spieledetailfenster extends JFrame {
 					}
 				}
 			});
-			this.ausleihenButton.setBounds(350, 327, 100, 23);
+			this.ausleihenButton.setBounds(340, 262, 100, 23);
 			this.contentPane.add(this.ausleihenButton);
 		}
+		
+		JButton btnZurckgeben = new JButton("Zur\u00FCckgeben");
+		btnZurckgeben.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ZurueckgebenFenster fenster = new ZurueckgebenFenster();
+				fenster.setVisible(true);
+			}
+		});
+		btnZurckgeben.setBounds(524, 263, 100, 23);
+		contentPane.add(btnZurckgeben);
 
 	
 
