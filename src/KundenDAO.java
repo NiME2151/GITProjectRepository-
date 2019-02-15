@@ -1,7 +1,4 @@
 //
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.*;
 
 public class KundenDAO {
@@ -95,4 +92,67 @@ public class KundenDAO {
 		}
 		return kunde;
 	}
+	public void add(String id, String vorname, String nachname, String strasse, String iban, String email, String telefonnumer, String plz, String ort) throws ClassNotFoundException {
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		Connection conn = connect.connectToDB();
+		try{
+			String sql = "INSERT INTO Kunden values(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
+			preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, id);
+			preparedStatement.setString(2, vorname);
+			preparedStatement.setString(3, nachname);
+			preparedStatement.setString(4, iban);
+			preparedStatement.setString(5, email);
+			preparedStatement.setString(6, telefonnumer);
+			preparedStatement.setString(7, strasse);
+			preparedStatement.setString(8, plz);
+			preparedStatement.setString(9, ort);
+			preparedStatement.executeUpdate();
+	}  catch (SQLException e) {
+		e.printStackTrace();
+	}
+	finally {
+		try {
+			preparedStatement.close();
+			conn.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+}
+		
+		}
+	
+	}
+	public void change(String vorname, String nachname, String strasse, String iban, String email, String telefonnumer, String plz, String ort) throws ClassNotFoundException {
+		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		Connection conn = connect.connectToDB();
+		try {
+		String sql = "UPDATE Kunde SET vorname = ?, nachname = ?, strasse = ?, iban = ?, email = ?, telefonnumer = ?, plz = ?, ort = ?";
+		preparedStatement.setString(1, vorname);
+		preparedStatement.setString(2, nachname);
+		preparedStatement.setString(3, iban);
+		preparedStatement.setString(4, email);
+		preparedStatement.setString(5, telefonnumer);
+		preparedStatement.setString(6, strasse);
+		preparedStatement.setString(7, plz);
+		preparedStatement.setString(8, ort);
+	
+
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+	}
+		finally {
+			try {
+				preparedStatement.close();
+				conn.close();
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+	}
+	
+}
+}
 }
