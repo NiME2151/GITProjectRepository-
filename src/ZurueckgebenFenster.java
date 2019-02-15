@@ -28,8 +28,7 @@ public class ZurueckgebenFenster extends JFrame {
 	private JTable spieleTabelle;
 	private JTextField suchenTextField;
 	private JTable ausgabeTabelle;
-	KundenSpieleDAO kundenSpieleDao = new KundenSpieleDAO();
-
+	ZurueckgebenFensterDAO zurueckDao = new ZurueckgebenFensterDAO();
 	/**
 	 * Launch the application.
 	 */
@@ -82,13 +81,15 @@ public class ZurueckgebenFenster extends JFrame {
 		
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String s = suchenTextField.getText();
-				
-				ResultSet rs = kundenSpieleDao.selectKundeSpieleDao(suchenTextField.getText());
+			public void actionPerformed(ActionEvent e) {		
+				ResultSet rs = null;
+				try {
+					rs = zurueckDao.selectKundeSpieleDao(suchenTextField.getText());
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
-				
-				
 				
 				System.out.println(rs);				
 			}

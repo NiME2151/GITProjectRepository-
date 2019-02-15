@@ -27,7 +27,7 @@ public class ZurueckgebenFensterDAO {
 		
 	}
 
-	public ResultSet selectKundeSpieleDao(String kunde, int spiele) throws ClassNotFoundException {
+	public ResultSet selectKundeSpieleDao(String kunde) throws ClassNotFoundException {
 		ResultSet rs = null;
 	
 		try {
