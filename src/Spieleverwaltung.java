@@ -6,14 +6,23 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+import net.proteanit.sql.DbUtils;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -30,7 +39,6 @@ public class Spieleverwaltung extends JFrame {
 	private JLabel uskFreigabeLabel;
 	private JLabel lageranzahlLabel;
 	private JLabel verfuegbarkeitLabel;
-	private JLabel spielzeitLabel;
 	private JLabel spracheLabel;
 	private JTextField titelTextField;
 	private JTextField preisTextField;
@@ -38,9 +46,7 @@ public class Spieleverwaltung extends JFrame {
 	private JTextField uskFreigabeTextField;
 	private JTextField lageranzahlTextField;
 	private JTextField verfuegbarkeitTextField;
-	private JTextField spielzeitTextField;
 	private JTextField spracheTextField;
-	private JTextField genreTextField;
 	private JButton hinzufuegenButton;
 	private JButton entfernenButton;
 	private JButton aendernButton;
@@ -48,7 +54,14 @@ public class Spieleverwaltung extends JFrame {
 	private JButton suchenButton;
 	private JButton schliessenButton;
 	private JComboBox genreComboBox;
-	private SpielDAO spielDAO;
+	private Spiel s;
+	SpielDAO spielDAO;
+	private JTextField idTextField;
+	private JTable spielelisteTable;
+	
+	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
+	
+	
 	
 	
 	/**
@@ -89,95 +102,84 @@ public class Spieleverwaltung extends JFrame {
 			this.panel.setLayout(null);
 			{
 				this.titelLabel = new JLabel("Titel: ");
-				this.titelLabel.setBounds(10, 11, 100, 14);
+				this.titelLabel.setBounds(10, 41, 100, 14);
 				this.panel.add(this.titelLabel);
 			}
 			{
 				this.preisLabel = new JLabel("Preis pro Tag:");
-				this.preisLabel.setBounds(10, 36, 100, 14);
+				this.preisLabel.setBounds(10, 66, 100, 14);
 				this.panel.add(this.preisLabel);
 			}
 			{
 				this.releaseDatumLabel = new JLabel("Release-Datum:");
-				this.releaseDatumLabel.setBounds(10, 61, 100, 14);
+				this.releaseDatumLabel.setBounds(10, 91, 100, 14);
 				this.panel.add(this.releaseDatumLabel);
 			}
 			{
 				this.genreLabel = new JLabel("Genre:");
-				this.genreLabel.setBounds(10, 86, 100, 14);
+				this.genreLabel.setBounds(10, 116, 100, 14);
 				this.panel.add(this.genreLabel);
 			}
 			{
 				this.uskFreigabeLabel = new JLabel("USK-Freigabe:");
-				this.uskFreigabeLabel.setBounds(10, 111, 100, 14);
+				this.uskFreigabeLabel.setBounds(10, 141, 100, 14);
 				this.panel.add(this.uskFreigabeLabel);
 			}
 			{
 				this.lageranzahlLabel = new JLabel("Lageranzahl:");
-				this.lageranzahlLabel.setBounds(10, 136, 100, 14);
+				this.lageranzahlLabel.setBounds(10, 166, 100, 14);
 				this.panel.add(this.lageranzahlLabel);
 			}
 			{
 				this.verfuegbarkeitLabel = new JLabel("Verf\u00FCgbarkeit:");
-				this.verfuegbarkeitLabel.setBounds(10, 161, 100, 14);
+				this.verfuegbarkeitLabel.setBounds(10, 191, 100, 14);
 				this.panel.add(this.verfuegbarkeitLabel);
 			}
 			{
-				this.spielzeitLabel = new JLabel("Spielzeit:");
-				this.spielzeitLabel.setBounds(10, 186, 100, 14);
-				this.panel.add(this.spielzeitLabel);
-			}
-			{
 				this.spracheLabel = new JLabel("Sprache:");
-				this.spracheLabel.setBounds(10, 211, 100, 14);
+				this.spracheLabel.setBounds(10, 216, 100, 14);
 				this.panel.add(this.spracheLabel);
 			}
 			{
 				this.titelTextField = new JTextField();
-				this.titelTextField.setBounds(120, 8, 190, 20);
+				this.titelTextField.setBounds(120, 38, 190, 20);
 				this.panel.add(this.titelTextField);
 				this.titelTextField.setColumns(10);
 			}
 			{
 				this.preisTextField = new JTextField();
 				this.preisTextField.setColumns(10);
-				this.preisTextField.setBounds(120, 33, 190, 20);
+				this.preisTextField.setBounds(120, 63, 190, 20);
 				this.panel.add(this.preisTextField);
 			}
 			{
 				this.releaseDatumTextField = new JTextField();
 				this.releaseDatumTextField.setColumns(10);
-				this.releaseDatumTextField.setBounds(120, 58, 190, 20);
+				this.releaseDatumTextField.setBounds(120, 88, 190, 20);
 				this.panel.add(this.releaseDatumTextField);
 			}
 			{
 				this.uskFreigabeTextField = new JTextField();
 				this.uskFreigabeTextField.setColumns(10);
-				this.uskFreigabeTextField.setBounds(120, 108, 190, 20);
+				this.uskFreigabeTextField.setBounds(120, 138, 190, 20);
 				this.panel.add(this.uskFreigabeTextField);
 			}
 			{
 				this.lageranzahlTextField = new JTextField();
 				this.lageranzahlTextField.setColumns(10);
-				this.lageranzahlTextField.setBounds(120, 133, 190, 20);
+				this.lageranzahlTextField.setBounds(120, 163, 190, 20);
 				this.panel.add(this.lageranzahlTextField);
 			}
 			{
 				this.verfuegbarkeitTextField = new JTextField();
 				this.verfuegbarkeitTextField.setColumns(10);
-				this.verfuegbarkeitTextField.setBounds(120, 158, 190, 20);
+				this.verfuegbarkeitTextField.setBounds(120, 188, 190, 20);
 				this.panel.add(this.verfuegbarkeitTextField);
-			}
-			{
-				this.spielzeitTextField = new JTextField();
-				this.spielzeitTextField.setColumns(10);
-				this.spielzeitTextField.setBounds(120, 183, 190, 20);
-				this.panel.add(this.spielzeitTextField);
 			}
 			{
 				this.spracheTextField = new JTextField();
 				this.spracheTextField.setColumns(10);
-				this.spracheTextField.setBounds(120, 208, 190, 20);
+				this.spracheTextField.setBounds(120, 213, 190, 20);
 				this.panel.add(this.spracheTextField);
 			}
 			{
@@ -222,11 +224,20 @@ public class Spieleverwaltung extends JFrame {
 			}
 			{
 				this.genreComboBox = new JComboBox();
-				this.genreComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Action", "Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
+				this.genreComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Action", "Action-Adventures", "Adventure", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
 				this.genreComboBox.setToolTipText("");
-				this.genreComboBox.setBounds(120, 83, 190, 20);
+				this.genreComboBox.setBounds(120, 113, 190, 20);
 				this.panel.add(this.genreComboBox);
 			}
+			
+			JLabel idLabel = new JLabel("ID:");
+			idLabel.setBounds(10, 16, 100, 14);
+			panel.add(idLabel);
+			
+			idTextField = new JTextField();
+			idTextField.setBounds(120, 13, 190, 20);
+			panel.add(idTextField);
+			idTextField.setColumns(10);
 		}
 		{
 			this.suchenTextField = new JTextField();
@@ -254,7 +265,7 @@ public class Spieleverwaltung extends JFrame {
 				this.suchenButton.setBounds(535, 42, 89, 23);
 				this.contentPane.add(this.suchenButton);
 			}
-		} catch (Exception e) {
+			} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -268,52 +279,126 @@ public class Spieleverwaltung extends JFrame {
 			this.schliessenButton.setBounds(524, 327, 100, 23);
 			this.contentPane.add(this.schliessenButton);
 		}
-	}
-
-	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
-		spielDAO.selectSpiel(suchenTextField.getText());
-		titelTextField.setText(titelTextField.getText().trim());
-		releaseDatumTextField.setText(releaseDatumTextField.getText().trim());
-		preisTextField.setText(preisTextField.getText().trim());
-		genreTextField.setText(genreTextField.getText().trim());
-		uskFreigabeTextField.setText(uskFreigabeTextField.getText().trim());
-		lageranzahlTextField.setText(null);
+		
+		spielelisteTable = new JTable();
+		this.spielelisteTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					do_spielelisteTable_mouseClicked(e);
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		spielelisteTable.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"ID","Titel","Genre","Release"
+			}
+		));
+		spielelisteTable.setBounds(350, 331, 284, 240);
+		contentPane.add(spielelisteTable);
+		
+		JScrollPane scrollPane = new JScrollPane(spielelisteTable);
+		scrollPane.setBounds(340, 76, 284, 240);
+		contentPane.add(scrollPane);
 	}
 	
+	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
+		s = new Spiel();
+		String gesuchtesSpiel = String.valueOf(suchenTextField.getText().trim());
+		
+		if (!gesuchtesSpiel.equalsIgnoreCase("")) {
+			ResultSet rs = spielDAO.sucheNachSpiel(gesuchtesSpiel);
+			System.out.println(rs);
+			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+			try {
+				rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else if (gesuchtesSpiel.equalsIgnoreCase("")) {
+			ResultSet rs = spielDAO.sucheNachSpiel(gesuchtesSpiel);
+			System.out.println(rs);
+			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+			try {
+				rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+	} 
+	
+		} }
 
 
+	protected void do_spielelisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
+	String ausgewaehltesSpiel = spielAuswaehlen.getWertInZeile(spielelisteTable);
+	Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);	
+	idTextField.setText(spiel.getId());
+	titelTextField.setText(spiel.getTitel());
+	verfuegbarkeitTextField.setText(spiel.getVerfuegbarkeit());
+	releaseDatumTextField.setText(spiel.getVeroeffentlichkeitsdatum());
+	preisTextField.setText(String.valueOf(spiel.getPreis()));
+	genreComboBox.getItemAt(0).toString ().contains (spiel.getGenre());
+	genreComboBox.setSelectedItem(String.valueOf(spiel.getGenre()));
+	uskFreigabeTextField.setText(spiel.getUsk());
+	lageranzahlTextField.setText(String.valueOf(spiel.getLageranzahl()));  
+	spracheTextField.setText(spiel.getSprache());
+}
+	
+	
 	
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		Spiel s = new Spiel();
-		s.setTitel(titelTextField.getText().trim());
-		s.setTitel(releaseDatumTextField.getText().trim());
-		try {
+		
+			s = new Spiel();
+			s.setId(idTextField.getText().trim());
+			s.setLageranzahl(Integer.parseInt(lageranzahlTextField.getText().trim()));
+			s.setPreis(Double.parseDouble(preisTextField.getText().trim()));
+			s.setVeroeffentlichkeitsdatum(String.valueOf(releaseDatumTextField.getText().trim()));
+			s.setTitel(titelTextField.getText().trim());
+			s.setGenre(String.valueOf(genreComboBox.getSelectedItem()));
+			s.setUsk(uskFreigabeTextField.getText().trim());
+			s.setSprache(spracheTextField.getText().trim());
+			s.setVerfuegbarkeit(verfuegbarkeitTextField.getText().trim());
+			
+			
 			spielDAO.insert(s);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		titelTextField.setText(null);
-		releaseDatumTextField.setText(null);
-		preisTextField.setText(null);
-		genreTextField.setText(null);
-		uskFreigabeTextField.setText(null);
-		lageranzahlTextField.setText(null);
-		}
+		
 	
+			
+			/*titelTextField.setText("");
+			releaseDatumTextField.setText("");
+			preisTextField.setText("");
+			genreTextField.setText("");
+			uskFreigabeTextField.setText("");
+			lageranzahlTextField.setText("");
+		}*/
+	}
 	
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
 	}
 	
-	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		String titel = titelTextField.getText().toString();
-		spielDAO.delete(titel);
-		}
 	
 	protected void do_aendernButton_actionPerformed(ActionEvent e) {
 		Spiel s = new Spiel();
-		s.setTitel(titelTextField.getText());
+		s.setId(idTextField.getText().trim());
+		s.setLageranzahl(Integer.parseInt(lageranzahlTextField.getText().trim()));
+		s.setPreis(Double.parseDouble(preisTextField.getText().trim()));
+		s.setVeroeffentlichkeitsdatum(String.valueOf(releaseDatumTextField.getText().trim()));
+		s.setTitel(titelTextField.getText().trim());
+		s.setGenre(String.valueOf(genreComboBox.getSelectedItem()));
+		s.setUsk(uskFreigabeTextField.getText().trim());
+		s.setSprache(spracheTextField.getText().trim());
+		s.setVerfuegbarkeit(verfuegbarkeitTextField.getText().trim());
 		try {
 			spielDAO.update(s);
 		} catch (ClassNotFoundException e1) {
@@ -321,5 +406,12 @@ public class Spieleverwaltung extends JFrame {
 			e1.printStackTrace();
 		}
 		
+	 
+}
+	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		spielDAO.delete(idTextField.getText());
 	}
+	
+
+	
 }
