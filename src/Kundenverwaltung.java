@@ -49,6 +49,7 @@ public class Kundenverwaltung extends JFrame {
 	private JTextField ibanTextField;
 	private JTextField emailTextField;
 	private JTextField telefonnummerTextField;
+
 	private JButton hinzufuegenButton;
 	private JButton entfernenButton;
 	private JButton aendernButton;
@@ -60,6 +61,8 @@ public class Kundenverwaltung extends JFrame {
 	private JTable kundenlisteTable;
 	private JScrollPane kundenlisteScrollPane;
 	private JFrame that=this;
+	private JLabel idLabel;
+	
 	
 	KundenDAO kundenDAO = new KundenDAO();
 	GetWertInZeile kundeAuswaehlen = new GetWertInZeile();
@@ -162,13 +165,17 @@ public class Kundenverwaltung extends JFrame {
 			{
 				this.emailTextField = new JTextField();
 				this.emailTextField.setColumns(10);
-				this.emailTextField.setBounds(120, 108, 190, 20);
+				this.emailTextField.setBounds(120, 133, 190, 20);
 				this.kundendatenPanel.add(this.emailTextField);
 			}
 			{
 				this.telefonnummerTextField = new JTextField();
+
 				this.telefonnummerTextField.setColumns(10);
 				this.telefonnummerTextField.setBounds(120, 133, 190, 20);
+				this.kundendatenPanel.add(this.telefonnummerTextField);
+				this.telefonnummerTextField.setColumns(10);
+				this.telefonnummerTextField.setBounds(120, 108, 190, 20);
 				this.kundendatenPanel.add(this.telefonnummerTextField);
 			}
 			{
@@ -186,7 +193,12 @@ public class Kundenverwaltung extends JFrame {
 				this.entfernenButton.addActionListener(new ActionListener() {
 
 	public void actionPerformed(ActionEvent e) {
-						do_entfernenButton_actionPerformed(e);
+						try {
+							do_entfernenButton_actionPerformed(e);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				this.entfernenButton.setBounds(212, 305, 98, 23);
@@ -279,7 +291,15 @@ public class Kundenverwaltung extends JFrame {
 				this.kundenlisteTable.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						do_kundenlisteTable_mouseClicked(e);
+						try {
+							do_kundenlisteTable_mouseClicked(e);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				this.kundenlisteTable
@@ -306,23 +326,13 @@ public class Kundenverwaltung extends JFrame {
 		kundenlisteLabel.setBounds(340, 51, 185, 14);
 		this.contentPane.add(this.kundenlisteLabel);
 	}
-	
-	JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
-	zurueckgebenButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			ZurueckgebenFenster fenster = new ZurueckgebenFenster();
-			fenster.setVisible(true);
-					
-		
-		}
-	});
-	zurueckgebenButton.setBounds(350, 327, 107, 23);
-	contentPane.add(zurueckgebenButton);
 	}
 
 	protected void do_aendernButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException {
 		try {
-	kundenDAO.change(vornameTextField.getText(), nachnameTextField.getText(), strasseTextField.getText(), ibanTextField.getText(), emailTextField.getText(), telefonnummerTextField.getText(), plzTextField.getText(), ortTextField.getText());
+	kundenDAO.change(idTextField.getText(),vornameTextField.getText(), nachnameTextField.getText(), 
+			ibanTextField.getText(),emailTextField.getText(),telefonnummerTextField.getText(),strasseTextField.getText(),    
+			plzTextField.getText(), ortTextField.getText());
 		}	catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -338,10 +348,13 @@ public class Kundenverwaltung extends JFrame {
 		ResultSet rs = kundenDAO.selectKunde(suchenTextField.getText());
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 	}
+	
 
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
 		try {
-			kundenDAO.add(idTextField.getText(), idTextField.getText(), vornameTextField.getText(), telefonnummerTextField.getText(), nachnameTextField.getText(), ibanTextField.getText(), emailTextField.getText(), strasseTextField.getText(), ortTextField.getText());
+			kundenDAO.add(idTextField.getText(),vornameTextField.getText(), nachnameTextField.getText(),
+					ibanTextField.getText(),emailTextField.getText() ,telefonnummerTextField.getText(),  
+					strasseTextField.getText(), plzTextField.getText(), ortTextField.getText());
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -349,9 +362,25 @@ public class Kundenverwaltung extends JFrame {
 		
 	}
 
-	protected void do_entfernenButton_actionPerformed(ActionEvent e) {
+	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+		kundenDAO.delete(id);
 	}
-	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
-		kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
+		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+		setKundenDaten(id);
 	}
+	public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
+		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
+	//	idTextField.setText(String.valueOf(kunde.getId()));
+		vornameTextField.setText(String.valueOf(kunde.getVorname()));
+		nachnameTextField.setText(String.valueOf(kunde.getNachname()));
+		ibanTextField.setText(String.valueOf(kunde.getIban()));
+		emailTextField.setText(String.valueOf(kunde.getEmail()));
+		telefonnummerTextField.setText(String.valueOf(kunde.getTelefonnummer()));
+		strasseTextField.setText(String.valueOf(kunde.getStrasse()));
+		plzTextField.setText(String.valueOf(kunde.getPlz()));
+		ortTextField.setText(String.valueOf(kunde.getOrt()));
+		return kunde;
+}
 }
