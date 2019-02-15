@@ -11,6 +11,7 @@ public class ZurueckgebenFensterDAO {
 	Connection conn = ConnectToDB.getConnection();
 	
 	public ResultSet deleteKundeSpiel(String kunde) throws ClassNotFoundException {
+		
 		try {
 			 String sql = "Delete * from Kunde-Spiele Where SpieleID  = " + kundenSpiele.getSpieleID()
 			 + "AND where KundenID = " + kundenSpiele.getKundenID();
@@ -31,9 +32,12 @@ public class ZurueckgebenFensterDAO {
 		ResultSet rs = null;
 	
 		try {
-			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM KundenSpiele"
-					+ " WHERE LOWER(Kunden.vorname) = '"
-					+ kunde.toLowerCase() + "'";
+			String sql = "SELECT DISTINCT Kunden.id, Spiele.id, FROM KundenSpiele" + 
+					"Kunden.nachname" + kundenSpiele.getKundenID() + "FROM ((Kunden" + 
+					"INNER JOIN Spiele ON Kunden.id = Spiele.id)" + 
+					"INNER JOIN KundenSpiele ON Spiele.id = Kunden.id)"
+					+ "WHERE KundenSpiele.Spiel = )" + kundenSpiele.getSpieleID(); 
+					
 			
 			Statement statement = conn.createStatement();
 			rs = statement.executeQuery(sql);

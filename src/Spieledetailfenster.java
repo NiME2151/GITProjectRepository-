@@ -256,9 +256,7 @@ public class Spieledetailfenster extends JFrame {
 				ZurueckgebenFenster fenster = new ZurueckgebenFenster();
 				fenster.setVisible(true);
 				
-//				ResultSet rs = selectKundeSpieleDao(suchenTextField.getText());
-//				this.ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
-			}
+				}
 		});
 		btnZurckgeben.setBounds(524, 263, 100, 23);
 		contentPane.add(btnZurckgeben);
