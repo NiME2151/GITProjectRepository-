@@ -250,7 +250,7 @@ public class Spieledetailfenster extends JFrame {
 		
 		JButton btnZurckgeben = new JButton("Zur\u00FCckgeben");
 		btnZurckgeben.addActionListener(new ActionListener() {
-			
+//			
 
 			public void actionPerformed(ActionEvent e) {
 				ZurueckgebenFenster fenster = new ZurueckgebenFenster();

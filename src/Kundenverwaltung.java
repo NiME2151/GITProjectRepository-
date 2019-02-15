@@ -34,7 +34,7 @@ import java.awt.event.MouseEvent;
 
 
 public class Kundenverwaltung extends JFrame {
-
+//
 	private JPanel contentPane;
 	private JLabel vornameLabel;
 	private JPanel kundendatenPanel;

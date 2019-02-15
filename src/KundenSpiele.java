@@ -1,4 +1,4 @@
-
+//
 public class KundenSpiele {
 	
 	private String spieleID, kundenID;

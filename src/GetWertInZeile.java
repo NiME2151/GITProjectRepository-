@@ -2,7 +2,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
+//
 public class GetWertInZeile {
 	
 	public String getWertInZeile(JTable table) {

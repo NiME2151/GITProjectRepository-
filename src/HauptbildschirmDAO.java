@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.*;
 import javax.sql.rowset.CachedRowSet;
-
+//
 public class HauptbildschirmDAO {
 		
 	private String alphabetischFilterWert;
