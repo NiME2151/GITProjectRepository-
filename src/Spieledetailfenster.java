@@ -14,9 +14,12 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
@@ -51,6 +54,8 @@ public class Spieledetailfenster extends JFrame {
 	private JButton ausleihenButton;
 	private JTextField verfuegbarkeitTextField;
 	private String spiel;
+	private JFrame that=this;
+
 
 	//Spiel spiel = new Spiel();
 	SpielDAO spielDAO = new SpielDAO();
@@ -245,9 +250,14 @@ public class Spieledetailfenster extends JFrame {
 		
 		JButton btnZurckgeben = new JButton("Zur\u00FCckgeben");
 		btnZurckgeben.addActionListener(new ActionListener() {
+			
+
 			public void actionPerformed(ActionEvent e) {
 				ZurueckgebenFenster fenster = new ZurueckgebenFenster();
 				fenster.setVisible(true);
+				
+//				ResultSet rs = selectKundeSpieleDao(suchenTextField.getText());
+//				this.ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
 			}
 		});
 		btnZurckgeben.setBounds(524, 263, 100, 23);

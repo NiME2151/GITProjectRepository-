@@ -29,17 +29,17 @@ public class KundenSpieleDAO {
 	public ResultSet selectKundeSpieleDao(String string) throws ClassNotFoundException {
 		ResultSet rs = null;
 	
-		try {
-			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM KundenSpiele"
-					+ " WHERE LOWER(Kunden.vorname) = '"+ kunde.toLowerCase() + "'";
-			
-			Statement statement = conn.createStatement();
-			rs = statement.executeQuery(sql);
-			System.out.println("SQL-SELECT funzt");
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
+//		try {
+//			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM KundenSpiele"
+//					+ " WHERE LOWER(Kunden.vorname) = '"+ kunde.toLowerCase() + "'";
+//			
+//			Statement statement = conn.createStatement();
+//			rs = statement.executeQuery(sql);
+//			System.out.println("SQL-SELECT funzt");
+//		} catch (SQLException e) {
+//			System.out.println(e.getMessage());
+//			return null;
+//		}
 		return rs;
 	}
 }
