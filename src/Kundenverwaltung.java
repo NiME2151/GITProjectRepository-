@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
@@ -24,7 +25,6 @@ import javax.swing.JOptionPane;
 import javax.swing.AbstractListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -34,7 +34,7 @@ import java.awt.event.MouseEvent;
 
 
 public class Kundenverwaltung extends JFrame {
-
+//
 	private JPanel contentPane;
 	private JLabel vornameLabel;
 	private JPanel kundendatenPanel;
@@ -47,7 +47,7 @@ public class Kundenverwaltung extends JFrame {
 	private JTextField nachnameTextField;
 	private JTextField ibanTextField;
 	private JTextField emailTextField;
-	private JTextField telefronnummerTextField;
+	private JTextField telefonnummerTextField;
 	private JTextField adresseTextField;
 	private JButton hinzufuegenButton;
 	private JButton entfernenButton;
@@ -60,6 +60,8 @@ public class Kundenverwaltung extends JFrame {
 	private JTable kundenlisteTable;
 	private JScrollPane kundenlisteScrollPane;
 	private JFrame that=this;
+	private JLabel idLabel;
+	private JTextField idTextField;
 	
 	KundenDAO kundenDAO = new KundenDAO();
 	GetWertInZeile kundeAuswaehlen = new GetWertInZeile();
@@ -161,11 +163,11 @@ public class Kundenverwaltung extends JFrame {
 				this.kundendatenPanel.add(this.emailTextField);
 			}
 			{
-				this.telefronnummerTextField = new JTextField();
-				this.telefronnummerTextField.setEditable(false);
-				this.telefronnummerTextField.setColumns(10);
-				this.telefronnummerTextField.setBounds(120, 108, 190, 20);
-				this.kundendatenPanel.add(this.telefronnummerTextField);
+				this.telefonnummerTextField = new JTextField();
+				this.telefonnummerTextField.setEditable(false);
+				this.telefonnummerTextField.setColumns(10);
+				this.telefonnummerTextField.setBounds(120, 108, 190, 20);
+				this.kundendatenPanel.add(this.telefonnummerTextField);
 			}
 			{
 				this.adresseTextField = new JTextField();
@@ -189,7 +191,12 @@ public class Kundenverwaltung extends JFrame {
 				this.entfernenButton.addActionListener(new ActionListener() {
 
 	public void actionPerformed(ActionEvent e) {
-						do_entfernenButton_actionPerformed(e);
+						try {
+							do_entfernenButton_actionPerformed(e);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				this.entfernenButton.setBounds(212, 305, 98, 23);
@@ -250,7 +257,15 @@ public class Kundenverwaltung extends JFrame {
 				this.kundenlisteTable.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						do_kundenlisteTable_mouseClicked(e);
+						try {
+							do_kundenlisteTable_mouseClicked(e);
+						} catch (ClassNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				this.kundenlisteTable
@@ -307,9 +322,26 @@ public class Kundenverwaltung extends JFrame {
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
 	}
 
-	protected void do_entfernenButton_actionPerformed(ActionEvent e) {
+	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+		kundenDAO.delete(id);
 	}
-	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
-		kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+
+	
+	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
+		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+		setKundenDaten(id);
+
+	}
+	public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
+		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
+	//	idTextField.setText(String.valueOf(kunde.getId()));
+		vornameTextField.setText(String.valueOf(kunde.getVorname()));
+		nachnameTextField.setText(String.valueOf(kunde.getNachname()));
+		ibanTextField.setText(String.valueOf(kunde.getIban()));
+		emailTextField.setText(String.valueOf(kunde.getEmail()));
+		telefonnummerTextField.setText(String.valueOf(kunde.getTelefonnummer()));
+		adresseTextField.setText(String.valueOf(kunde.getTelefonnummer()));
+		return kunde;
 	}
 }

@@ -26,7 +26,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+//
 public class Hauptbildschirm extends JFrame {
 
 	private JPanel contentPane;
@@ -343,7 +343,7 @@ public class Hauptbildschirm extends JFrame {
 					e1.printStackTrace();
 				}
 			}
-		}
+}
 		protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 			System.exit(1);
 		}

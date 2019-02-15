@@ -1,10 +1,11 @@
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+//
 public class SpielDAO {
 	
 	private PreparedStatement statement = null;
@@ -23,7 +24,7 @@ public class SpielDAO {
 			statement = conn.prepareStatement(sql);
 			rs = statement.executeQuery();
 			rs.next();
-			spiel.setId((rs.getInt("id")));
+			spiel.setId(rs.getString("id"));
 			spiel.setTitel(rs.getString("titel"));
 			spiel.setGenre(rs.getString("genre"));
 			spiel.setVeroeffentlichkeitsdatum(rs.getString("veroeffentlichkeitsdatum"));
@@ -38,7 +39,7 @@ public class SpielDAO {
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-			return null;
+			return spiel;
 		}
 		
 		

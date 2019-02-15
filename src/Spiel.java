@@ -1,5 +1,9 @@
 
+
+//
+
 public class Spiel {
+
 	
 	private String id;
 	private String titel;

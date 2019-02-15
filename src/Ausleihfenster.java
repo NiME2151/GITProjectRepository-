@@ -256,38 +256,25 @@ public class Ausleihfenster extends JFrame {
 	protected void do_ausleihenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException, ParseException {
 		KundenSpiele ks = setKundenSpieleDaten(spiel);
 		kundenSpieleDAO.insertToKundenSpiele(ks);
-		//String ausgewaehlterKunde = kundeAuswaehlen.getWertInZeileAusleihfenster(kundenlisteTable);
-		//this.ausleihpreisTextField.getText();
 	}
 	
 	public KundenSpiele setKundenSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException, ParseException {
-		System.out.println("test:" + ausgewaehltesSpiel);
+		System.out.println("test:" + ausgewaehltesSpiel); //
 		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
-		kundenSpiele.setId(Integer.parseInt(spiel.getId()));
-		kundenSpiele.setSpieltitel(spiel.getTitel());
-		kundenSpiele.setSpielRelease(spiel.getVeroeffentlichkeitsdatum());
-		System.out.println("sRelease: " + kundenSpiele.getSpielRelease());
-		String kundenIBAN = kundeAuswaehlen.getIBANInTable(kundenlisteTable);
-		String ausgewaehlterKunde = kundeAuswaehlen.getKundennachnameInTable(kundenlisteTable);
-		kundenSpiele.setKundennachname(ausgewaehlterKunde);
-		kundenSpiele.setKundenIBAN(kundenIBAN);
-		System.out.println("preis: " + this.ausleihpreisTextField.getText());
+
 		kundenSpiele.setPreis(Double.valueOf(this.ausleihpreisTextField.getText().replace(',', '.')));
-		kundenSpiele.setMenge(this.ausleihmengeTextField.getText());
-		// gibt falschen Wert zurück. Siehe emittelFaelligkeitsdatum-Methode!
+		kundenSpiele.setAusleihmenge(this.ausleihmengeTextField.getText());
+		LocalDate currentDate = null;
+		kundenSpiele.setAusleihdatum(String.valueOf(currentDate.now()));
 		kundenSpiele.setFaelligkeitsdatum(String.valueOf(ermittelFaelligkeitsdatum()));
 		return kundenSpiele;
 	}
 	
 	public LocalDate ermittelFaelligkeitsdatum() throws ParseException {
-		// Methode funzt noch nicht!
 		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
 		int leihdauer = Integer.valueOf(this.leihdauerInTagenTextField.getText());
 		LocalDate date = LocalDate.now().plusDays(leihdauer);
-		/*String currentDateString = String.valueOf(localDate);
-		Date currentDate = myFormat.parse(currentDateString);
-	    Date faelligkeitsdatum = currentDate.getTime() + leihdauer;*/
 	    System.out.println("faellig: " + date);
 		return date;
 	}

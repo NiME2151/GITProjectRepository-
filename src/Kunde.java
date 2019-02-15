@@ -1,7 +1,8 @@
+//
 
 public class Kunde {
-	
-	private String id;
+
+	private int id;
 	private String vorname;
 	private String nachname;
 	private String iban;
@@ -10,6 +11,7 @@ public class Kunde {
 	private String strasse;
 	private String plz;
 	private String ort;
+
 	
 	public Kunde() {
 		this.id = id;
@@ -18,16 +20,16 @@ public class Kunde {
 		this.iban = iban;
 		this.email = email;
 		this.telefonnummer = telefonnummer;
+		this.ort = ort;
 		this.strasse = strasse;
 		this.plz = plz;
-		this.ort = ort;
 	}
-
-	public String getId() {
+	
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -46,6 +48,7 @@ public class Kunde {
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
+
 
 	public String getIban() {
 		return iban;
@@ -75,6 +78,7 @@ public class Kunde {
 		return strasse;
 	}
 
+
 	public void setStrasse(String strasse) {
 		this.strasse = strasse;
 	}
@@ -94,7 +98,5 @@ public class Kunde {
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
-
-	
-	
 }
+

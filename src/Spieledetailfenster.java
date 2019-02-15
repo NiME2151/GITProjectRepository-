@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -12,10 +13,15 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import net.proteanit.sql.DbUtils;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 
 public class Spieledetailfenster extends JFrame {
@@ -41,8 +47,6 @@ public class Spieledetailfenster extends JFrame {
 	private JTextField uskFreigabeTextField;
 	private JTextField lageranzahlTextField;
 	private JTextField spracheTextField;
-	private JTextField suchenTextField;
-	private JButton suchenButton;
 	private JButton schliessenButton;
 	private JPanel beschreibungPanel;
 	private JLabel beschreibungLabel;
@@ -50,11 +54,15 @@ public class Spieledetailfenster extends JFrame {
 	private JButton ausleihenButton;
 	private JTextField verfuegbarkeitTextField;
 	private String spiel;
+	private JFrame that=this;
+
 
 	//Spiel spiel = new Spiel();
 	SpielDAO spielDAO = new SpielDAO();
 	private JLabel idLabel;
 	private JTextField idTextField;
+	
+	DecimalFormat df = new DecimalFormat("####0");
 
 	/**
 	 * Create the frame.
@@ -67,6 +75,7 @@ public class Spieledetailfenster extends JFrame {
 		initGUI();
 		setDaten(ausgewaehltesSpiel);
 	}
+	
 	private void initGUI() throws ClassNotFoundException, SQLException {
 		setTitle("Spieleausleihfenster");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -191,30 +200,6 @@ public class Spieledetailfenster extends JFrame {
 			}
 		}
 		{
-			this.suchenTextField = new JTextField();
-			this.suchenTextField.setBounds(340, 11, 284, 20);
-			this.contentPane.add(this.suchenTextField);
-			this.suchenTextField.setColumns(10);
-		}
-		{
-			this.suchenButton = new JButton("Suchen");
-			this.suchenButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-						do_suchenButton_actionPerformed(arg0);
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			});
-			this.suchenButton.setBounds(535, 42, 89, 23);
-			this.contentPane.add(this.suchenButton);
-		}
-		{
 			this.schliessenButton = new JButton("Schlie\u00DFen");
 			this.schliessenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -227,7 +212,7 @@ public class Spieledetailfenster extends JFrame {
 		{
 			this.beschreibungPanel = new JPanel();
 			this.beschreibungPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			this.beschreibungPanel.setBounds(340, 75, 285, 240);
+			this.beschreibungPanel.setBounds(340, 11, 285, 240);
 			this.contentPane.add(this.beschreibungPanel);
 			this.beschreibungPanel.setLayout(null);
 			{
@@ -259,15 +244,32 @@ public class Spieledetailfenster extends JFrame {
 					}
 				}
 			});
-			this.ausleihenButton.setBounds(350, 327, 100, 23);
+			this.ausleihenButton.setBounds(340, 262, 100, 23);
 			this.contentPane.add(this.ausleihenButton);
 		}
+		
+		JButton btnZurckgeben = new JButton("Zur\u00FCckgeben");
+		btnZurckgeben.addActionListener(new ActionListener() {
+//			
 
-	}
+			public void actionPerformed(ActionEvent e) {
+				ZurueckgebenFenster fenster = new ZurueckgebenFenster();
+				fenster.setVisible(true);
+				
+//				ResultSet rs = selectKundeSpieleDao(suchenTextField.getText());
+//				this.ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
+			}
+		});
+		btnZurckgeben.setBounds(524, 263, 100, 23);
+		contentPane.add(btnZurckgeben);
+		}
+
+	
 
 	protected void do_suchenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
 	}
 	protected void do_ausleihenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
+		
 		Ausleihfenster fenster = new Ausleihfenster(spiel);
 		fenster.setVisible(true);
 	}
@@ -278,7 +280,8 @@ public class Spieledetailfenster extends JFrame {
 	public Spiel setDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
 		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
 		System.out.println(spiel.getId());
-		this.idTextField.setText(String.valueOf(spiel.getId()));
+		this.idTextField.setText(spiel.getId());
+//		System.out.println(df.format(spiel.getId()));
 		this.titelTextField.setText(spiel.getTitel());
 		this.genreTextField.setText(spiel.getGenre());
 		this.releaseDatumTextField.setText(spiel.getVeroeffentlichkeitsdatum());

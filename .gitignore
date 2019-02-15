@@ -4,7 +4,7 @@
 
 .metadata
 bin/
-DB/
+DB/ProgrammDB.db3
 tmp/
 *.tmp
 *.bak
