@@ -1,13 +1,13 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-//
-public class SpielDAO {
+import java.util.ArrayList;
 
+public class SpielDAO {
+	
 	private PreparedStatement statement = null;
 	private Statement statement2 = null;
 	Spiel spiel = new Spiel();
@@ -96,25 +96,7 @@ public class SpielDAO {
 		}}
 		
 
-	/*	public ResultSet delete(String kunde) throws ClassNotFoundException {
-			ResultSet rs = null;
-			Connection conn = connect.connectToDB();
-			try {
-				String sql = "DELETE FROM Kunden WHERE id = "+ kunde.toLowerCase();
-				// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
-				// herzustellen
-				statement = conn.createStatement();
-				rs = statement.executeQuery(sql);
-				// Gibt Nachricht aus bei Funktionierenden Select
-				System.out.println("SQL-SELECT funzt");
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-				return null;
-			}
-			return rs;
-		}
-		
-} */
+
 		
 		
 		public void delete (String id) throws ClassNotFoundException  {
@@ -126,10 +108,7 @@ public class SpielDAO {
 				String sql = "DELETE FROM Spiele WHERE ID = " + id ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
 				PreparedStatement st = conn.prepareStatement(sql);	
-				//Spiel spiele = null;
-				// st.setString(1, spiele.
 				st.executeUpdate(); 
-				ResultSet resultSet = preparedStatement.getGeneratedKeys();
 			}catch(SQLException e) {
 				System.out.println();
 			}
@@ -148,8 +127,8 @@ public class SpielDAO {
 			try {
 				// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 				// herzustellen
-				String sql = "UPDATE Spiele SET Titel = ?, SET Genre = ?, SET Veroeffentlichkeitsdatum = ?, SET USK = ?,"
-						+ "SET Preis = ?, SET Lageranzahl = ?, SET Verfuegbarkeit = ?, SET Sprache = ? WHERE id LIKE ?" ;
+				String sql = "UPDATE Spiele SET Titel = ?,Genre = ?,Veroeffentlichkeitsdatum = ?, USK = ?,"
+						+ "Preis = ?, Lageranzahl = ?, Verfuegbarkeit = ?, Sprache = ? WHERE id LIKE ?" ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
 				updateValues.setString(1, spiel.getTitel());
 				updateValues.setDouble(5, spiel.getPreis());
@@ -159,38 +138,11 @@ public class SpielDAO {
 				updateValues.setInt(6, spiel.getLageranzahl());
 				updateValues.setString(7, spiel.getVerfuegbarkeit());
 				updateValues.setString(8, spiel.getSprache());
+				updateValues.setString(9, spiel.getId());
 				updateValues.executeUpdate();
 			}catch(SQLException e) {
 				e.printStackTrace();
 			}
 		}
 }
-		
-	/*	public Spiel select (String titel) throws Exception {
-			Spiel spiele = null;
-			Connection conn = connect.connectToDB();
-			PreparedStatement preparedStatement = null;
-			try {
-				String sql = "select * from email where id = ? ";
-				preparedStatement = conn.prepareStatement(sql);
-				preparedStatement.setString(1, titel);
-				ResultSet resultSet = preparedStatement.executeQuery();
-				resultSet.next();
-				spiele = new Spiel(titel, sql, sql, sql, sql, sql, sql, sql, sql);
-				spiele.setTitel(resultSet.getString("titel"));
-				spiele.setPreis(resultSet.getDouble("preisProTag"));
-				spiele.setVeroeffentlichkeitsdatum(resultSet.getString("veroeffentlichkeitsdatum"));
-				spiele.setGenre(resultSet.getString("genre"));
-				spiele.setUsk(resultSet.getString("uskFreigabe"));
-				spiele.setLageranzahl(resultSet.getInt("lageranzahl"));
-				spiele.setVerfuegbarkeit(resultSet.getString("verfuegbarkeit"));
-				spiele.setSprache(resultSet.getString("sprache"));
-			}catch(SQLException e) {
-				System.out.println("Hier lï¿½uft was falsch");
-			}
 
-			return spiele;
-		}
-		
-		return spiel;
-	} */

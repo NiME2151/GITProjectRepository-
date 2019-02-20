@@ -1,9 +1,5 @@
 
-
-//
-
 public class Spiel {
-
 	
 	private String id;
 	private String titel;
@@ -71,8 +67,8 @@ public class Spiel {
 		return preis;
 	}
 
-	public void setPreis(double preis) {
-		this.preis = preis;
+	public void setPreis(double d) {
+		this.preis = d;
 	}
 
 	public int getLageranzahl() {

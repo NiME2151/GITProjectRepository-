@@ -1,32 +1,30 @@
 
-
-//
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-
-import net.proteanit.sql.DbUtils;
-
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import net.proteanit.sql.DbUtils;
+
+import javax.swing.JScrollPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Spieleverwaltung extends JFrame {
 
@@ -58,20 +56,19 @@ public class Spieleverwaltung extends JFrame {
 	SpielDAO spielDAO;
 	private JTextField idTextField;
 	private JTable spielelisteTable;
-	
+
 	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
-	
-	
-	
-	
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Spieleverwaltung frame = new Spieleverwaltung();
+
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,7 +82,9 @@ public class Spieleverwaltung extends JFrame {
 	 */
 	public Spieleverwaltung() {
 		initGUI();
+		spielDAO = new SpielDAO();
 	}
+
 	private void initGUI() {
 		setTitle("Spieleverwaltung");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -224,16 +223,19 @@ public class Spieleverwaltung extends JFrame {
 			}
 			{
 				this.genreComboBox = new JComboBox();
-				this.genreComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Action", "Action-Adventures", "Adventure", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
+				this.genreComboBox.setModel(new DefaultComboBoxModel(new String[] { "", "Action", "Action-Adventures",
+						"Adventure", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,",
+						"Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG",
+						"Simulation", "Sport", "Strategie" }));
 				this.genreComboBox.setToolTipText("");
 				this.genreComboBox.setBounds(120, 113, 190, 20);
 				this.panel.add(this.genreComboBox);
 			}
-			
+
 			JLabel idLabel = new JLabel("ID:");
 			idLabel.setBounds(10, 16, 100, 14);
 			panel.add(idLabel);
-			
+
 			idTextField = new JTextField();
 			idTextField.setBounds(120, 13, 190, 20);
 			panel.add(idTextField);
@@ -260,12 +262,13 @@ public class Spieleverwaltung extends JFrame {
 						} catch (ClassNotFoundException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
-						}}
+						}
+					}
 				});
 				this.suchenButton.setBounds(535, 42, 89, 23);
 				this.contentPane.add(this.suchenButton);
 			}
-			} catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -279,7 +282,7 @@ public class Spieleverwaltung extends JFrame {
 			this.schliessenButton.setBounds(524, 327, 100, 23);
 			this.contentPane.add(this.schliessenButton);
 		}
-		
+
 		spielelisteTable = new JTable();
 		this.spielelisteTable.addMouseListener(new MouseAdapter() {
 			@Override
@@ -295,25 +298,20 @@ public class Spieleverwaltung extends JFrame {
 				}
 			}
 		});
-		spielelisteTable.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"ID","Titel","Genre","Release"
-			}
-		));
+		spielelisteTable
+				.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "ID", "Titel", "Genre", "Release" }));
 		spielelisteTable.setBounds(350, 331, 284, 240);
 		contentPane.add(spielelisteTable);
-		
+
 		JScrollPane scrollPane = new JScrollPane(spielelisteTable);
 		scrollPane.setBounds(340, 76, 284, 240);
 		contentPane.add(scrollPane);
 	}
-	
+
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
 		s = new Spiel();
 		String gesuchtesSpiel = String.valueOf(suchenTextField.getText().trim());
-		
+
 		if (!gesuchtesSpiel.equalsIgnoreCase("")) {
 			ResultSet rs = spielDAO.sucheNachSpiel(gesuchtesSpiel);
 			System.out.println(rs);
@@ -324,8 +322,7 @@ public class Spieleverwaltung extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-		else if (gesuchtesSpiel.equalsIgnoreCase("")) {
+		} else if (gesuchtesSpiel.equalsIgnoreCase("")) {
 			ResultSet rs = spielDAO.sucheNachSpiel(gesuchtesSpiel);
 			System.out.println(rs);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
@@ -334,28 +331,26 @@ public class Spieleverwaltung extends JFrame {
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-	} 
-	
-		} }
+			}
 
+		}
+	}
 
 	protected void do_spielelisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
-	String ausgewaehltesSpiel = spielAuswaehlen.getWertInZeile(spielelisteTable);
-	Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);	
-	idTextField.setText(spiel.getId());
-	titelTextField.setText(spiel.getTitel());
-	verfuegbarkeitTextField.setText(spiel.getVerfuegbarkeit());
-	releaseDatumTextField.setText(spiel.getVeroeffentlichkeitsdatum());
-	preisTextField.setText(String.valueOf(spiel.getPreis()));
-	genreComboBox.getItemAt(0).toString ().contains (spiel.getGenre());
-	genreComboBox.setSelectedItem(String.valueOf(spiel.getGenre()));
-	uskFreigabeTextField.setText(spiel.getUsk());
-	lageranzahlTextField.setText(String.valueOf(spiel.getLageranzahl()));  
-	spracheTextField.setText(spiel.getSprache());
-}
-	
-	
-	
+		String ausgewaehltesSpiel = spielAuswaehlen.getWertInZeile(spielelisteTable);
+		Spiel spiel = spielDAO.selectSpiel(ausgewaehltesSpiel);
+		idTextField.setText(spiel.getId());
+		titelTextField.setText(spiel.getTitel());
+		verfuegbarkeitTextField.setText(spiel.getVerfuegbarkeit());
+		releaseDatumTextField.setText(spiel.getVeroeffentlichkeitsdatum());
+		preisTextField.setText(String.valueOf(spiel.getPreis()));
+		genreComboBox.getItemAt(0).toString().contains(spiel.getGenre());
+		genreComboBox.setSelectedItem(String.valueOf(spiel.getGenre()));
+		uskFreigabeTextField.setText(spiel.getUsk());
+		lageranzahlTextField.setText(String.valueOf(spiel.getLageranzahl()));
+		spracheTextField.setText(spiel.getSprache());
+	}
+
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 		
 			s = new Spiel();
@@ -374,22 +369,23 @@ public class Spieleverwaltung extends JFrame {
 		
 	
 			
-			/*titelTextField.setText("");
+			titelTextField.setText("");
 			releaseDatumTextField.setText("");
 			preisTextField.setText("");
-			genreTextField.setText("");
+			genreComboBox.setSelectedItem("");
 			uskFreigabeTextField.setText("");
 			lageranzahlTextField.setText("");
-		}*/
+			spracheTextField.setText("");
+			idTextField.setText("");
+			verfuegbarkeitTextField.setText("");		
 	}
-	
+
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
 	}
-	
-	
+
 	protected void do_aendernButton_actionPerformed(ActionEvent e) {
-		Spiel s = new Spiel();
+		s = new Spiel();
 		s.setId(idTextField.getText().trim());
 		s.setLageranzahl(Integer.parseInt(lageranzahlTextField.getText().trim()));
 		s.setPreis(Double.parseDouble(preisTextField.getText().trim()));
@@ -405,13 +401,29 @@ public class Spieleverwaltung extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-	 
-}
+		titelTextField.setText("");
+		releaseDatumTextField.setText("");
+		preisTextField.setText("");
+		genreComboBox.setSelectedItem("");
+		uskFreigabeTextField.setText("");
+		lageranzahlTextField.setText("");
+		spracheTextField.setText("");
+		idTextField.setText("");
+		verfuegbarkeitTextField.setText("");
+
+	}
+
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 		spielDAO.delete(idTextField.getText());
+		titelTextField.setText("");
+		releaseDatumTextField.setText("");
+		preisTextField.setText("");
+		genreComboBox.setSelectedItem("");
+		uskFreigabeTextField.setText("");
+		lageranzahlTextField.setText("");
+		spracheTextField.setText("");
+		idTextField.setText("");
+		verfuegbarkeitTextField.setText("");
 	}
-	
 
-	
 }
