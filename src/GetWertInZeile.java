@@ -14,7 +14,7 @@ public class GetWertInZeile {
 	
 	public String getKundennachnameInTable(JTable table) {
 		int zeile = table.getSelectedRow();
-		String rueckgabewert = (String) table.getValueAt(zeile, 2);
+		String rueckgabewert = (String) table.getValueAt(zeile, 1);
 		System.out.println("rückgabe:" + rueckgabewert);
 		return rueckgabewert;
 	}
