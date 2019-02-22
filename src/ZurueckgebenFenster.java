@@ -77,6 +77,11 @@ public class ZurueckgebenFenster extends JFrame {
 		scrollPane_1.setViewportView(ausgabeTabelle);
 		
 		JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
+		zurueckgebenButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		zurueckgebenButton.setBounds(10, 11, 122, 23);
 		contentPane.add(zurueckgebenButton);
 		
@@ -113,5 +118,10 @@ public class ZurueckgebenFenster extends JFrame {
 		JLabel kundenlisteLabel = new JLabel("Kunden:");
 		kundenlisteLabel.setBounds(10, 50, 156, 14);
 		contentPane.add(kundenlisteLabel);
+	}
+
+	protected ResultSet selectKundeSpieleDao(String text) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
