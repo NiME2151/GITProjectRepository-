@@ -50,6 +50,7 @@ public class ZurueckgebenFenster extends JFrame {
 		panel.setLayout(null);
 		
 		spieleTabelle = new JTable();
+		spieleTabelle.setEnabled(false);
 		spieleTabelle.setBounds(10, 169, 526, -164);
 		panel.add(spieleTabelle);
 		spieleTabelle.setModel(new DefaultTableModel(
@@ -87,9 +88,14 @@ public class ZurueckgebenFenster extends JFrame {
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {		
-				ResultSet rs = selectKundeSpieleDao(suchenTextField.getText());
-				ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
-				System.out.println(rs);				
+					try {
+						ResultSet rs = zurueckDao.searchForKundenspiele(suchenTextField.getText());
+						ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
+						System.out.println(rs);				
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			}
 		});
 		suchenButton.setBounds(283, 11, 107, 23);

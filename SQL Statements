@@ -80,6 +80,9 @@ insert into Spiele values (
 insert into Kunden values (
 '00001', 'Nico', 'Meyer', '1234567890123456789012', 'nicomeyer@email.com', '420 1337666', 'Breem-Straﬂe 42', '28217', 'Bremen'
 );
+insert into Kunden values (
+'00002', 'Philipp', 'Mattick', '1234567890123456789012', 'nicomeyer@email.com', '420 1337666', 'Breem-Straﬂe 42', '28217', 'Bremen'
+);
 
 /*SELECT Kunden.id, Spiele.id, KundenSpiele.*
 FROM ((Kunden
