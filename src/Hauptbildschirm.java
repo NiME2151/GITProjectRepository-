@@ -348,10 +348,14 @@ public class Hauptbildschirm extends JFrame {
 			System.exit(1);
 		}
 		protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
+			Kundenverwaltung kunde = new Kundenverwaltung();
+			kunde.setVisible(true);
 		}
 		protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
 		}
 		protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
+			Spieleverwaltung spiel = new Spieleverwaltung();
+			spiel.setVisible(true);
 		}
 		protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
 		}

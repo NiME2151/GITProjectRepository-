@@ -98,7 +98,7 @@ public class Kundenverwaltung extends JFrame {
 
 	private void initGUI() {
 		setTitle("Kundenverwaltung");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -397,7 +397,7 @@ public class Kundenverwaltung extends JFrame {
 	}
 	public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
 		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
-		//idTextField.setText(String.valueOf(kunde.getId()));
+
 		vornameTextField.setText(String.valueOf(kunde.getVorname()));
 		nachnameTextField.setText(String.valueOf(kunde.getNachname()));
 		ibanTextField.setText(String.valueOf(kunde.getIban()));

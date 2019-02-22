@@ -76,21 +76,19 @@ public class ZurueckgebenFenster extends JFrame {
 		scrollPane_1.setViewportView(ausgabeTabelle);
 		
 		JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
+		zurueckgebenButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		zurueckgebenButton.setBounds(10, 11, 122, 23);
 		contentPane.add(zurueckgebenButton);
 		
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {		
-				ResultSet rs = null;
-				try {
-					rs = zurueckDao.selectKundeSpieleDao(suchenTextField.getText());
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				ResultSet rs = selectKundeSpieleDao(suchenTextField.getText());
 				ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
-				
 				System.out.println(rs);				
 			}
 		});
@@ -114,5 +112,10 @@ public class ZurueckgebenFenster extends JFrame {
 		JLabel kundenlisteLabel = new JLabel("Kunden:");
 		kundenlisteLabel.setBounds(10, 50, 156, 14);
 		contentPane.add(kundenlisteLabel);
+	}
+
+	protected ResultSet selectKundeSpieleDao(String text) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

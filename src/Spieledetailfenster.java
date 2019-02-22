@@ -78,7 +78,7 @@ public class Spieledetailfenster extends JFrame {
 	
 	private void initGUI() throws ClassNotFoundException, SQLException {
 		setTitle("Spieleausleihfenster");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -256,9 +256,7 @@ public class Spieledetailfenster extends JFrame {
 				ZurueckgebenFenster fenster = new ZurueckgebenFenster();
 				fenster.setVisible(true);
 				
-//				ResultSet rs = selectKundeSpieleDao(suchenTextField.getText());
-//				this.ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
-			}
+				}
 		});
 		btnZurckgeben.setBounds(524, 263, 100, 23);
 		contentPane.add(btnZurckgeben);
