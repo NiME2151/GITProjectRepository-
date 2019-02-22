@@ -9,6 +9,7 @@ public class ZurueckgebenFensterDAO {
 	Spieledetailfenster spielFenster;	
 	KundenSpiele kundenSpiele = new KundenSpiele();
 	Connection conn = ConnectToDB.getConnection();
+	private Statement statement = null;
 	
 	public ResultSet deleteKundeSpiel(String kunde) throws ClassNotFoundException {
 		try {
@@ -44,4 +45,27 @@ public class ZurueckgebenFensterDAO {
 		}
 		return rs;
 	}
-}
+	
+	public ResultSet searchForKundenspiele(String kunde) throws ClassNotFoundException {
+		ResultSet rs = null;
+			String sql = "SELECT KUNDENSPIELE.*, KUNDEN.VORNAME, FROM KUNDEN INNER JOIN KUNDENSPIELE ON KUNDEN.ID"
+					+ " = KUNDENSPIELE.KUNDENID WHERE KUNDEN.VORNAME = KUNDENID"
+					+ kunde.toLowerCase() + "'";
+			
+		try {
+			Connection conn = ConnectToDB.getConnection();
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+			System.out.println("SQL-SELECT funzt");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return rs;
+			
+			
+					
+		}
+		
+	}
+

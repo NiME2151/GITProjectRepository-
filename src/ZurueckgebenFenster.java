@@ -70,7 +70,7 @@ public class ZurueckgebenFenster extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"ID","Vorname", "Nachname", "IBAN", "Strasse"
+				"spieleID","kundenID", "preis", "ausleihmenge", "faelligkeitsdatum", "ausleihdatum"
 			}
 		));
 		scrollPane_1.setViewportView(ausgabeTabelle);
