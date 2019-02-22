@@ -13,11 +13,11 @@ public class ZurueckgebenFensterDAO {
 	KundenSpiele kundenSpiele = new KundenSpiele();
 	Connection conn = ConnectToDB.getConnection();
 	
-	public ResultSet deleteKundeSpiel(String kunde) throws ClassNotFoundException {
+	public ResultSet deleteKundeSpiel(String kunde, String spiel) throws ClassNotFoundException {
 		
 		try {
-			 String sql = "Delete * from Kunde-Spiele Where SpieleID  = " + kundenSpiele.getSpieleID()
-			 + "AND where KundenID = " + kundenSpiele.getKundenID();
+			 String sql = "Delete * from KundeSpiele Where KundenSpiele.SpieleID  = " + kundenSpiele.getSpieleID()
+			 + "AND where KundenSpiele.KundenID = " + kundenSpiele.getKundenID();
 			
 			 Statement statement = this.conn.prepareStatement(sql); 
 			 ResultSet resultSet = statement.executeQuery(sql); 

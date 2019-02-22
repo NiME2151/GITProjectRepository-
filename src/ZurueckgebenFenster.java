@@ -78,7 +78,12 @@ public class ZurueckgebenFenster extends JFrame {
 		JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
 		zurueckgebenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					ResultSet rs = zurueckDao.deleteKundeSpiel("00001", "00012");
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		zurueckgebenButton.setBounds(10, 11, 122, 23);
