@@ -397,7 +397,7 @@ public class Kundenverwaltung extends JFrame {
 	}
 	public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
 		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
-	    //IdTextField.setText(String.valueOf(kunde.getId()));
+
 		vornameTextField.setText(String.valueOf(kunde.getVorname()));
 		nachnameTextField.setText(String.valueOf(kunde.getNachname()));
 		ibanTextField.setText(String.valueOf(kunde.getIban()));
