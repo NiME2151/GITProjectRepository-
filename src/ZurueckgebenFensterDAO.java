@@ -12,6 +12,7 @@ public class ZurueckgebenFensterDAO {
 	GetWertInZeile f = new GetWertInZeile();
 	KundenSpiele kundenSpiele = new KundenSpiele();
 	Connection conn = ConnectToDB.getConnection();
+	private Statement statement = null;
 	
 	public ResultSet deleteKundeSpiel(String kunde) throws ClassNotFoundException {
 		
@@ -52,19 +53,20 @@ public class ZurueckgebenFensterDAO {
 		}
 		return rs;
 	}
+
 	public ResultSet update(int lageranzahl, String verfuegbarkeit) throws ClassNotFoundException {
 		ResultSet rs = null;
 		
 		if (spiele.getLageranzahl() == 0) {
 			String sql = "Delete KundenSpiele.ausleihmenge From KundenSpiele WHERE KundenSpiele =" + kundenSpiele.getAusleihmenge();
 			//String daten = f.getZurueckgebenFenster();
-			// Die Daten vom ZurueckgebenFenster müssen in einer Methode geschrieben werden und hier übergeben werden (siehe Unten!)
+			// Die Daten vom ZurueckgebenFenster mï¿½ssen in einer Methode geschrieben werden und hier ï¿½bergeben werden (siehe Unten!)
 		} else {
 			// Hier kommt nichts mehr hin!
 		}
 		
 		try {
-			String sql = "UPDATE Spiele SET Lageranzahl =" + spiele.getLageranzahl() + "SET Verfügbar =" + spiele.getVerfuegbarkeit();  
+			String sql = "UPDATE Spiele SET Lageranzahl =" + spiele.getLageranzahl() + "SET Verfï¿½gbar =" + spiele.getVerfuegbarkeit();  
 			Statement statement = conn.createStatement();
 			rs = statement.executeQuery(sql);
 			System.out.println("SQL-SELECT funzt");
@@ -86,3 +88,29 @@ public class ZurueckgebenFensterDAO {
 		
 	}
 }
+
+	
+	public ResultSet searchForKundenspiele(String kunde) throws ClassNotFoundException {
+		ResultSet rs = null;
+			String sql = "SELECT KUNDENSPIELE.*, KUNDEN.VORNAME, FROM KUNDEN INNER JOIN KUNDENSPIELE ON KUNDEN.ID"
+					+ " = KUNDENSPIELE.KUNDENID WHERE KUNDEN.VORNAME = KUNDENID"
+					+ kunde.toLowerCase() + "'";
+			
+		try {
+			Connection conn = ConnectToDB.getConnection();
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+			System.out.println("SQL-SELECT funzt");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return rs;
+			
+			
+					
+		}
+		
+	}
+
+
