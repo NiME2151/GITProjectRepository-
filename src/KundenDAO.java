@@ -123,7 +123,7 @@ public class KundenDAO {
 		
 		}
 	
-	}
+	} 
 	public void change(String vorname, String nachname, String strasse, String iban, String email, String telefonnumer, String plz, String ort) throws ClassNotFoundException {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;

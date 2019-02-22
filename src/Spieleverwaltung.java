@@ -352,32 +352,29 @@ public class Spieleverwaltung extends JFrame {
 	}
 
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		
-			s = new Spiel();
-			s.setId(idTextField.getText().trim());
-			s.setLageranzahl(Integer.parseInt(lageranzahlTextField.getText().trim()));
-			s.setPreis(Double.parseDouble(preisTextField.getText().trim()));
-			s.setVeroeffentlichkeitsdatum(String.valueOf(releaseDatumTextField.getText().trim()));
-			s.setTitel(titelTextField.getText().trim());
-			s.setGenre(String.valueOf(genreComboBox.getSelectedItem()));
-			s.setUsk(uskFreigabeTextField.getText().trim());
-			s.setSprache(spracheTextField.getText().trim());
-			s.setVerfuegbarkeit(verfuegbarkeitTextField.getText().trim());
-			
-			
-			spielDAO.insert(s);
-		
-	
-			
-			titelTextField.setText("");
-			releaseDatumTextField.setText("");
-			preisTextField.setText("");
-			genreComboBox.setSelectedItem("");
-			uskFreigabeTextField.setText("");
-			lageranzahlTextField.setText("");
-			spracheTextField.setText("");
-			idTextField.setText("");
-			verfuegbarkeitTextField.setText("");		
+
+		s = new Spiel();
+		s.setId(idTextField.getText().trim());
+		s.setLageranzahl(Integer.parseInt(lageranzahlTextField.getText().trim()));
+		s.setPreis(Double.parseDouble(preisTextField.getText().trim()));
+		s.setVeroeffentlichkeitsdatum(String.valueOf(releaseDatumTextField.getText().trim()));
+		s.setTitel(titelTextField.getText().trim());
+		s.setGenre(String.valueOf(genreComboBox.getSelectedItem()));
+		s.setUsk(uskFreigabeTextField.getText().trim());
+		s.setSprache(spracheTextField.getText().trim());
+		s.setVerfuegbarkeit(verfuegbarkeitTextField.getText().trim());
+
+		spielDAO.insert(s);
+
+		titelTextField.setText("");
+		releaseDatumTextField.setText("");
+		preisTextField.setText("");
+		genreComboBox.setSelectedItem("");
+		uskFreigabeTextField.setText("");
+		lageranzahlTextField.setText("");
+		spracheTextField.setText("");
+		idTextField.setText("");
+		verfuegbarkeitTextField.setText("");
 	}
 
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {

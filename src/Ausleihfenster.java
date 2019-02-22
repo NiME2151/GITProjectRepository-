@@ -259,7 +259,7 @@ public class Ausleihfenster extends JFrame {
 	}
 	
 	public KundenSpiele setKundenSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException, ParseException {
-		System.out.println("test:" + ausgewaehltesSpiel); //
+		System.out.println("test:" + ausgewaehltesSpiel);
 		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
 
