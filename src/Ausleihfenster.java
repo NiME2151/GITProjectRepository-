@@ -70,7 +70,7 @@ public class Ausleihfenster extends JFrame {
 	}
 	private void initGUI() {
 		setTitle("Ausleihfenster");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -259,10 +259,11 @@ public class Ausleihfenster extends JFrame {
 	}
 	
 	public KundenSpiele setKundenSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException, ParseException {
-		System.out.println("test:" + ausgewaehltesSpiel);
+		System.out.println("test:" + ausgewaehltesSpiel); 
 		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
-
+		kundenSpiele.setKundenID(kundeAuswaehlen.getWertInZeile(kundenlisteTable));
+		kundenSpiele.setSpieleID(spiel.getId());
 		kundenSpiele.setPreis(Double.valueOf(this.ausleihpreisTextField.getText().replace(',', '.')));
 		kundenSpiele.setAusleihmenge(this.ausleihmengeTextField.getText());
 		LocalDate currentDate = null;
