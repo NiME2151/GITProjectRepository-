@@ -76,6 +76,11 @@ public class ZurueckgebenFenster extends JFrame {
 		scrollPane_1.setViewportView(ausgabeTabelle);
 		
 		JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
+		zurueckgebenButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		zurueckgebenButton.setBounds(10, 11, 122, 23);
 		contentPane.add(zurueckgebenButton);
 		

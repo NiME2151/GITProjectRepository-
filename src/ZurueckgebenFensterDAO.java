@@ -2,11 +2,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.swing.JTable;
 //
 public class ZurueckgebenFensterDAO {
 	Kundenverwaltung kundenverwaltung;
-	Spiel spiele;
-	Spieledetailfenster spielFenster;	
+	Spiel spiele = new Spiel();
+	Spieledetailfenster spielFenster;
+	GetWertInZeile f = new GetWertInZeile();
 	KundenSpiele kundenSpiele = new KundenSpiele();
 	Connection conn = ConnectToDB.getConnection();
 	
@@ -19,6 +22,7 @@ public class ZurueckgebenFensterDAO {
 			 Statement statement = this.conn.prepareStatement(sql); 
 			 ResultSet resultSet = statement.executeQuery(sql); 
 			 resultSet.next(); 
+			 
 			System.out.println(sql);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -47,5 +51,38 @@ public class ZurueckgebenFensterDAO {
 			return null;
 		}
 		return rs;
+	}
+	public ResultSet update(int lageranzahl, String verfuegbarkeit) throws ClassNotFoundException {
+		ResultSet rs = null;
+		
+		if (spiele.getLageranzahl() == 0) {
+			String sql = "Delete KundenSpiele.ausleihmenge From KundenSpiele WHERE KundenSpiele =" + kundenSpiele.getAusleihmenge();
+			//String daten = f.getZurueckgebenFenster();
+			// Die Daten vom ZurueckgebenFenster müssen in einer Methode geschrieben werden und hier übergeben werden (siehe Unten!)
+		} else {
+			// Hier kommt nichts mehr hin!
+		}
+		
+		try {
+			String sql = "UPDATE Spiele SET Lageranzahl =" + spiele.getLageranzahl() + "SET Verfügbar =" + spiele.getVerfuegbarkeit();  
+			Statement statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+			System.out.println("SQL-SELECT funzt");
+			
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		return rs;
+	}
+	public String datenAusgabe(ZurueckgebenFenster zurueck) {
+		
+		// Wird noch bearbeitet!
+		
+		
+		
+		return null;
+		
 	}
 }

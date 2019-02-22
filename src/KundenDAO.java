@@ -130,7 +130,7 @@ public class KundenDAO {
 		try {
 			// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
 			// herzustellen
-			String sql = "UPDATE Spiele SET vorname = ?, nachname = ?, iban = ?,"
+			String sql = "UPDATE Kunde SET vorname = ?, nachname = ?, iban = ?,"
 					+ "email = ?, telefonnumer = ?,  strasse = ?, ort = ?, plz  = ? WHERE id LIKE ?" ;
 			PreparedStatement updateValues = conn.prepareStatement(sql);
 			updateValues.setString(1, kunde.getId());
