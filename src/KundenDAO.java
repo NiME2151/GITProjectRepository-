@@ -6,14 +6,19 @@ public class KundenDAO {
 	private Statement statement = null;
 	ConnectToDB connect = new ConnectToDB();
 
-	// Methode zum Anzeigen aller Datens�tze der Spalte name
+	// Methode zum Anzeigen aller Datensätze der Spalte name
 	public ResultSet selectKunde(String kunde) throws ClassNotFoundException {
 		ResultSet rs = null;
 		Connection conn = connect.connectToDB();
 		try {
 			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.vorname) = '"
 					+ kunde.toLowerCase() + "'";
+
 			
+
+			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
+			// herzustellen
+
 			statement = conn.createStatement();
 			rs = statement.executeQuery(sql);
 			
@@ -31,7 +36,7 @@ public class KundenDAO {
 		try {
 			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.iban, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.nachname) = '"
 					+ kunde.toLowerCase() + "'";
-			// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
+			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
 			statement = conn.createStatement();
 			rs = statement.executeQuery(sql);
@@ -127,7 +132,7 @@ public class KundenDAO {
 		PreparedStatement preparedStatement = null;
 		Connection conn = ConnectToDB.getConnection();
 		try {
-			// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
+			// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 			// herzustellen
 			String sql = "UPDATE Kunde SET vorname = ?, nachname = ?, iban = ?,"
 					+ "email = ?, telefonnumer = ?,  strasse = ?, ort = ?, plz  = ? WHERE id LIKE ?" ;

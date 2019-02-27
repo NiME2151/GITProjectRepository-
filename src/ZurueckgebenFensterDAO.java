@@ -3,19 +3,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.swing.JTable;
+
 //
 public class ZurueckgebenFensterDAO {
-	Kundenverwaltung kundenverwaltung;
-	Spiel spiele = new Spiel();
-	Spieledetailfenster spielFenster;
-	GetWertInZeile f = new GetWertInZeile();
+
 	KundenSpiele kundenSpiele = new KundenSpiele();
+
 	Connection conn = ConnectToDB.getConnection();
 	Kunde kunde = new Kunde();
 	
-	
 	private Statement statement = null;
+
 	
 	public ResultSet deleteKundeSpiel(String kunden) throws ClassNotFoundException {
 		
@@ -27,16 +25,13 @@ public class ZurueckgebenFensterDAO {
 			 ResultSet resultSet = statement.executeQuery(sql); 
 			 resultSet.next(); 
 			 
+
 			System.out.println(sql);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
-		
 	}
-
-	
 
 	public ResultSet update(int lageranzahl, String verfuegbarkeit) throws ClassNotFoundException {
 		ResultSet rs = null;
@@ -72,16 +67,13 @@ public class ZurueckgebenFensterDAO {
 		return null;
 	}
 
-
-	
 	public ResultSet searchForKundenspiele(String kunde) throws ClassNotFoundException {
 		ResultSet rs = null;
-			String sql = "SELECT KUNDENSPIELE.*, KUNDEN.VORNAME, FROM KUNDEN INNER JOIN KUNDENSPIELE ON KUNDEN.ID"
-					+ " = KUNDENSPIELE.KUNDENID WHERE KUNDEN.VORNAME = KUNDENID"
-					+ kunde.toLowerCase() + "'";
-			
+		conn = ConnectToDB.getConnection();
+		String sql = "SELECT KUNDENSPIELE.* FROM KUNDENSPIELE INNER JOIN KUNDEN ON KUNDENSPIELE.KUNDENID"
+				+ " = KUNDEN.ID WHERE KUNDEN.NACHNAME = '" + kunde.toLowerCase() + "'";
+		System.out.println(sql);
 		try {
-			Connection conn = ConnectToDB.getConnection();
 			statement = conn.createStatement();
 			rs = statement.executeQuery(sql);
 			System.out.println("SQL-SELECT funzt");
@@ -90,9 +82,7 @@ public class ZurueckgebenFensterDAO {
 			return null;
 		}
 		return rs;
-					
-		}
-		
+	
+
 	}
-
-
+}
