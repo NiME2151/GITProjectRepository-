@@ -11,15 +11,18 @@ public class ZurueckgebenFensterDAO {
 	Connection conn = null;
 	private Statement statement = null;
 
-  public void deleteKundeSpiel(String kunde) throws ClassNotFoundException {
-		ResultSet resultSet = null;
+	
+	public ResultSet deleteKundeSpiel(String kunde, String spiel) throws ClassNotFoundException {
+		
 		try {
-			String sql = "Delete * from Kunde-Spiele Where SpieleID  = " + kundenSpiele.getSpieleID()
-					+ "AND where KundenID = " + kundenSpiele.getKundenID();
+			 String sql = "Delete * from KundeSpiele Where KundenSpiele.SpieleID  = " + kundenSpiele.getSpieleID()
+			 + "AND where KundenSpiele.KundenID = " + kundenSpiele.getKundenID();
+			
+			 Statement statement = this.conn.prepareStatement(sql); 
+			 ResultSet resultSet = statement.executeQuery(sql); 
+			 resultSet.next(); 
+			 
 
-			Statement statement = this.conn.prepareStatement(sql);
-			resultSet = statement.executeQuery(sql);
-			resultSet.next();
 			System.out.println(sql);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
