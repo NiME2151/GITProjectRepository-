@@ -80,10 +80,10 @@ public class SpielDAO {
 				preparedStatement = conn.prepareStatement(sql);
 				preparedStatement.setString(2, spiele.getTitel());
 				preparedStatement.setString(1, spiele.getId());
-				preparedStatement.setDouble(3, spiele.getPreis());
+				preparedStatement.setDouble(6, spiele.getPreis());
 				preparedStatement.setString(4, spiele.getVeroeffentlichkeitsdatum());
-				preparedStatement.setString(5, spiele.getGenre());
-				preparedStatement.setString(6, spiele.getUsk());
+				preparedStatement.setString(3, spiele.getGenre());
+				preparedStatement.setString(5, spiele.getUsk());
 				preparedStatement.setInt(7, spiele.getLageranzahl());
 				preparedStatement.setString(8, spiele.getVerfuegbarkeit());
 				preparedStatement.setString(9, spiele.getSprache());
@@ -99,7 +99,7 @@ public class SpielDAO {
 
 		
 		
-		public void delete (String id) throws ClassNotFoundException  {
+		public void delete(String id) throws ClassNotFoundException  {
 			PreparedStatement preparedStatement = null;
 			Connection conn = ConnectToDB.getConnection();
 			try {

@@ -262,7 +262,8 @@ public class Ausleihfenster extends JFrame {
 		System.out.println("test:" + ausgewaehltesSpiel); 
 		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
-
+		kundenSpiele.setKundenID(kundeAuswaehlen.getWertInZeile(kundenlisteTable));
+		kundenSpiele.setSpieleID(spiel.getId());
 		kundenSpiele.setPreis(Double.valueOf(this.ausleihpreisTextField.getText().replace(',', '.')));
 		kundenSpiele.setAusleihmenge(this.ausleihmengeTextField.getText());
 		LocalDate currentDate = null;
