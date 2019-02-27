@@ -12,13 +12,16 @@ public class ZurueckgebenFensterDAO {
 	GetWertInZeile f = new GetWertInZeile();
 	KundenSpiele kundenSpiele = new KundenSpiele();
 	Connection conn = ConnectToDB.getConnection();
+	Kunde kunde = new Kunde();
+	
+	
 	private Statement statement = null;
 	
-	public ResultSet deleteKundeSpiel(String kunde, String spiel) throws ClassNotFoundException {
+	public ResultSet deleteKundeSpiel(String kunden) throws ClassNotFoundException {
 		
 		try {
-			 String sql = "Delete * from KundeSpiele Where KundenSpiele.SpieleID  = " + kundenSpiele.getSpieleID()
-			 + "AND where KundenSpiele.KundenID = " + kundenSpiele.getKundenID();
+			 String sql = "Delete from KundenSpiele Where SpieleID = " + kundenSpiele.getSpieleID();
+			 //+ "AND Where KundenSpiele.KundenID = " + kundenSpiele.getKundenID();
 			
 			 Statement statement = this.conn.prepareStatement(sql); 
 			 ResultSet resultSet = statement.executeQuery(sql); 
@@ -33,33 +36,15 @@ public class ZurueckgebenFensterDAO {
 		
 	}
 
-	public ResultSet selectKundeSpieleDao(String kunde) throws ClassNotFoundException {
-		ResultSet rs = null;
 	
-		try {
-			String sql = "SELECT DISTINCT Kunden.id, Spiele.id, FROM KundenSpiele" + 
-					"Kunden.nachname" + kundenSpiele.getKundenID() + "FROM ((Kunden" + 
-					"INNER JOIN Spiele ON Kunden.id = Spiele.id)" + 
-					"INNER JOIN KundenSpiele ON Spiele.id = Kunden.id)"
-					+ "WHERE KundenSpiele.Spiel = )" + kundenSpiele.getSpieleID(); 
-					
-			
-			Statement statement = conn.createStatement();
-			rs = statement.executeQuery(sql);
-			System.out.println("SQL-SELECT funzt");
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-			return null;
-		}
-		return rs;
-	}
 
 	public ResultSet update(int lageranzahl, String verfuegbarkeit) throws ClassNotFoundException {
 		ResultSet rs = null;
 		
 		if (spiele.getLageranzahl() == 0) {
 			String sql = "Delete KundenSpiele.ausleihmenge From KundenSpiele WHERE KundenSpiele =" + kundenSpiele.getAusleihmenge();
-			//String daten = f.getZurueckgebenFenster();
+			String daten;
+			//daten = datenAusgabe(zurueck);
 			// Die Daten vom ZurueckgebenFenster m�ssen in einer Methode geschrieben werden und hier �bergeben werden (siehe Unten!)
 		} else {
 			// Hier kommt nichts mehr hin!
@@ -87,7 +72,7 @@ public class ZurueckgebenFensterDAO {
 		return null;
 		
 	}
-}
+
 
 	
 	public ResultSet searchForKundenspiele(String kunde) throws ClassNotFoundException {
@@ -106,8 +91,6 @@ public class ZurueckgebenFensterDAO {
 			return null;
 		}
 		return rs;
-			
-			
 					
 		}
 		

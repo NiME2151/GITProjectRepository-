@@ -13,11 +13,10 @@ public class KundenDAO {
 		try {
 			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.vorname) = '"
 					+ kunde.toLowerCase() + "'";
-			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
-			// herzustellen
+			
 			statement = conn.createStatement();
 			rs = statement.executeQuery(sql);
-			// Gibt Nachricht aus bei funktionierendem SELECT
+			
 			System.out.println("SQL-SELECT funzt");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
