@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class ZurueckgebenFensterDAO {
 
 	KundenSpiele kundenSpiele = new KundenSpiele();
-
+	Spiel spiele = new Spiel();
 	Connection conn = ConnectToDB.getConnection();
 	Kunde kunde = new Kunde();
 	
@@ -31,6 +31,7 @@ public class ZurueckgebenFensterDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	public ResultSet update(int lageranzahl, String verfuegbarkeit) throws ClassNotFoundException {
