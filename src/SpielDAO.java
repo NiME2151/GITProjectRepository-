@@ -103,8 +103,7 @@ public class SpielDAO {
 			PreparedStatement preparedStatement = null;
 			Connection conn = ConnectToDB.getConnection();
 			try {
-				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
-				// herzustellen
+				
 				String sql = "DELETE FROM Spiele WHERE ID = " + id ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
 				PreparedStatement st = conn.prepareStatement(sql);	

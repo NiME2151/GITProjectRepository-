@@ -336,7 +336,7 @@ public class Kundenverwaltung extends JFrame {
 
 	protected void do_aendernButton_actionPerformed(ActionEvent arg0) {
 		k = new Kunde();
-		k.setId(idTextField.getText().trim());
+		//k.setId(idTextField.getText().trim());
 		System.out.println("test:" + k.getId());
 		k.setVorname(vornameTextField.getText().trim());
 		k.setNachname(nachnameTextField.getText().trim());
