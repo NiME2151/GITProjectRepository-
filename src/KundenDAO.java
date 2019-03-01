@@ -129,14 +129,16 @@ public class KundenDAO {
 	
 	}
 	public void update(Kunde kunde) throws ClassNotFoundException  {
-		PreparedStatement preparedStatement = null;
-		Connection conn = ConnectToDB.getConnection();
+		
+
 		try {
 			// connect()-Methode wird ausgefï¿½hrt um eine Verbindung zur Datenbank
 			// herzustellen
-			String sql = "UPDATE Kunde SET vorname = ?, nachname = ?, iban = ?,"
-					+ "email = ?, telefonnumer = ?,  strasse = ?, ort = ?, plz  = ? WHERE id LIKE ?" ;
+			Connection conn = ConnectToDB.getConnection();
 			PreparedStatement updateValues = conn.prepareStatement(sql);
+			String sql = "UPDATE Spiele SET vorname = ?, nachname = ?, iban = ?,"
+					+ "email = ?, telefonnumer = ?,  strasse = ?, ort = ?, plz  = ? WHERE id LIKE ?" ;
+			
 			updateValues.setString(1, kunde.getId());
 			updateValues.setString(2, kunde.getVorname());
 			updateValues.setString(3, kunde.getNachname());
@@ -147,7 +149,7 @@ public class KundenDAO {
 			updateValues.setString(9, kunde.getOrt());
 			updateValues.setString(7, kunde.getPlz());
 			updateValues.executeUpdate();
-		}catch(SQLException e) {
+		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
