@@ -28,6 +28,7 @@ public class ZurueckgebenFenster extends JFrame {
 	private JTable spieleTabelle;
 	private JTextField suchenTextField;
 	private JTable ausgabeTabelle;
+	KundenSpiele kundenSpiele = new KundenSpiele();
 	ZurueckgebenFensterDAO zurueckDao = new ZurueckgebenFensterDAO();
 	/**
 	 * Launch the application.
@@ -50,6 +51,7 @@ public class ZurueckgebenFenster extends JFrame {
 		panel.setLayout(null);
 		
 		spieleTabelle = new JTable();
+		spieleTabelle.setEnabled(false);
 		spieleTabelle.setBounds(10, 169, 526, -164);
 		panel.add(spieleTabelle);
 		spieleTabelle.setModel(new DefaultTableModel(
@@ -70,29 +72,39 @@ public class ZurueckgebenFenster extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"ID","Vorname", "Nachname", "IBAN", "Strasse"
+				"spieleID","kundenID", "preis", "ausleihmenge", "faelligkeitsdatum", "ausleihdatum"
 			}
 		));
 		scrollPane_1.setViewportView(ausgabeTabelle);
 		
 		JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
+		zurueckgebenButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					ResultSet rs = zurueckDao.deleteKundeSpiel(kundenSpiele.getKundenID());
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		zurueckgebenButton.setBounds(10, 11, 122, 23);
 		contentPane.add(zurueckgebenButton);
 		
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {		
-				ResultSet rs = null;
-				try {
-					rs = zurueckDao.selectKundeSpieleDao(suchenTextField.getText());
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
-				
-				System.out.println(rs);				
-			}
+			
+
+					try {
+						ResultSet rs = zurueckDao.searchForKundenspiele(suchenTextField.getText());
+						ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
+						System.out.println(rs);				
+					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		}
 		});
 		suchenButton.setBounds(283, 11, 107, 23);
 		contentPane.add(suchenButton);
@@ -114,5 +126,10 @@ public class ZurueckgebenFenster extends JFrame {
 		JLabel kundenlisteLabel = new JLabel("Kunden:");
 		kundenlisteLabel.setBounds(10, 50, 156, 14);
 		contentPane.add(kundenlisteLabel);
+	}
+
+	protected ResultSet selectKundeSpieleDao(String text) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

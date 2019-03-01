@@ -59,8 +59,6 @@ public class Kundenverwaltung extends JFrame {
 	private JTable kundenlisteTable;
 	private JScrollPane kundenlisteScrollPane;
 	private JFrame that=this;
-	private JLabel idLabel;
-	private JTextField idTextField;
 	private Kunde k;
 	
 	KundenDAO kundenDAO = new KundenDAO();
@@ -69,8 +67,8 @@ public class Kundenverwaltung extends JFrame {
 	private JTextField strasseTextField;
 	private JTextField ortTextField;
 	private JTextField plzTextField;
-	private JTextField IdTextField;
-	private JLabel lblId;
+	private JTextField idTextField;
+	private JLabel idLabel;
 
 
 	/**
@@ -98,7 +96,7 @@ public class Kundenverwaltung extends JFrame {
 
 	private void initGUI() {
 		setTitle("Kundenverwaltung");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -230,15 +228,15 @@ public class Kundenverwaltung extends JFrame {
 			kundendatenPanel.add(plzTextField);
 			plzTextField.setColumns(10);
 			{
-				IdTextField = new JTextField();
-				IdTextField.setBounds(120, 8, 190, 20);
-				kundendatenPanel.add(IdTextField);
-				IdTextField.setColumns(10);
+				idTextField = new JTextField();
+				idTextField.setBounds(120, 8, 190, 20);
+				kundendatenPanel.add(idTextField);
+				idTextField.setColumns(10);
 			}
 			{
-				lblId = new JLabel("ID:");
-				lblId.setBounds(10, 11, 46, 14);
-				kundendatenPanel.add(lblId);
+				idLabel = new JLabel("ID:");
+				idLabel.setBounds(10, 11, 46, 14);
+				kundendatenPanel.add(idLabel);
 			}
 		}
 		{
@@ -377,7 +375,7 @@ public class Kundenverwaltung extends JFrame {
 
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
 		try {
-			kundenDAO.add(IdTextField.getText(), vornameTextField.getText(), nachnameTextField.getText(),  ibanTextField.getText(), emailTextField.getText(),telefonnummerTextField.getText(),  strasseTextField.getText(), ortTextField.getText(), plzTextField.getText());
+			kundenDAO.add(idTextField.getText(), vornameTextField.getText(), nachnameTextField.getText(),  ibanTextField.getText(), emailTextField.getText(),telefonnummerTextField.getText(),  strasseTextField.getText(), ortTextField.getText(), plzTextField.getText());
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -397,7 +395,7 @@ public class Kundenverwaltung extends JFrame {
 	}
 	public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
 		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
-	    IdTextField.setText(String.valueOf(kunde.getId()));
+		idTextField.setText(String.valueOf(kunde.getId()));
 		vornameTextField.setText(String.valueOf(kunde.getVorname()));
 		nachnameTextField.setText(String.valueOf(kunde.getNachname()));
 		ibanTextField.setText(String.valueOf(kunde.getIban()));
