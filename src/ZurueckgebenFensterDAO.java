@@ -65,7 +65,6 @@ public class ZurueckgebenFensterDAO {
 		
 		
 		return null;
-		
 	}
 
 	public ResultSet searchForKundenspiele(String kunde) throws ClassNotFoundException {
