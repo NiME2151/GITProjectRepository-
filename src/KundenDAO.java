@@ -138,15 +138,15 @@ public class KundenDAO {
 			String sql = "UPDATE Kunden SET vorname = ?, nachname = ?, iban = ?,"
 					+ "email = ?, telefonnummer = ?,  strasse = ?, ort = ?, plz  = ? WHERE id LIKE ?" ;
 			PreparedStatement updateValues = conn.prepareStatement(sql);
-			updateValues.setString(1, kunde.getId());
-			updateValues.setString(2, kunde.getVorname());
-			updateValues.setString(3, kunde.getNachname());
-			updateValues.setString(4, kunde.getIban());
-			updateValues.setString(5, kunde.getEmail());
-			updateValues.setString(6, kunde.getTelefonnummer());
-			updateValues.setString(8, kunde.getStrasse());
-			updateValues.setString(9, kunde.getOrt());
-			updateValues.setString(7, kunde.getPlz());
+			updateValues.setString(9, kunde.getId());
+			updateValues.setString(1, kunde.getVorname());
+			updateValues.setString(2, kunde.getNachname());
+			updateValues.setString(3, kunde.getIban());
+			updateValues.setString(4,kunde.getEmail());
+			updateValues.setString(5, kunde.getTelefonnummer());
+			updateValues.setString(6, kunde.getStrasse());
+			updateValues.setString(7, kunde.getOrt());
+			updateValues.setString(8, kunde.getPlz());
 			updateValues.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
