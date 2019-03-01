@@ -18,4 +18,11 @@ public class GetWertInZeile {
 		System.out.println("rückgabe:" + rueckgabewert);
 		return rueckgabewert;
 	}
+	
+	public String getZurueckgebenFenster(JTable table) {
+		int zeile = table.getSelectedRow();
+		String rueckgabewert = (String) table.getValueAt(zeile, 3);
+		System.out.println(rueckgabewert);
+		return rueckgabewert;
+	}
 }
