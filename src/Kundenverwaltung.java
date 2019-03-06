@@ -335,9 +335,16 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		ResultSet rs = kundenDAO.selectKunde(suchenTextField.getText());
+		String gesuchterKunde = String.valueOf(suchenTextField.getText().trim());
+		ResultSet rs = kundenDAO.selectKunde(gesuchterKunde);
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+		
+	  if (gesuchterKunde.equalsIgnoreCase("")) {
+		JOptionPane spielAngebenAlert = new JOptionPane();
+		spielAngebenAlert.showMessageDialog(this, "Bitte Name des Kunden angeben!", "Fehler", JOptionPane.ERROR_MESSAGE);
 	}
+}
+	
 
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
 		try {

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -311,6 +312,8 @@ public class Spieleverwaltung extends JFrame {
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
 		s = new Spiel();
 		String gesuchtesSpiel = String.valueOf(suchenTextField.getText().trim());
+		
+
 
 		if (!gesuchtesSpiel.equalsIgnoreCase("")) {
 			ResultSet rs = spielDAO.sucheNachSpiel(gesuchtesSpiel);
@@ -322,19 +325,15 @@ public class Spieleverwaltung extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
 		} else if (gesuchtesSpiel.equalsIgnoreCase("")) {
-			ResultSet rs = spielDAO.sucheNachSpiel(gesuchtesSpiel);
-			System.out.println(rs);
-			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-			try {
-				rs.close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
+			JOptionPane spielAngebenAlert = new JOptionPane();
+			spielAngebenAlert.showMessageDialog(this, "Bitte Spiel angeben!", "Fehler", JOptionPane.ERROR_MESSAGE);
 		}
-	}
+		}
+		
+		
+
 
 	protected void do_spielelisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
 		String ausgewaehltesSpiel = spielAuswaehlen.getWertInZeile(spielelisteTable);

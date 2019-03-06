@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+
 public class SpielDAO {
 	
 	private PreparedStatement statement = null;
@@ -16,6 +19,7 @@ public class SpielDAO {
 	private String sortierung;
 	private String spalten = "Spiele.id, Spiele.titel, Spiele.genre, Spiele.usk, Spiele.veroeffentlichkeitsdatum, Spiele.preis AS 'Preis (Euro)' , Spiele.verfuegbarkeit";
 	
+
 	
 	public Spiel selectSpiel(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException {
 		ResultSet rs = null;
