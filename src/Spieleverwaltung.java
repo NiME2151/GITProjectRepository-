@@ -318,7 +318,7 @@ public class Spieleverwaltung extends JFrame {
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 			try {
 				rs.close();
-			} catch (SQLException e1) {
+			} catch (SQLException e1) { 
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
