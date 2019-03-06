@@ -318,18 +318,6 @@ public class Kundenverwaltung extends JFrame {
 		kundenlisteLabel.setBounds(340, 51, 185, 14);
 		this.contentPane.add(this.kundenlisteLabel);
 	}
-	
-	JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
-	zurueckgebenButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			ZurueckgebenFenster fenster = new ZurueckgebenFenster();
-			fenster.setVisible(true);
-					
-		
-		}
-	});
-	zurueckgebenButton.setBounds(350, 327, 107, 23);
-	contentPane.add(zurueckgebenButton);
 	}
 
 	protected void do_aendernButton_actionPerformed(ActionEvent arg0) {

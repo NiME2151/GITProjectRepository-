@@ -66,7 +66,7 @@ public class Hauptbildschirm extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Hauptbildschirm frame = new Hauptbildschirm();
+					Hauptbildschirm frame = new Hauptbildschirm(false);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -78,7 +78,7 @@ public class Hauptbildschirm extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Hauptbildschirm() {
+	public Hauptbildschirm(boolean isAdminLoggedIn) {
 		initGUI();
 	}
 	private void initGUI() {
@@ -145,6 +145,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.kundenverwaltungButton = new JButton("Kundenverwaltung");
+				this.kundenverwaltungButton.setEnabled(false);
 				this.kundenverwaltungButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						do_kundenverwaltungButton_actionPerformed(e);
@@ -155,6 +156,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.spieleverwaltungButton = new JButton("Spieleverwaltung");
+				this.spieleverwaltungButton.setEnabled(false);
 				this.spieleverwaltungButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						do_spieleverwaltungButton_actionPerformed(e);
@@ -358,6 +360,8 @@ public class Hauptbildschirm extends JFrame {
 			spiel.setVisible(true);
 		}
 		protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
+			Adminfenster adminfenster = new Adminfenster();
+			adminfenster.setVisible(true);
 		}
 		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 			
