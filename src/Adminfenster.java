@@ -19,8 +19,7 @@ public class Adminfenster extends JFrame {
 	private JTextField idTextField;
 	private JTextField passwortTextField;
 	private JButton einloggButton;
-	Hauptbildschirm haupt = new Hauptbildschirm(false);
-	private int adminId = 8954;
+	private String adminId = "8954";
 	private String adminPasswort = "saU2sG";
 
 	/**
@@ -88,13 +87,6 @@ public class Adminfenster extends JFrame {
 		}
 	}
 	protected void do_einloggButton_actionPerformed(ActionEvent e) {
-		if (Integer.valueOf(idTextField.getText()) == adminId && passwortTextField.getText() == adminPasswort) {
-			setVisible(false);
-			haupt = new Hauptbildschirm(true);
-		}
-		else if (!(Integer.valueOf(idTextField.getText()) == adminId) || !(passwortTextField.getText() == adminPasswort)) {
-			JOptionPane alert = new JOptionPane();
-			alert.showMessageDialog(this, "Login fehlgeschlagen", "Die von Ihnen eingegebenen Daten sind nicht korrekt", JOptionPane.ERROR_MESSAGE);
-		}
+		
 	}
 }
