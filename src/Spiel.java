@@ -10,6 +10,7 @@ public class Spiel {
 	private int lageranzahl;
 	private String verfuegbarkeit;
 	private String sprache;
+	private String beschreibung;
 	
 	public Spiel() {
 		this.id = id;
@@ -21,6 +22,7 @@ public class Spiel {
 		this.lageranzahl = lageranzahl;
 		this.verfuegbarkeit = verfuegbarkeit;
 		this.sprache = sprache;
+		this.beschreibung = beschreibung;
 	}
 
 	public String getId() {
@@ -93,5 +95,13 @@ public class Spiel {
 
 	public void setSprache(String sprache) {
 		this.sprache = sprache;
+	}
+	
+	public String getBeschreibung() {
+		return beschreibung;
+	}
+
+	public void setBeschreibung(String beschreibung) {
+		this.beschreibung = beschreibung;
 	}
 }
