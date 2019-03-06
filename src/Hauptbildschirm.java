@@ -124,7 +124,7 @@ public class Hauptbildschirm extends JFrame {
 					new Object[][] {
 					},
 					new String[] {
-						"ID", "Titel", "Preis(Euro)", "Release", "Genre", "USK", "Verfuegbar"
+						"ID", "Titel", "Genre", "USK", "Release", "Preis (Euro)", "Verfuegbar"
 					}
 				));
 				this.spielelisteTable.setBounds(10, 11, 515, 248);
@@ -454,7 +454,6 @@ public class Hauptbildschirm extends JFrame {
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
 	}
-	
 	public void checkAdminLoggedIn() {
 		if (idTextField.getText().equalsIgnoreCase(adminId) && passwortTextField.getText().equalsIgnoreCase(adminPasswort)) {
 			adminLoginPane.setVisible(false);
@@ -476,4 +475,12 @@ public class Hauptbildschirm extends JFrame {
 	protected void do_loginButton_actionPerformed(ActionEvent e) {
 		 checkAdminLoggedIn();
 	}
+	protected void do_genreFilterComboBox_itemStateChanged(ItemEvent e) {
+		String sortierEingabe = String.valueOf(this.genreFilterComboBox.getSelectedItem());
+		if (sortierEingabe != null) {
+			ResultSet rs = hauptDAO.sortiereNachGenre(sortierEingabe);
+			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+		}
+	}	
+	
 }

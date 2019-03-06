@@ -105,6 +105,73 @@ public class HauptbildschirmDAO {
 		return rs;
 	}
 	
+	
+	public ResultSet sortiereNachGenre(String eingabe) {
+		ResultSet rs = null;
+		if (eingabe.equalsIgnoreCase("Action")) {
+			sortierung = "Action";
+		}
+		else if (eingabe.equalsIgnoreCase("Action-Adventures")) {
+			sortierung = "Action-Adventures";
+		}
+		else if (eingabe.equalsIgnoreCase("Adventures")) {
+			sortierung = "Adventures";
+		}
+		else if (eingabe.equalsIgnoreCase("Textadventures")) {
+			sortierung = "Textadventures";
+		}
+		else if (eingabe.equalsIgnoreCase("Horror")) {
+			sortierung = "Horror";
+		}
+		else if (eingabe.equalsIgnoreCase("Shooter")) {
+			sortierung = "Shooter";
+		}
+		else if (eingabe.equalsIgnoreCase("Erotik")) {
+			sortierung = "Erotik";
+		}
+		else if (eingabe.equalsIgnoreCase("Geschicklichtkeitsspiele")) {
+			sortierung = "Geschicklichtkeitsspiele";
+		}
+		else if (eingabe.equalsIgnoreCase("Jump 'n' Runs")) {
+			sortierung = "Jump 'n' Runs";
+		}
+		else if (eingabe.equalsIgnoreCase("Lernspiele")) {
+			sortierung = "Lernspiele";
+		}
+		else if (eingabe.equalsIgnoreCase("Open-World")) {
+			sortierung = "Open-World";
+		}
+		else if (eingabe.equalsIgnoreCase("Musikspiele")) {
+			sortierung = "Musikspiele";
+		}
+		else if (eingabe.equalsIgnoreCase("R\\u00E4tselspiele")) {
+			sortierung = "R\\u00E4tselspiele";
+		}
+		else if (eingabe.equalsIgnoreCase("RPG")) {
+			sortierung = "RPG";
+		}
+		else if (eingabe.equalsIgnoreCase("Simulation")) {
+			sortierung = "Simulation";
+		}
+		else if (eingabe.equalsIgnoreCase("Sport")) {
+			sortierung = "Sport";
+		}
+		else if (eingabe.equalsIgnoreCase("Strategie")) {
+			sortierung = "Strategie";
+		}
+		try {
+			String sql = "SELECT " + spalten + " FROM Spiele WHERE Genre= " + sortierung;
+			Connection conn = ConnectToDB.getConnection();
+			statement = conn.createStatement();
+			rs = statement.executeQuery(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return rs;
+	}	
+	
+	
 	public ResultSet sortiereNachUSK(String eingabe) {
 		String sortierung = null;
 		String sql = null;
