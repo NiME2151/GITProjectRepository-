@@ -115,7 +115,7 @@ public class Hauptbildschirm extends JFrame {
 					new Object[][] {
 					},
 					new String[] {
-						"ID", "Titel", "Preis(Euro)", "Release", "Genre", "USK", "Verfuegbar"
+						"ID", "Titel", "Genre", "USK", "Release", "Preis (Euro)", "Verfuegbar"
 					}
 				));
 				this.spielelisteTable.setBounds(10, 11, 515, 248);
