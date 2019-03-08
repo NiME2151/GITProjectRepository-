@@ -21,11 +21,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.glass.events.WindowEvent;
+
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
 
 public class Spieleverwaltung extends JFrame {
 
@@ -57,6 +60,8 @@ public class Spieleverwaltung extends JFrame {
 	SpielDAO spielDAO;
 	private JTextField idTextField;
 	private JTable spielelisteTable;
+	static Spieleverwaltung frame;
+	private String check = "";
 
 	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
 
@@ -68,12 +73,17 @@ public class Spieleverwaltung extends JFrame {
 			@Override
 			public void run() {
 				try {
-					Spieleverwaltung frame = new Spieleverwaltung();
-
+					frame = new Spieleverwaltung();
 					frame.setVisible(true);
+					frame.confirmOnClose();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
+
+			private void addWindowListener(WindowAdapter windowAdapter) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 	}
@@ -88,7 +98,7 @@ public class Spieleverwaltung extends JFrame {
 
 	private void initGUI() {
 		setTitle("Spieleverwaltung");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -328,12 +338,10 @@ public class Spieleverwaltung extends JFrame {
 			
 		} else if (gesuchtesSpiel.equalsIgnoreCase("")) {
 			JOptionPane spielAngebenAlert = new JOptionPane();
-			spielAngebenAlert.showMessageDialog(this, "Bitte Spiel angeben!", "Fehler", JOptionPane.ERROR_MESSAGE);
+			spielAngebenAlert.showMessageDialog(this, "Name des Spiels angeben", "Fehler", JOptionPane.ERROR_MESSAGE);
 		}
 		}
-		
-		
-
+			
 
 	protected void do_spielelisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
 		String ausgewaehltesSpiel = spielAuswaehlen.getWertInZeile(spielelisteTable);
@@ -381,6 +389,20 @@ public class Spieleverwaltung extends JFrame {
 
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
+	}
+	
+	protected void confirmOnClose() {
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		        if (JOptionPane.showConfirmDialog(frame, 
+		            "Are you sure you want to close this window?", "Close Window?", 
+		            JOptionPane.YES_NO_OPTION,
+		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+		            dispose();
+		        }
+		    }
+		});
 	}
 
 	protected void do_aendernButton_actionPerformed(ActionEvent e) {
