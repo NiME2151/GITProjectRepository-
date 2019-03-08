@@ -59,9 +59,8 @@ public class ZurueckgebenFensterDAO {
 		}
 		return rs;
 	}
-	public String datenAusgabe(ZurueckgebenFenster zurueck) {
-		
-		// Wird noch bearbeitet!
+	public ResultSet datenAusgabe(ZurueckgebenFenster zurueck) {
+		 	
 		
 		
 		
