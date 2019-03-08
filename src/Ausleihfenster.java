@@ -22,6 +22,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.glass.ui.Window;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import net.proteanit.sql.DbUtils;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -70,7 +74,7 @@ public class Ausleihfenster extends JFrame {
 	}
 	private void initGUI() {
 		setTitle("Ausleihfenster");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -233,13 +237,16 @@ public class Ausleihfenster extends JFrame {
 		}
 	}
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		fehlermeldungButton();
 		ResultSet rs = kundenDAO.selectKundeAusleihfenster(kundensucheTextField.getText());
 		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+
 	}
 	protected void do_kundeAnlegenButton_actionPerformed(ActionEvent arg0) {
 		Kundenverwaltung.main(null);
 	}
 	protected void do_preisBerechnenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
+		fehlermeldungPreisBerechnen();
 		this.ausleihpreisProTag = Double.valueOf(getSpieleDaten(spiel).getPreis());
 		this.gesamtausleihpreis = (Double.valueOf(this.leihdauerInTagenTextField.getText()) * ausleihpreisProTag);
 		this.gesamtausleihpreis = this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText());
@@ -259,10 +266,11 @@ public class Ausleihfenster extends JFrame {
 	}
 	
 	public KundenSpiele setKundenSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException, ParseException {
-		System.out.println("test:" + ausgewaehltesSpiel); //
+		System.out.println("test:" + ausgewaehltesSpiel); 
 		Spiel spiel = getSpieleDaten(ausgewaehltesSpiel);
 		KundenSpiele kundenSpiele = new KundenSpiele();
-
+		kundenSpiele.setKundenID(kundeAuswaehlen.getWertInZeile(kundenlisteTable));
+		kundenSpiele.setSpieleID(spiel.getId());
 		kundenSpiele.setPreis(Double.valueOf(this.ausleihpreisTextField.getText().replace(',', '.')));
 		kundenSpiele.setAusleihmenge(this.ausleihmengeTextField.getText());
 		LocalDate currentDate = null;
@@ -278,4 +286,35 @@ public class Ausleihfenster extends JFrame {
 	    System.out.println("faellig: " + date);
 		return date;
 	}
+	public void fehlermeldungButton() {
+		// Ist noch nicht fertig
+		Alert alert = new Alert(AlertType.INFORMATION);
+
+		if(kundensucheTextField.getText() == ("")) {
+			alert.setTitle("Information Dialog");
+			alert.setHeaderText("Look, an Information Dialog");
+			alert.setContentText("Sie müssen was in das gegebene Feld hinschreiben");
+			alert.showAndWait();
+		} else {
+			
+		}
+	}
+	public void fehlermeldungPreisBerechnen() {
+		
+		if(leihdauerInTagenTextField.getText() == ("") && ausleihmengeTextField.getText() == ("")) {
+			preisBerechnenButton.enable(true);
+		} else {
+			preisBerechnenButton.enable(false);
+		}
+	
+	}
 }
+
+
+
+
+
+
+
+
+

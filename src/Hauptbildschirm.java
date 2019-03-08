@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import java.awt.Component;
 import javax.swing.JTable;
@@ -58,6 +59,14 @@ public class Hauptbildschirm extends JFrame {
 	HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO();
 	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
 	Spiel spiel = new Spiel();
+	private JPanel adminLoginPane;
+	private JLabel idLabel;
+	private JLabel passwortLabel;
+	private JTextField idTextField;
+	private JTextField passwortTextField;
+	private JButton loginButton;
+	private String adminId = "8954";
+	private String adminPasswort = "saU2sG";
 	
 	/**
 	 * Launch the application.
@@ -117,7 +126,7 @@ public class Hauptbildschirm extends JFrame {
 					new Object[][] {
 					},
 					new String[] {
-						"ID", "Titel", "Preis(Euro)", "Release", "Genre", "USK", "Verfuegbar"
+						"ID", "Titel", "Genre", "USK", "Release", "Preis (Euro)", "Verfuegbar"
 					}
 				));
 				this.spielelisteTable.setBounds(10, 11, 515, 248);
@@ -147,6 +156,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.kundenverwaltungButton = new JButton("Kundenverwaltung");
+				this.kundenverwaltungButton.setEnabled(false);
 				this.kundenverwaltungButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						do_kundenverwaltungButton_actionPerformed(e);
@@ -157,6 +167,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.spieleverwaltungButton = new JButton("Spieleverwaltung");
+				this.spieleverwaltungButton.setEnabled(false);
 				this.spieleverwaltungButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						do_spieleverwaltungButton_actionPerformed(e);
@@ -317,6 +328,45 @@ public class Hauptbildschirm extends JFrame {
 				this.linkesMenuePanel.add(this.preisSortierenLabel);
 			}
 		}
+		{
+			this.adminLoginPane = new JPanel();
+			this.adminLoginPane.setVisible(false);
+			this.adminLoginPane.setBounds(0, 0, 759, 362);
+			this.contentPane.add(this.adminLoginPane);
+			this.adminLoginPane.setLayout(null);
+			{
+				this.idLabel = new JLabel("ID:");
+				this.idLabel.setBounds(10, 11, 80, 14);
+				this.adminLoginPane.add(this.idLabel);
+			}
+			{
+				this.passwortLabel = new JLabel("Passwort:");
+				this.passwortLabel.setBounds(10, 36, 80, 14);
+				this.adminLoginPane.add(this.passwortLabel);
+			}
+			{
+				this.idTextField = new JTextField();
+				this.idTextField.setBounds(100, 8, 86, 20);
+				this.adminLoginPane.add(this.idTextField);
+				this.idTextField.setColumns(10);
+			}
+			{
+				this.passwortTextField = new JTextField();
+				this.passwortTextField.setBounds(100, 33, 86, 20);
+				this.adminLoginPane.add(this.passwortTextField);
+				this.passwortTextField.setColumns(10);
+			}
+			{
+				this.loginButton = new JButton("Einloggen");
+				this.loginButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_loginButton_actionPerformed(e);
+					}
+				});
+				this.loginButton.setBounds(97, 64, 89, 23);
+				this.adminLoginPane.add(this.loginButton);
+			}
+		}
 	}
 	
 	
@@ -352,12 +402,22 @@ public class Hauptbildschirm extends JFrame {
 			System.exit(1);
 		}
 		protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
+			Kundenverwaltung kunde = new Kundenverwaltung();
+			kunde.setVisible(true);
 		}
 		protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
 		}
 		protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
+			Spieleverwaltung spiel = new Spieleverwaltung();
+			spiel.setVisible(true);
 		}
 		protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
+			spielelistePanel.setVisible(false);
+			linkesMenuePanel.setVisible(false);
+			buttonMenuePanel.setVisible(false);
+			adminLoginPane.setVisible(true);
+			this.setSize(200, 125);
+			this.setResizable(false);
 		}
 		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 			
@@ -400,6 +460,27 @@ public class Hauptbildschirm extends JFrame {
 			ResultSet rs = hauptDAO.sortiereNachUSK(sortierEingabe);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
+	}
+	public void checkAdminLoggedIn() {
+		if (idTextField.getText().equalsIgnoreCase(adminId) && passwortTextField.getText().equalsIgnoreCase(adminPasswort)) {
+			adminLoginPane.setVisible(false);
+			spielelistePanel.setVisible(true);
+			buttonMenuePanel.setVisible(true);
+			linkesMenuePanel.setVisible(true);
+			initGUI();
+			kundenverwaltungButton.setEnabled(true);
+			spieleverwaltungButton.setEnabled(true);
+		}
+		else if (!idTextField.getText().equalsIgnoreCase(adminId) || !passwortTextField.getText().equalsIgnoreCase(adminPasswort)) {
+			JOptionPane alert = new JOptionPane();
+			alert.showMessageDialog(this, "Die von Ihnen eingegebenen Daten sind nicht korrekt", "Login fehlgeschlagen", JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			System.out.println("False oder Error");
+		}
+	}
+	protected void do_loginButton_actionPerformed(ActionEvent e) {
+		 checkAdminLoggedIn();
 	}
 	protected void do_genreFilterComboBox_itemStateChanged(ItemEvent e) {
 		String sortierEingabe = String.valueOf(this.genreFilterComboBox.getSelectedItem());

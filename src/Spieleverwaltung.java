@@ -64,6 +64,8 @@ public class Spieleverwaltung extends JFrame {
 	private String check = "";
 
 	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
+	private JLabel beschreibungLabel;
+	private JTextField beschreibungTextField;
 
 	/**
 	 * Launch the application.
@@ -251,6 +253,17 @@ public class Spieleverwaltung extends JFrame {
 			idTextField.setBounds(120, 13, 190, 20);
 			panel.add(idTextField);
 			idTextField.setColumns(10);
+			{
+				this.beschreibungLabel = new JLabel("Beschreibung:");
+				this.beschreibungLabel.setBounds(10, 241, 100, 14);
+				this.panel.add(this.beschreibungLabel);
+			}
+			{
+				this.beschreibungTextField = new JTextField();
+				this.beschreibungTextField.setColumns(10);
+				this.beschreibungTextField.setBounds(120, 238, 190, 20);
+				this.panel.add(this.beschreibungTextField);
+			}
 		}
 		{
 			this.suchenTextField = new JTextField();
@@ -331,7 +344,7 @@ public class Spieleverwaltung extends JFrame {
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 			try {
 				rs.close();
-			} catch (SQLException e1) {
+			} catch (SQLException e1) { 
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -356,35 +369,26 @@ public class Spieleverwaltung extends JFrame {
 		uskFreigabeTextField.setText(spiel.getUsk());
 		lageranzahlTextField.setText(String.valueOf(spiel.getLageranzahl()));
 		spracheTextField.setText(spiel.getSprache());
+		beschreibungTextField.setText(spiel.getBeschreibung());
 	}
 
 	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		
-			s = new Spiel();
-			s.setId(idTextField.getText().trim());
-			s.setLageranzahl(Integer.parseInt(lageranzahlTextField.getText().trim()));
-			s.setPreis(Double.parseDouble(preisTextField.getText().trim()));
-			s.setVeroeffentlichkeitsdatum(String.valueOf(releaseDatumTextField.getText().trim()));
-			s.setTitel(titelTextField.getText().trim());
-			s.setGenre(String.valueOf(genreComboBox.getSelectedItem()));
-			s.setUsk(uskFreigabeTextField.getText().trim());
-			s.setSprache(spracheTextField.getText().trim());
-			s.setVerfuegbarkeit(verfuegbarkeitTextField.getText().trim());
-			
-			
-			spielDAO.insert(s);
-		
-	
-			
-			titelTextField.setText("");
-			releaseDatumTextField.setText("");
-			preisTextField.setText("");
-			genreComboBox.setSelectedItem("");
-			uskFreigabeTextField.setText("");
-			lageranzahlTextField.setText("");
-			spracheTextField.setText("");
-			idTextField.setText("");
-			verfuegbarkeitTextField.setText("");		
+
+		s = new Spiel();
+		s.setId(idTextField.getText().trim());
+		s.setLageranzahl(Integer.parseInt(lageranzahlTextField.getText().trim()));
+		s.setPreis(Double.parseDouble(preisTextField.getText().trim()));
+		s.setVeroeffentlichkeitsdatum(String.valueOf(releaseDatumTextField.getText().trim()));
+		s.setTitel(titelTextField.getText().trim());
+		s.setGenre(String.valueOf(genreComboBox.getSelectedItem()));
+		s.setUsk(uskFreigabeTextField.getText().trim());
+		s.setSprache(spracheTextField.getText().trim());
+		s.setVerfuegbarkeit(verfuegbarkeitTextField.getText().trim());
+		s.setBeschreibung(beschreibungTextField.getText().trim());
+
+		spielDAO.insert(s);
+
+		textFelderLeeren();
 	}
 
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
@@ -416,26 +420,23 @@ public class Spieleverwaltung extends JFrame {
 		s.setUsk(uskFreigabeTextField.getText().trim());
 		s.setSprache(spracheTextField.getText().trim());
 		s.setVerfuegbarkeit(verfuegbarkeitTextField.getText().trim());
+		s.setBeschreibung(beschreibungTextField.getText().trim());
 		try {
 			spielDAO.update(s);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		titelTextField.setText("");
-		releaseDatumTextField.setText("");
-		preisTextField.setText("");
-		genreComboBox.setSelectedItem("");
-		uskFreigabeTextField.setText("");
-		lageranzahlTextField.setText("");
-		spracheTextField.setText("");
-		idTextField.setText("");
-		verfuegbarkeitTextField.setText("");
+		textFelderLeeren();
 
 	}
 
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 		spielDAO.delete(idTextField.getText());
+		textFelderLeeren();
+	}
+
+	public void textFelderLeeren() {
 		titelTextField.setText("");
 		releaseDatumTextField.setText("");
 		preisTextField.setText("");
@@ -445,6 +446,6 @@ public class Spieleverwaltung extends JFrame {
 		spracheTextField.setText("");
 		idTextField.setText("");
 		verfuegbarkeitTextField.setText("");
+		beschreibungTextField.setText("");
 	}
-
 }

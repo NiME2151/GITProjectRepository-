@@ -59,8 +59,7 @@ public class Kundenverwaltung extends JFrame {
 	private JTable kundenlisteTable;
 	private JScrollPane kundenlisteScrollPane;
 	private JFrame that=this;
-	private JLabel idLabel;
-	private JTextField idTextField;
+	private Kunde k;
 	
 	KundenDAO kundenDAO = new KundenDAO();
 	GetWertInZeile kundeAuswaehlen = new GetWertInZeile();
@@ -68,6 +67,8 @@ public class Kundenverwaltung extends JFrame {
 	private JTextField strasseTextField;
 	private JTextField ortTextField;
 	private JTextField plzTextField;
+	private JTextField idTextField;
+	private JLabel idLabel;
 
 
 	/**
@@ -95,7 +96,7 @@ public class Kundenverwaltung extends JFrame {
 
 	private void initGUI() {
 		setTitle("Kundenverwaltung");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -109,57 +110,57 @@ public class Kundenverwaltung extends JFrame {
 			this.kundendatenPanel.setLayout(null);
 			{
 				this.vornameLabel = new JLabel("Vorname:");
-				this.vornameLabel.setBounds(10, 11, 100, 14);
+				this.vornameLabel.setBounds(10, 36, 100, 14);
 				this.kundendatenPanel.add(this.vornameLabel);
 			}
 			{
 				this.nachnameLabel = new JLabel("Nachname:");
-				this.nachnameLabel.setBounds(10, 36, 100, 14);
+				this.nachnameLabel.setBounds(10, 61, 100, 14);
 				this.kundendatenPanel.add(this.nachnameLabel);
 			}
 			{
 				this.ibanLabel = new JLabel("IBAN:");
-				this.ibanLabel.setBounds(10, 61, 100, 14);
+				this.ibanLabel.setBounds(10, 86, 100, 14);
 				this.kundendatenPanel.add(this.ibanLabel);
 			}
 			{
 				this.emailLabel = new JLabel("Email:");
-				this.emailLabel.setBounds(10, 86, 100, 14);
+				this.emailLabel.setBounds(10, 111, 100, 14);
 				this.kundendatenPanel.add(this.emailLabel);
 			}
 			{
 				this.telefronnummerLabel = new JLabel("Telefonnummer:");
-				this.telefronnummerLabel.setBounds(10, 111, 100, 14);
+				this.telefronnummerLabel.setBounds(10, 136, 100, 14);
 				this.kundendatenPanel.add(this.telefronnummerLabel);
 			}
 			{
 				this.vornameTextField = new JTextField();
-				this.vornameTextField.setBounds(120, 8, 190, 20);
+				this.vornameTextField.setBounds(120, 33, 190, 20);
 				this.kundendatenPanel.add(this.vornameTextField);
 				this.vornameTextField.setColumns(10);
 			}
 			{
 				this.nachnameTextField = new JTextField();
 				this.nachnameTextField.setColumns(10);
-				this.nachnameTextField.setBounds(120, 33, 190, 20);
+				this.nachnameTextField.setBounds(120, 58, 190, 20);
 				this.kundendatenPanel.add(this.nachnameTextField);
 			}
 			{
 				this.ibanTextField = new JTextField();
 				this.ibanTextField.setColumns(10);
-				this.ibanTextField.setBounds(120, 58, 190, 20);
+				this.ibanTextField.setBounds(120, 83, 190, 20);
 				this.kundendatenPanel.add(this.ibanTextField);
 			}
 			{
 				this.emailTextField = new JTextField();
 				this.emailTextField.setColumns(10);
-				this.emailTextField.setBounds(120, 83, 190, 20);
+				this.emailTextField.setBounds(120, 108, 190, 20);
 				this.kundendatenPanel.add(this.emailTextField);
 			}
 			{
 				this.telefonnummerTextField = new JTextField();
 				this.telefonnummerTextField.setColumns(10);
-				this.telefonnummerTextField.setBounds(120, 108, 190, 20);
+				this.telefonnummerTextField.setBounds(120, 133, 190, 20);
 				this.kundendatenPanel.add(this.telefonnummerTextField);
 			}
 			{
@@ -200,32 +201,43 @@ public class Kundenverwaltung extends JFrame {
 			}
 			{
 				strasseLabel = new JLabel("Strasse:");
-				strasseLabel.setBounds(10, 136, 46, 14);
+				strasseLabel.setBounds(10, 161, 67, 14);
 				kundendatenPanel.add(strasseLabel);
 			}
 			
 			strasseTextField = new JTextField();
-			strasseTextField.setBounds(120, 133, 190, 20);
+			strasseTextField.setBounds(120, 158, 190, 20);
 			kundendatenPanel.add(strasseTextField);
 			strasseTextField.setColumns(10);
 			
 			JLabel ortLabel = new JLabel("Ort:");
-			ortLabel.setBounds(10, 161, 46, 14);
+			ortLabel.setBounds(10, 186, 46, 14);
 			kundendatenPanel.add(ortLabel);
 			
 			JLabel plzLabel = new JLabel("Plz:");
-			plzLabel.setBounds(10, 186, 46, 14);
+			plzLabel.setBounds(10, 210, 46, 14);
 			kundendatenPanel.add(plzLabel);
 			
 			ortTextField = new JTextField();
-			ortTextField.setBounds(120, 158, 190, 20);
+			ortTextField.setBounds(120, 183, 190, 20);
 			kundendatenPanel.add(ortTextField);
 			ortTextField.setColumns(10);
 			
 			plzTextField = new JTextField();
-			plzTextField.setBounds(120, 183, 190, 20);
+			plzTextField.setBounds(120, 208, 190, 20);
 			kundendatenPanel.add(plzTextField);
 			plzTextField.setColumns(10);
+			{
+				idTextField = new JTextField();
+				idTextField.setBounds(120, 8, 190, 20);
+				kundendatenPanel.add(idTextField);
+				idTextField.setColumns(10);
+			}
+			{
+				idLabel = new JLabel("ID:");
+				idLabel.setBounds(10, 11, 46, 14);
+				kundendatenPanel.add(idLabel);
+			}
 		}
 		{
 			this.suchenTextField = new JTextField();
@@ -306,27 +318,37 @@ public class Kundenverwaltung extends JFrame {
 		kundenlisteLabel.setBounds(340, 51, 185, 14);
 		this.contentPane.add(this.kundenlisteLabel);
 	}
-	
-	JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
-	zurueckgebenButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			ZurueckgebenFenster fenster = new ZurueckgebenFenster();
-			fenster.setVisible(true);
-					
-		
-		}
-	});
-	zurueckgebenButton.setBounds(350, 327, 107, 23);
-	contentPane.add(zurueckgebenButton);
 	}
 
 	protected void do_aendernButton_actionPerformed(ActionEvent arg0) {
+		k = new Kunde();
+		k.setId(idTextField.getText().trim());
+		System.out.println("test:" + k.getId());
+		k.setVorname(vornameTextField.getText().trim());
+		k.setNachname(nachnameTextField.getText().trim());
+		k.setIban(ibanTextField.getText().trim());
+		k.setEmail(emailTextField.getText().trim());
+		k.setTelefonnummer(telefonnummerTextField.getText().trim());
+		k.setStrasse(strasseTextField.getText().trim());
+		k.setOrt(ortTextField.getText().trim());
+		k.setPlz(plzTextField.getText().trim());
 		try {
-			kundenDAO.change(vornameTextField.getText(), nachnameTextField.getText(),ibanTextField.getText(),emailTextField.getText(), telefonnummerTextField.getText(),strasseTextField.getText(), ortTextField.getText(), plzTextField.getText());
-				}	catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			kundenDAO.update(k);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	/*	idTextField.setText("");
+		vornameTextField.setText("");
+		nachnameTextField.setText("");
+		ibanTextField.setText("");
+		emailTextField.setText("");
+		telefonnummerTextField.setText("");
+		strasseTextField.setText("");
+		ortTextField.setText("");
+		plzTextField.setText("");
+		
+		*/
 		
 	}
 
@@ -368,7 +390,7 @@ public class Kundenverwaltung extends JFrame {
 	}
 	public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
 		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
-	//	idTextField.setText(String.valueOf(kunde.getId()));
+		idTextField.setText(String.valueOf(kunde.getId()));
 		vornameTextField.setText(String.valueOf(kunde.getVorname()));
 		nachnameTextField.setText(String.valueOf(kunde.getNachname()));
 		ibanTextField.setText(String.valueOf(kunde.getIban()));

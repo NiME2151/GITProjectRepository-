@@ -49,8 +49,8 @@ public class Spieledetailfenster extends JFrame {
 	private JTextField spracheTextField;
 	private JButton schliessenButton;
 	private JPanel beschreibungPanel;
-	private JLabel beschreibungLabel;
-	private JTextField beschreibungTextField;
+	private JLabel beschreibungAusgabeLabel;
+	private JTextField beschreibungAusgabeTextField;
 	private JButton ausleihenButton;
 	private JTextField verfuegbarkeitTextField;
 	private String spiel;
@@ -63,6 +63,8 @@ public class Spieledetailfenster extends JFrame {
 	private JTextField idTextField;
 	
 	DecimalFormat df = new DecimalFormat("####0");
+	private JLabel beschreibungEingabeLabel;
+	private JTextField beschreibungEingabeTextField;
 
 	/**
 	 * Create the frame.
@@ -77,8 +79,8 @@ public class Spieledetailfenster extends JFrame {
 	}
 	
 	private void initGUI() throws ClassNotFoundException, SQLException {
-		setTitle("Spieleausleihfenster");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Spieledetailfenster");
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -198,6 +200,19 @@ public class Spieledetailfenster extends JFrame {
 				this.panel.add(this.idTextField);
 				this.idTextField.setColumns(10);
 			}
+			{
+				this.beschreibungEingabeLabel = new JLabel("Beschreibung:");
+				this.beschreibungEingabeLabel.setBounds(10, 242, 100, 14);
+				this.panel.add(this.beschreibungEingabeLabel);
+			}
+			{
+				this.beschreibungEingabeTextField = new JTextField();
+				this.beschreibungEingabeTextField.setText((String) null);
+				this.beschreibungEingabeTextField.setEditable(false);
+				this.beschreibungEingabeTextField.setColumns(10);
+				this.beschreibungEingabeTextField.setBounds(120, 239, 190, 20);
+				this.panel.add(this.beschreibungEingabeTextField);
+			}
 		}
 		{
 			this.schliessenButton = new JButton("Schlie\u00DFen");
@@ -216,17 +231,17 @@ public class Spieledetailfenster extends JFrame {
 			this.contentPane.add(this.beschreibungPanel);
 			this.beschreibungPanel.setLayout(null);
 			{
-				this.beschreibungLabel = new JLabel("Beschreibung");
-				this.beschreibungLabel.setHorizontalAlignment(SwingConstants.CENTER);
-				this.beschreibungLabel.setBounds(90, 0, 100, 26);
-				this.beschreibungPanel.add(this.beschreibungLabel);
+				this.beschreibungAusgabeLabel = new JLabel("Beschreibung");
+				this.beschreibungAusgabeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+				this.beschreibungAusgabeLabel.setBounds(90, 0, 100, 26);
+				this.beschreibungPanel.add(this.beschreibungAusgabeLabel);
 			}
 			{
-				this.beschreibungTextField = new JTextField();
-				this.beschreibungTextField.setEditable(false);
-				this.beschreibungTextField.setBounds(10, 25, 265, 205);
-				this.beschreibungPanel.add(this.beschreibungTextField);
-				this.beschreibungTextField.setColumns(10);
+				this.beschreibungAusgabeTextField = new JTextField();
+				this.beschreibungAusgabeTextField.setEditable(false);
+				this.beschreibungAusgabeTextField.setBounds(10, 25, 265, 205);
+				this.beschreibungPanel.add(this.beschreibungAusgabeTextField);
+				this.beschreibungAusgabeTextField.setColumns(10);
 			}
 		}
 		{
@@ -256,9 +271,7 @@ public class Spieledetailfenster extends JFrame {
 				ZurueckgebenFenster fenster = new ZurueckgebenFenster();
 				fenster.setVisible(true);
 				
-//				ResultSet rs = selectKundeSpieleDao(suchenTextField.getText());
-//				this.ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
-			}
+				}
 		});
 		btnZurckgeben.setBounds(524, 263, 100, 23);
 		contentPane.add(btnZurckgeben);
@@ -290,6 +303,7 @@ public class Spieledetailfenster extends JFrame {
 		this.lageranzahlTextField.setText(String.valueOf(spiel.getLageranzahl()));
 		this.verfuegbarkeitTextField.setText(spiel.getVerfuegbarkeit());
 		this.spracheTextField.setText(spiel.getSprache());
+		this.beschreibungAusgabeTextField.setText(spiel.getBeschreibung());
 		return spiel;
 	}
 }

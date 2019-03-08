@@ -40,6 +40,7 @@ public class SpielDAO {
 			spiel.setLageranzahl(rs.getInt("lageranzahl"));
 			spiel.setVerfuegbarkeit(rs.getString("verfuegbarkeit"));
 			spiel.setSprache(rs.getString("sprache"));
+			spiel.setBeschreibung(rs.getString("beschreibung"));
 			// Gibt Nachricht aus bei funktionierendem SELECT
 			System.out.println("SQL-SELECT funzt");
 			System.out.println(spiel.getTitel());
@@ -79,18 +80,19 @@ public class SpielDAO {
 			try {
 				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
 				// herzustellen	
-				String sql = "INSERT INTO Spiele (id, titel, genre, veroeffentlichkeitsdatum, usk, preis, lageranzahl, verfuegbarkeit, sprache) "
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
+				String sql = "INSERT INTO Spiele (id, titel, genre, veroeffentlichkeitsdatum, usk, preis, lageranzahl, verfuegbarkeit, sprache, beschreibung) "
+						+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ;
 				preparedStatement = conn.prepareStatement(sql);
 				preparedStatement.setString(2, spiele.getTitel());
 				preparedStatement.setString(1, spiele.getId());
-				preparedStatement.setDouble(3, spiele.getPreis());
+				preparedStatement.setDouble(6, spiele.getPreis());
 				preparedStatement.setString(4, spiele.getVeroeffentlichkeitsdatum());
-				preparedStatement.setString(5, spiele.getGenre());
-				preparedStatement.setString(6, spiele.getUsk());
+				preparedStatement.setString(3, spiele.getGenre());
+				preparedStatement.setString(5, spiele.getUsk());
 				preparedStatement.setInt(7, spiele.getLageranzahl());
 				preparedStatement.setString(8, spiele.getVerfuegbarkeit());
 				preparedStatement.setString(9, spiele.getSprache());
+				preparedStatement.setString(10, spiele.getBeschreibung());
 				preparedStatement.executeUpdate();
 				ResultSet resultSet = preparedStatement.getGeneratedKeys();
 				resultSet.next();
@@ -103,12 +105,11 @@ public class SpielDAO {
 
 		
 		
-		public void delete (String id) throws ClassNotFoundException  {
+		public void delete(String id) throws ClassNotFoundException  {
 			PreparedStatement preparedStatement = null;
 			Connection conn = ConnectToDB.getConnection();
 			try {
-				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
-				// herzustellen
+				
 				String sql = "DELETE FROM Spiele WHERE ID = " + id ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
 				PreparedStatement st = conn.prepareStatement(sql);	
@@ -132,7 +133,7 @@ public class SpielDAO {
 				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
 				// herzustellen
 				String sql = "UPDATE Spiele SET Titel = ?,Genre = ?,Veroeffentlichkeitsdatum = ?, USK = ?,"
-						+ "Preis = ?, Lageranzahl = ?, Verfuegbarkeit = ?, Sprache = ? WHERE id LIKE ?" ;
+						+ "Preis = ?, Lageranzahl = ?, Verfuegbarkeit = ?, Sprache = ?, Beschreibung = ? WHERE id LIKE ?" ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
 				updateValues.setString(1, spiel.getTitel());
 				updateValues.setDouble(5, spiel.getPreis());
@@ -143,6 +144,7 @@ public class SpielDAO {
 				updateValues.setString(7, spiel.getVerfuegbarkeit());
 				updateValues.setString(8, spiel.getSprache());
 				updateValues.setString(9, spiel.getId());
+				updateValues.setString(10, spiel.getBeschreibung());
 				updateValues.executeUpdate();
 			}catch(SQLException e) {
 				e.printStackTrace();
