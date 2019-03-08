@@ -90,6 +90,8 @@ public class Hauptbildschirm extends JFrame {
 	public Hauptbildschirm() {
 		initGUI();
 	}
+	
+	
 	private void initGUI() {
 		setTitle("Hauptbildschirm");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -367,6 +369,8 @@ public class Hauptbildschirm extends JFrame {
 		}
 	}
 	
+	
+	
 		protected void do_hilfeButton_actionPerformed(ActionEvent e) {
 		}
 		protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
@@ -418,6 +422,9 @@ public class Hauptbildschirm extends JFrame {
 		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 			
 		}
+		
+		
+		
 	protected void do_alphabetischFilterComboBox_itemStateChanged(ItemEvent arg0) throws ClassNotFoundException, SQLException {
 		String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
 		if (alphabetischFilterWert != null) {
