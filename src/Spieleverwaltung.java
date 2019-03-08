@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -20,6 +21,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.glass.events.WindowEvent;
+
 import net.proteanit.sql.DbUtils;
 
 import javax.swing.JScrollPane;
@@ -27,6 +30,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 
 public class Spieleverwaltung extends JFrame {
 
@@ -58,40 +62,21 @@ public class Spieleverwaltung extends JFrame {
 	SpielDAO spielDAO;
 	private JTextField idTextField;
 	private JTable spielelisteTable;
+	Spieleverwaltung frame;
 
 	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
 	private JLabel beschreibungLabel;
 	private JTextField beschreibungTextField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Spieleverwaltung frame = new Spieleverwaltung();
-
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Spieleverwaltung() {
 		initGUI();
 		spielDAO = new SpielDAO();
+		this.confirmOnClose();
 	}
 
 	private void initGUI() {
 		setTitle("Spieleverwaltung");
-		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -431,6 +416,8 @@ public class Spieleverwaltung extends JFrame {
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
 		s = new Spiel();
 		String gesuchtesSpiel = String.valueOf(suchenTextField.getText().trim());
+		
+
 
 		if (!gesuchtesSpiel.equalsIgnoreCase("")) {
 			ResultSet rs = spielDAO.sucheNachSpiel(gesuchtesSpiel);
@@ -438,23 +425,17 @@ public class Spieleverwaltung extends JFrame {
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 			try {
 				rs.close();
-			} catch (SQLException e1) {
+			} catch (SQLException e1) { 
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
 		} else if (gesuchtesSpiel.equalsIgnoreCase("")) {
-			ResultSet rs = spielDAO.sucheNachSpiel(gesuchtesSpiel);
-			System.out.println(rs);
-			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-			try {
-				rs.close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
+			JOptionPane spielAngebenAlert = new JOptionPane();
+			spielAngebenAlert.showMessageDialog(this, "Name des Spiels angeben", "Fehler", JOptionPane.ERROR_MESSAGE);
 		}
-	}
+		}
+			
 
 	protected void do_spielelisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
 		String ausgewaehltesSpiel = spielAuswaehlen.getWertInZeile(spielelisteTable);
@@ -492,9 +473,37 @@ public class Spieleverwaltung extends JFrame {
 	}
 
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
-		System.exit(1);
+		dispose();
 	}
+	
+	protected void confirmOnClose() {
 
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+			
+				if (idTextField.getText().length() > 0
+						|| lageranzahlTextField.getText().length() > 0 
+						|| preisTextField.getText().length() > 0
+						|| releaseDatumTextField.getText().length() > 0
+						|| titelTextField.getText().length() > 0 
+						|| genreComboBox.getItemAt(0).toString().length() > 0
+						|| genreComboBox.getSelectedItem().toString().length() > 0
+						|| uskFreigabeTextField.getText().length() > 0
+						|| spracheTextField.getText().length() > 0 
+						|| verfuegbarkeitTextField.getText().length() > 0) {
+					if (JOptionPane.showConfirmDialog(frame, 
+							"Are you sure you want to close this window?", "Close Window?", 
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+						dispose();
+					}
+				} else {
+					dispose();
+				}
+			}
+		});
+	} 	
 	protected void do_aendernButton_actionPerformed(ActionEvent e) {
 		s = new Spiel();
 		s.setId(idTextField.getText().trim());

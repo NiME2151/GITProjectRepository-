@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,9 +23,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.glass.ui.Window;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import net.proteanit.sql.DbUtils;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Ausleihfenster extends JFrame {
 
@@ -46,6 +53,7 @@ public class Ausleihfenster extends JFrame {
 	private JTextField ausleihmengeTextField;	
 	private JButton preisBerechnenButton;
 	private String spiel;
+	Ausleihfenster fenster;
 	
 	SpielDAO spielDAO = new SpielDAO();
 	//Spiel spiel = new Spiel();
@@ -90,6 +98,9 @@ public class Ausleihfenster extends JFrame {
 					try {
 						do_suchenButton_actionPerformed(e);
 					} catch (ClassNotFoundException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
@@ -158,6 +169,16 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.leihdauerInTagenTextField = new JTextField();
+			leihdauerInTagenTextField.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(leihdauerInTagenTextField.getText().length() <= 1 && ausleihmengeTextField.getText().length() <= 0) {
+						preisBerechnenButton.setEnabled(false);
+					} else if(leihdauerInTagenTextField.getText().length() >= 0 && ausleihmengeTextField.getText().length() >= 1) {
+						preisBerechnenButton.setEnabled(true);
+					}
+				}
+			});
 			leihdauerInTagenTextField.setBounds(485, 58, 89, 20);
 			this.contentPane.add(this.leihdauerInTagenTextField);
 			this.leihdauerInTagenTextField.setColumns(10);
@@ -180,6 +201,16 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.ausleihmengeTextField = new JTextField();
+			ausleihmengeTextField.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyPressed(KeyEvent e) {
+					if(leihdauerInTagenTextField.getText().length() <= 0 && ausleihmengeTextField.getText().length() <= 1) {
+						preisBerechnenButton.setEnabled(false);
+					} else if(leihdauerInTagenTextField.getText().length() >= 1 && ausleihmengeTextField.getText().length() >= 0) {
+						preisBerechnenButton.setEnabled(true);
+					}
+				}
+			});
 			ausleihmengeTextField.setBounds(485, 83, 89, 20);
 			this.contentPane.add(this.ausleihmengeTextField);
 			this.ausleihmengeTextField.setColumns(10);
@@ -204,6 +235,7 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.ausleihenButton = new JButton("Ausleihen");
+			ausleihenButton.setEnabled(false);
 			this.ausleihenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
@@ -232,9 +264,15 @@ public class Ausleihfenster extends JFrame {
 			this.waehrungTextField.setColumns(10);
 		}
 	}
-	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		ResultSet rs = kundenDAO.selectKundeAusleihfenster(kundensucheTextField.getText());
-		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
+		try {
+			fehlermeldungButton();
+			ResultSet rs = kundenDAO.selectKundeAusleihfenster(kundensucheTextField.getText());
+			this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+		} catch (Exception e2) {
+			// TODO: handle exception
+		}
+
 	}
 	protected void do_kundeAnlegenButton_actionPerformed(ActionEvent arg0) {
 		Kundenverwaltung.main(null);
@@ -245,6 +283,7 @@ public class Ausleihfenster extends JFrame {
 		this.gesamtausleihpreis = this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText());
 		this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.gesamtausleihpreis).replace('.', ',')));
 		System.out.println("preisRechnen: " + this.ausleihpreisTextField.getText());
+		ausleihenButton.setEnabled(true);
 	}
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
 		String ausgewaehlterKunde = kundeAuswaehlen.getKundennachnameInTable(kundenlisteTable);
@@ -279,4 +318,35 @@ public class Ausleihfenster extends JFrame {
 	    System.out.println("faellig: " + date);
 		return date;
 	}
+	public void fehlermeldungButton() throws ClassNotFoundException, SQLException {
+		fenster = new Ausleihfenster(spiel);
+		String gesuchtesSpiel = String.valueOf(kundensucheTextField.getText().trim());
+		JOptionPane textFieldAlert = new JOptionPane();
+		
+		if(gesuchtesSpiel.equalsIgnoreCase("")) {
+			textFieldAlert.showMessageDialog(this, "Bitte füllen Sie das obere Feld aus!", "Fehler", JOptionPane.ERROR_MESSAGE);
+			kundenlisteTable.setEnabled(false);
+		} else {
+			
+		}
+	}
+	public void fehlermeldungPreisBerechnen() {
+		if (leihdauerInTagenTextField.getText().equals("") && ausleihmengeTextField.getText().equals("")) {
+			preisBerechnenButton.setEnabled(false);
+		} 
+	}
+	public void fehlermeldungAusleihfenster() {
+		if (ausleihmengeTextField.getText().equals("")) {
+			ausleihenButton.setVisible(false);
+		}
+	}
 }
+
+
+
+
+
+
+
+
+

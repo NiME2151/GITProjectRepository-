@@ -65,8 +65,8 @@ public class Hauptbildschirm extends JFrame {
 	private JTextField idTextField;
 	private JTextField passwortTextField;
 	private JButton loginButton;
-	private String adminId = "8954";
-	private String adminPasswort = "saU2sG";
+	private String adminId = "1";
+	private String adminPasswort = "1";
 	
 	/**
 	 * Launch the application.
@@ -90,6 +90,8 @@ public class Hauptbildschirm extends JFrame {
 	public Hauptbildschirm() {
 		initGUI();
 	}
+	
+	
 	private void initGUI() {
 		setTitle("Hauptbildschirm");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -124,7 +126,7 @@ public class Hauptbildschirm extends JFrame {
 					new Object[][] {
 					},
 					new String[] {
-						"ID", "Titel", "Preis(Euro)", "Release", "Genre", "USK", "Verfuegbar"
+						"ID", "Titel", "Genre", "USK", "Release", "Preis (Euro)", "Verfuegbar"
 					}
 				));
 				this.spielelisteTable.setBounds(10, 11, 515, 248);
@@ -367,6 +369,8 @@ public class Hauptbildschirm extends JFrame {
 		}
 	}
 	
+	
+	
 		protected void do_hilfeButton_actionPerformed(ActionEvent e) {
 		}
 		protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
@@ -418,6 +422,9 @@ public class Hauptbildschirm extends JFrame {
 		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 			
 		}
+		
+		
+		
 	protected void do_alphabetischFilterComboBox_itemStateChanged(ItemEvent arg0) throws ClassNotFoundException, SQLException {
 		String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
 		if (alphabetischFilterWert != null) {
@@ -454,7 +461,6 @@ public class Hauptbildschirm extends JFrame {
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
 	}
-	
 	public void checkAdminLoggedIn() {
 		if (idTextField.getText().equalsIgnoreCase(adminId) && passwortTextField.getText().equalsIgnoreCase(adminPasswort)) {
 			adminLoginPane.setVisible(false);
@@ -476,4 +482,12 @@ public class Hauptbildschirm extends JFrame {
 	protected void do_loginButton_actionPerformed(ActionEvent e) {
 		 checkAdminLoggedIn();
 	}
+	protected void do_genreFilterComboBox_itemStateChanged(ItemEvent e) {
+		String sortierEingabe = String.valueOf(this.genreFilterComboBox.getSelectedItem());
+		if (sortierEingabe != null) {
+			ResultSet rs = hauptDAO.sortiereNachGenre(sortierEingabe);
+			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+		}
+	}	
+	
 }
