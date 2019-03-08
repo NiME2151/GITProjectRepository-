@@ -28,6 +28,8 @@ import net.proteanit.sql.DbUtils;
 import javax.swing.JScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 
 public class Spieleverwaltung extends JFrame {
@@ -128,42 +130,119 @@ public class Spieleverwaltung extends JFrame {
 			}
 			{
 				this.titelTextField = new JTextField();
+				this.titelTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_titelTextField_actionPerformed(e);
+					}
+				});
+				this.titelTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						//do_titelTextField_keyTyped(e);
+					}
+				});
 				this.titelTextField.setBounds(120, 38, 190, 20);
 				this.panel.add(this.titelTextField);
 				this.titelTextField.setColumns(10);
 			}
 			{
 				this.preisTextField = new JTextField();
+				this.preisTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_preisTextField_actionPerformed(e);
+					}
+				});
+				this.preisTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						//do_preisTextField_keyTyped(e);
+					}
+				});
 				this.preisTextField.setColumns(10);
 				this.preisTextField.setBounds(120, 63, 190, 20);
 				this.panel.add(this.preisTextField);
 			}
 			{
 				this.releaseDatumTextField = new JTextField();
+				this.releaseDatumTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_releaseDatumTextField_actionPerformed(e);
+					}
+				});
+				this.releaseDatumTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						//do_releaseDatumTextField_keyTyped(e);
+					}
+				});
 				this.releaseDatumTextField.setColumns(10);
 				this.releaseDatumTextField.setBounds(120, 88, 190, 20);
 				this.panel.add(this.releaseDatumTextField);
 			}
 			{
 				this.uskFreigabeTextField = new JTextField();
+				this.uskFreigabeTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_uskFreigabeTextField_actionPerformed(e);
+					}
+				});
+				this.uskFreigabeTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						//do_uskFreigabeTextField_keyTyped(e);
+					}
+				});
 				this.uskFreigabeTextField.setColumns(10);
 				this.uskFreigabeTextField.setBounds(120, 138, 190, 20);
 				this.panel.add(this.uskFreigabeTextField);
 			}
 			{
 				this.lageranzahlTextField = new JTextField();
+				this.lageranzahlTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_lageranzahlTextField_actionPerformed(e);
+					}
+				});
+				this.lageranzahlTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						//do_lageranzahlTextField_keyTyped(e);
+					}
+				});
 				this.lageranzahlTextField.setColumns(10);
 				this.lageranzahlTextField.setBounds(120, 163, 190, 20);
 				this.panel.add(this.lageranzahlTextField);
 			}
 			{
 				this.verfuegbarkeitTextField = new JTextField();
+				this.verfuegbarkeitTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_verfuegbarkeitTextField_actionPerformed(e);
+					}
+				});
+				this.verfuegbarkeitTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						//do_verfuegbarkeitTextField_keyTyped(e);
+					}
+				});
 				this.verfuegbarkeitTextField.setColumns(10);
 				this.verfuegbarkeitTextField.setBounds(120, 188, 190, 20);
 				this.panel.add(this.verfuegbarkeitTextField);
 			}
 			{
 				this.spracheTextField = new JTextField();
+				this.spracheTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_spracheTextField_actionPerformed(e);
+					}
+				});
+				this.spracheTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						//do_spracheTextField_keyTyped(e);
+					}
+				});
 				this.spracheTextField.setColumns(10);
 				this.spracheTextField.setBounds(120, 213, 190, 20);
 				this.panel.add(this.spracheTextField);
@@ -185,6 +264,7 @@ public class Spieleverwaltung extends JFrame {
 			}
 			{
 				this.entfernenButton = new JButton("Entfernen");
+				this.entfernenButton.setEnabled(false);
 				this.entfernenButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
@@ -210,6 +290,11 @@ public class Spieleverwaltung extends JFrame {
 			}
 			{
 				this.genreComboBox = new JComboBox();
+				this.genreComboBox.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_genreComboBox_actionPerformed(e);
+					}
+				});
 				this.genreComboBox.setModel(new DefaultComboBoxModel(new String[] { "", "Action", "Action-Adventures",
 						"Adventure", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,",
 						"Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG",
@@ -224,6 +309,17 @@ public class Spieleverwaltung extends JFrame {
 			panel.add(idLabel);
 
 			idTextField = new JTextField();
+			this.idTextField.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					do_idTextField_actionPerformed(e);
+				}
+			});
+			this.idTextField.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					//do_idTextField_keyTyped(e);
+				}
+			});
 			idTextField.setBounds(120, 13, 190, 20);
 			panel.add(idTextField);
 			idTextField.setColumns(10);
@@ -234,6 +330,17 @@ public class Spieleverwaltung extends JFrame {
 			}
 			{
 				this.beschreibungTextField = new JTextField();
+				this.beschreibungTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_beschreibungTextField_actionPerformed(e);
+					}
+				});
+				this.beschreibungTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						//do_beschreibungTextField_keyTyped(e);
+					}
+				});
 				this.beschreibungTextField.setColumns(10);
 				this.beschreibungTextField.setBounds(120, 238, 190, 20);
 				this.panel.add(this.beschreibungTextField);
@@ -435,5 +542,94 @@ public class Spieleverwaltung extends JFrame {
 		idTextField.setText("");
 		verfuegbarkeitTextField.setText("");
 		beschreibungTextField.setText("");
+	}
+	
+	public void checkForFilledTextFields() {
+		if (idTextField.getText().length() > 0
+				&& preisTextField.getText().length() > 0
+				&& titelTextField.getText().length() > 0
+				&& releaseDatumTextField.getText().length() > 0
+				&& beschreibungTextField.getText().length() > 0
+				&& lageranzahlTextField.getText().length() > 0
+				&& uskFreigabeTextField.getText().length() > 0
+				&& spracheTextField.getText().length() > 0
+				&& verfuegbarkeitTextField.getText().length() > 0
+				&& genreComboBox.getSelectedItem() != ""
+				) {
+			entfernenButton.setEnabled(true);
+		}
+		/*else if (!idTextField.getText().equals("")
+				&& !preisTextField.getText().equals("")
+				&& !titelTextField.getText().equals("")
+				&& !releaseDatumTextField.getText().equals("")
+				&& !beschreibungTextField.getText().equals("")
+				&& !lageranzahlTextField.getText().equals("")
+				&& !uskFreigabeTextField.getText().equals("")
+				&& !spracheTextField.getText().equals("")
+				&& !verfuegbarkeitTextField.getText().equals("")
+				&& !genreComboBox.getSelectedItem().equals("")
+				) {
+			entfernenButton.setEnabled(true);
+		}*/
+		else {
+			entfernenButton.setEnabled(false);
+		}
+	}
+	/*protected void do_releaseDatumTextField_keyTyped(KeyEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_verfuegbarkeitTextField_keyTyped(KeyEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_idTextField_keyTyped(KeyEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_titelTextField_keyTyped(KeyEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_preisTextField_keyTyped(KeyEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_beschreibungTextField_keyTyped(KeyEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_lageranzahlTextField_keyTyped(KeyEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_uskFreigabeTextField_keyTyped(KeyEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_spracheTextField_keyTyped(KeyEvent e) {
+		checkForFilledTextFields();
+	}*/
+	protected void do_uskFreigabeTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_releaseDatumTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_verfuegbarkeitTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_preisTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_idTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_genreComboBox_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_lageranzahlTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_titelTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_spracheTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_beschreibungTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
 	}
 }
