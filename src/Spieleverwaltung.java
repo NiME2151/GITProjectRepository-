@@ -60,42 +60,16 @@ public class Spieleverwaltung extends JFrame {
 	SpielDAO spielDAO;
 	private JTextField idTextField;
 	private JTable spielelisteTable;
-	static Spieleverwaltung frame;
-	private String check = "";
+	Spieleverwaltung frame;
 
 	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
 	private JLabel beschreibungLabel;
 	private JTextField beschreibungTextField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					frame = new Spieleverwaltung();
-					frame.setVisible(true);
-					frame.confirmOnClose();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-
-			private void addWindowListener(WindowAdapter windowAdapter) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Spieleverwaltung() {
 		initGUI();
 		spielDAO = new SpielDAO();
+		this.confirmOnClose();
 	}
 
 	private void initGUI() {
@@ -392,23 +366,37 @@ public class Spieleverwaltung extends JFrame {
 	}
 
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
-		System.exit(1);
+		dispose();
 	}
 	
 	protected void confirmOnClose() {
-		frame.addWindowListener(new java.awt.event.WindowAdapter() {
-		    @Override
-		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-		        if (JOptionPane.showConfirmDialog(frame, 
-		            "Are you sure you want to close this window?", "Close Window?", 
-		            JOptionPane.YES_NO_OPTION,
-		            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-		            dispose();
-		        }
-		    }
-		});
-	}
 
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+			
+				if (idTextField.getText().length() > 0
+						|| lageranzahlTextField.getText().length() > 0 
+						|| preisTextField.getText().length() > 0
+						|| releaseDatumTextField.getText().length() > 0
+						|| titelTextField.getText().length() > 0 
+						|| genreComboBox.getItemAt(0).toString().length() > 0
+						|| genreComboBox.getSelectedItem().toString().length() > 0
+						|| uskFreigabeTextField.getText().length() > 0
+						|| spracheTextField.getText().length() > 0 
+						|| verfuegbarkeitTextField.getText().length() > 0) {
+					if (JOptionPane.showConfirmDialog(frame, 
+							"Are you sure you want to close this window?", "Close Window?", 
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+						dispose();
+					}
+				} else {
+					dispose();
+				}
+			}
+		});
+	} 	
 	protected void do_aendernButton_actionPerformed(ActionEvent e) {
 		s = new Spiel();
 		s.setId(idTextField.getText().trim());
