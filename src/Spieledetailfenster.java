@@ -282,9 +282,9 @@ public class Spieledetailfenster extends JFrame {
 	protected void do_suchenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
 	}
 	protected void do_ausleihenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
-		
 		Ausleihfenster fenster = new Ausleihfenster(spiel);
 		fenster.setVisible(true);
+		fenster.fehlermeldungPreisBerechnen();
 	}
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);

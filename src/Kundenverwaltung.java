@@ -177,7 +177,7 @@ public class Kundenverwaltung extends JFrame {
 				this.entfernenButton = new JButton("Entfernen");
 				this.entfernenButton.addActionListener(new ActionListener() {
 
-	public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent e) {
 						try {
 							do_entfernenButton_actionPerformed(e);
 						} catch (ClassNotFoundException e1) {
@@ -363,7 +363,7 @@ public class Kundenverwaltung extends JFrame {
 		
 	  if (gesuchterKunde.equalsIgnoreCase("")) {
 		JOptionPane spielAngebenAlert = new JOptionPane();
-		spielAngebenAlert.showMessageDialog(this, "Bitte Name des Kunden angeben!", "Fehler", JOptionPane.ERROR_MESSAGE);
+		spielAngebenAlert.showMessageDialog(this, "Bitte den Namen des Kunden angeben!", "Fehler", JOptionPane.ERROR_MESSAGE);
 	}
 }
 	
