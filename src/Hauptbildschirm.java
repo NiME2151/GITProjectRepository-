@@ -65,8 +65,8 @@ public class Hauptbildschirm extends JFrame {
 	private JTextField idTextField;
 	private JTextField passwortTextField;
 	private JButton loginButton;
-	private String adminId = "8954";
-	private String adminPasswort = "saU2sG";
+	private String adminId = "1";
+	private String adminPasswort = "1";
 	
 	/**
 	 * Launch the application.

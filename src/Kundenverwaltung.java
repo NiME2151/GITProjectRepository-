@@ -3,6 +3,7 @@ import java.awt.BorderLayout;
 
 
 import java.awt.EventQueue;
+import java.awt.TextField;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -35,7 +36,7 @@ import java.awt.event.MouseEvent;
 
 
 public class Kundenverwaltung extends JFrame {
-//
+	//
 	private JPanel contentPane;
 	private JLabel vornameLabel;
 	private JPanel kundendatenPanel;
@@ -48,10 +49,14 @@ public class Kundenverwaltung extends JFrame {
 	private JTextField ibanTextField;
 	private JTextField emailTextField;
 	private JTextField telefonnummerTextField;
+	private JTextField strasseTextField;
+	private JTextField ortTextField;
+	private JTextField plzTextField;
+	private JTextField idTextField;
+	private JTextField suchenTextField;
 	private JButton hinzufuegenButton;
 	private JButton entfernenButton;
 	private JButton aendernButton;
-	private JTextField suchenTextField;
 	private JButton suchenButton;
 	private JButton schliessenButton;
 	private JPanel kundenlistePanel;
@@ -60,43 +65,23 @@ public class Kundenverwaltung extends JFrame {
 	private JScrollPane kundenlisteScrollPane;
 	private JFrame that=this;
 	private Kunde k;
-	
-	KundenDAO kundenDAO = new KundenDAO();
+	private String check = "";
+
+
+	KundenDAO kundenDAO;
 	GetWertInZeile kundeAuswaehlen = new GetWertInZeile();
 	private JLabel strasseLabel;
-	private JTextField strasseTextField;
-	private JTextField ortTextField;
-	private JTextField plzTextField;
-	private JTextField idTextField;
 	private JLabel idLabel;
 
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Kundenverwaltung frame = new Kundenverwaltung();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public Kundenverwaltung() {
 		initGUI();
+		kundenDAO = new KundenDAO();
+		this.confirmOnClose();
 	}
 
 	private void initGUI() {
 		setTitle("Kundenverwaltung");
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -204,25 +189,25 @@ public class Kundenverwaltung extends JFrame {
 				strasseLabel.setBounds(10, 161, 67, 14);
 				kundendatenPanel.add(strasseLabel);
 			}
-			
+
 			strasseTextField = new JTextField();
 			strasseTextField.setBounds(120, 158, 190, 20);
 			kundendatenPanel.add(strasseTextField);
 			strasseTextField.setColumns(10);
-			
+
 			JLabel ortLabel = new JLabel("Ort:");
 			ortLabel.setBounds(10, 186, 46, 14);
 			kundendatenPanel.add(ortLabel);
-			
+
 			JLabel plzLabel = new JLabel("Plz:");
 			plzLabel.setBounds(10, 210, 46, 14);
 			kundendatenPanel.add(plzLabel);
-			
+
 			ortTextField = new JTextField();
 			ortTextField.setBounds(120, 183, 190, 20);
 			kundendatenPanel.add(ortTextField);
 			ortTextField.setColumns(10);
-			
+
 			plzTextField = new JTextField();
 			plzTextField.setBounds(120, 208, 190, 20);
 			kundendatenPanel.add(plzTextField);
@@ -250,7 +235,7 @@ public class Kundenverwaltung extends JFrame {
 			suchenButton.setBounds(535, 42, 89, 23);
 			this.suchenButton.addActionListener(new ActionListener() {
 
-	public void actionPerformed(ActionEvent e) {
+				public void actionPerformed(ActionEvent e) {
 					try {
 						do_suchenButton_actionPerformed(e);
 					} catch (ClassNotFoundException e1) {
@@ -271,7 +256,7 @@ public class Kundenverwaltung extends JFrame {
 			});
 			this.contentPane.add(this.schliessenButton);
 		}
-	
+
 		{
 			this.kundenlistePanel = new JPanel();
 			kundenlistePanel.setBounds(340, 70, 284, 250);
@@ -295,13 +280,13 @@ public class Kundenverwaltung extends JFrame {
 					}
 				});
 				this.kundenlisteTable
-						.setModel(new DefaultTableModel(
-					new Object[][] {
-					},
-					new String[] {
-						"ID", "Vorname", "Nachname", "Strasse"
-					}
-				));
+				.setModel(new DefaultTableModel(
+						new Object[][] {
+						},
+						new String[] {
+								"ID", "Vorname", "Nachname", "Strasse"
+						}
+						));
 				this.kundenlisteTable.getColumnModel().getColumn(0).setPreferredWidth(90);
 				this.kundenlisteTable.getColumnModel().getColumn(1).setPreferredWidth(90);
 				this.kundenlisteTable.setBounds(10, 11, 264, 228);
@@ -313,11 +298,11 @@ public class Kundenverwaltung extends JFrame {
 				this.kundenlistePanel.add(this.kundenlisteScrollPane);
 			}
 		}
-	{
-		this.kundenlisteLabel = new JLabel("Kundenliste:");
-		kundenlisteLabel.setBounds(340, 51, 185, 14);
-		this.contentPane.add(this.kundenlisteLabel);
-	}
+		{
+			this.kundenlisteLabel = new JLabel("Kundenliste:");
+			kundenlisteLabel.setBounds(340, 51, 185, 14);
+			this.contentPane.add(this.kundenlisteLabel);
+		}
 	}
 
 	protected void do_aendernButton_actionPerformed(ActionEvent arg0) {
@@ -338,7 +323,7 @@ public class Kundenverwaltung extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-	/*	idTextField.setText("");
+		/*	idTextField.setText("");
 		vornameTextField.setText("");
 		nachnameTextField.setText("");
 		ibanTextField.setText("");
@@ -347,58 +332,86 @@ public class Kundenverwaltung extends JFrame {
 		strasseTextField.setText("");
 		ortTextField.setText("");
 		plzTextField.setText("");
-		
-		*/
-		
+
+		 */
+
 	}
 
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
-		System.exit(1);
+		dispose();
 	}
 
-	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		String gesuchterKunde = String.valueOf(suchenTextField.getText().trim());
-		ResultSet rs = kundenDAO.selectKunde(gesuchterKunde);
-		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-		
-	  if (gesuchterKunde.equalsIgnoreCase("")) {
+	protected void confirmOnClose() {
+
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				if (emailTextField.getText().length() > 0
+						|| idTextField.getText().length() > 0 
+						|| vornameTextField.getText().length() > 0
+						|| nachnameTextField.getText().length() > 0
+						|| ibanTextField.getText().length() > 0 
+						|| telefonnummerTextField.getText().length() > 0
+						|| strasseTextField.getText().length() > 0
+						|| ortTextField.getText().length() > 0 
+						|| plzTextField.getText().length() > 0) {
+					if (JOptionPane.showConfirmDialog(that, 
+							"Are you sure you want to close this window?", "Close Window?", 
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+						dispose();
+					}
+				} else {
+					dispose();
+				}
+			}
+		});
+	} 	
+
+
+protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+	String gesuchterKunde = String.valueOf(suchenTextField.getText().trim());
+	ResultSet rs = kundenDAO.selectKunde(gesuchterKunde);
+	this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+
+	if (gesuchterKunde.equalsIgnoreCase("")) {
 		JOptionPane spielAngebenAlert = new JOptionPane();
 		spielAngebenAlert.showMessageDialog(this, "Bitte den Namen des Kunden angeben!", "Fehler", JOptionPane.ERROR_MESSAGE);
 	}
 }
-	
 
-	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
-		try {
-			kundenDAO.add(idTextField.getText(), vornameTextField.getText(), nachnameTextField.getText(),  ibanTextField.getText(), emailTextField.getText(),telefonnummerTextField.getText(),  strasseTextField.getText(), ortTextField.getText(), plzTextField.getText());
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
 
-	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
-		kundenDAO.delete(id);
+protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
+	try {
+		kundenDAO.add(idTextField.getText(), vornameTextField.getText(), nachnameTextField.getText(),  ibanTextField.getText(), emailTextField.getText(),telefonnummerTextField.getText(),  strasseTextField.getText(), ortTextField.getText(), plzTextField.getText());
+	} catch (ClassNotFoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
 	}
+}
 
-	
-	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
-		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
-		setKundenDaten(id);
+protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+	String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+	kundenDAO.delete(id);
+}
 
-	}
-	public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
-		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
-		idTextField.setText(String.valueOf(kunde.getId()));
-		vornameTextField.setText(String.valueOf(kunde.getVorname()));
-		nachnameTextField.setText(String.valueOf(kunde.getNachname()));
-		ibanTextField.setText(String.valueOf(kunde.getIban()));
-		emailTextField.setText(String.valueOf(kunde.getEmail()));
-		telefonnummerTextField.setText(String.valueOf(kunde.getTelefonnummer()));
-		strasseTextField.setText(String.valueOf(kunde.getStrasse()));
-		ortTextField.setText(String.valueOf(kunde.getOrt()));
-		plzTextField.setText(String.valueOf(kunde.getPlz()));
-		return kunde;
-	}
+
+protected void do_kundenlisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
+	String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+	setKundenDaten(id);
+
+}
+public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
+	Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
+	idTextField.setText(String.valueOf(kunde.getId()));
+	vornameTextField.setText(String.valueOf(kunde.getVorname()));
+	nachnameTextField.setText(String.valueOf(kunde.getNachname()));
+	ibanTextField.setText(String.valueOf(kunde.getIban()));
+	emailTextField.setText(String.valueOf(kunde.getEmail()));
+	telefonnummerTextField.setText(String.valueOf(kunde.getTelefonnummer()));
+	strasseTextField.setText(String.valueOf(kunde.getStrasse()));
+	ortTextField.setText(String.valueOf(kunde.getOrt()));
+	plzTextField.setText(String.valueOf(kunde.getPlz()));
+	return kunde;
+}
 }
