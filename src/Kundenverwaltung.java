@@ -1,7 +1,6 @@
 
 import java.awt.BorderLayout;
 
-
 import java.awt.EventQueue;
 import java.awt.TextField;
 
@@ -34,7 +33,6 @@ import net.proteanit.sql.DbUtils;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-
 public class Kundenverwaltung extends JFrame {
 	//
 	private JPanel contentPane;
@@ -63,10 +61,9 @@ public class Kundenverwaltung extends JFrame {
 	private JLabel kundenlisteLabel;
 	private JTable kundenlisteTable;
 	private JScrollPane kundenlisteScrollPane;
-	private JFrame that=this;
+	private JFrame that = this;
 	private Kunde k;
 	private String check = "";
-
 
 	KundenDAO kundenDAO;
 	GetWertInZeile kundeAuswaehlen = new GetWertInZeile();
@@ -120,30 +117,55 @@ public class Kundenverwaltung extends JFrame {
 			}
 			{
 				this.vornameTextField = new JTextField();
+				this.vornameTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_vornameTextField_actionPerformed(e);
+					}
+				});
 				this.vornameTextField.setBounds(120, 33, 190, 20);
 				this.kundendatenPanel.add(this.vornameTextField);
 				this.vornameTextField.setColumns(10);
 			}
 			{
 				this.nachnameTextField = new JTextField();
+				this.nachnameTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_nachnameTextField_actionPerformed(e);
+					}
+				});
 				this.nachnameTextField.setColumns(10);
 				this.nachnameTextField.setBounds(120, 58, 190, 20);
 				this.kundendatenPanel.add(this.nachnameTextField);
 			}
 			{
 				this.ibanTextField = new JTextField();
+				this.ibanTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_ibanTextField_actionPerformed(e);
+					}
+				});
 				this.ibanTextField.setColumns(10);
 				this.ibanTextField.setBounds(120, 83, 190, 20);
 				this.kundendatenPanel.add(this.ibanTextField);
 			}
 			{
 				this.emailTextField = new JTextField();
+				this.emailTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_emailTextField_actionPerformed(e);
+					}
+				});
 				this.emailTextField.setColumns(10);
 				this.emailTextField.setBounds(120, 108, 190, 20);
 				this.kundendatenPanel.add(this.emailTextField);
 			}
 			{
 				this.telefonnummerTextField = new JTextField();
+				this.telefonnummerTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_telefonnummerTextField_actionPerformed(e);
+					}
+				});
 				this.telefonnummerTextField.setColumns(10);
 				this.telefonnummerTextField.setBounds(120, 133, 190, 20);
 				this.kundendatenPanel.add(this.telefonnummerTextField);
@@ -160,6 +182,7 @@ public class Kundenverwaltung extends JFrame {
 			}
 			{
 				this.entfernenButton = new JButton("Entfernen");
+				this.entfernenButton.setEnabled(false);
 				this.entfernenButton.addActionListener(new ActionListener() {
 
 					public void actionPerformed(ActionEvent e) {
@@ -191,6 +214,11 @@ public class Kundenverwaltung extends JFrame {
 			}
 
 			strasseTextField = new JTextField();
+			this.strasseTextField.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					do_strasseTextField_actionPerformed(e);
+				}
+			});
 			strasseTextField.setBounds(120, 158, 190, 20);
 			kundendatenPanel.add(strasseTextField);
 			strasseTextField.setColumns(10);
@@ -204,16 +232,31 @@ public class Kundenverwaltung extends JFrame {
 			kundendatenPanel.add(plzLabel);
 
 			ortTextField = new JTextField();
+			this.ortTextField.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					do_ortTextField_actionPerformed(e);
+				}
+			});
 			ortTextField.setBounds(120, 183, 190, 20);
 			kundendatenPanel.add(ortTextField);
 			ortTextField.setColumns(10);
 
 			plzTextField = new JTextField();
+			this.plzTextField.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					do_plzTextField_actionPerformed(e);
+				}
+			});
 			plzTextField.setBounds(120, 208, 190, 20);
 			kundendatenPanel.add(plzTextField);
 			plzTextField.setColumns(10);
 			{
 				idTextField = new JTextField();
+				this.idTextField.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_idTextField_actionPerformed(e);
+					}
+				});
 				idTextField.setBounds(120, 8, 190, 20);
 				kundendatenPanel.add(idTextField);
 				idTextField.setColumns(10);
@@ -279,14 +322,8 @@ public class Kundenverwaltung extends JFrame {
 						}
 					}
 				});
-				this.kundenlisteTable
-				.setModel(new DefaultTableModel(
-						new Object[][] {
-						},
-						new String[] {
-								"ID", "Vorname", "Nachname", "Strasse"
-						}
-						));
+				this.kundenlisteTable.setModel(new DefaultTableModel(new Object[][] {},
+						new String[] { "ID", "Vorname", "Nachname", "Strasse" }));
 				this.kundenlisteTable.getColumnModel().getColumn(0).setPreferredWidth(90);
 				this.kundenlisteTable.getColumnModel().getColumn(1).setPreferredWidth(90);
 				this.kundenlisteTable.setBounds(10, 11, 264, 228);
@@ -323,16 +360,13 @@ public class Kundenverwaltung extends JFrame {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		/*	idTextField.setText("");
-		vornameTextField.setText("");
-		nachnameTextField.setText("");
-		ibanTextField.setText("");
-		emailTextField.setText("");
-		telefonnummerTextField.setText("");
-		strasseTextField.setText("");
-		ortTextField.setText("");
-		plzTextField.setText("");
-
+		/*
+		 * idTextField.setText(""); vornameTextField.setText("");
+		 * nachnameTextField.setText(""); ibanTextField.setText("");
+		 * emailTextField.setText(""); telefonnummerTextField.setText("");
+		 * strasseTextField.setText(""); ortTextField.setText("");
+		 * plzTextField.setText("");
+		 * 
 		 */
 
 	}
@@ -346,19 +380,14 @@ public class Kundenverwaltung extends JFrame {
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if (emailTextField.getText().length() > 0
-						|| idTextField.getText().length() > 0 
-						|| vornameTextField.getText().length() > 0
-						|| nachnameTextField.getText().length() > 0
-						|| ibanTextField.getText().length() > 0 
-						|| telefonnummerTextField.getText().length() > 0
-						|| strasseTextField.getText().length() > 0
-						|| ortTextField.getText().length() > 0 
+				if (emailTextField.getText().length() > 0 || idTextField.getText().length() > 0
+						|| vornameTextField.getText().length() > 0 || nachnameTextField.getText().length() > 0
+						|| ibanTextField.getText().length() > 0 || telefonnummerTextField.getText().length() > 0
+						|| strasseTextField.getText().length() > 0 || ortTextField.getText().length() > 0
 						|| plzTextField.getText().length() > 0) {
-					if (JOptionPane.showConfirmDialog(that, 
-							"Are you sure you want to close this window?", "Close Window?", 
-							JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+					if (JOptionPane.showConfirmDialog(that, "Are you sure you want to close this window?",
+							"Close Window?", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 						dispose();
 					}
 				} else {
@@ -366,52 +395,111 @@ public class Kundenverwaltung extends JFrame {
 				}
 			}
 		});
-	} 	
-
-
-protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-	String gesuchterKunde = String.valueOf(suchenTextField.getText().trim());
-	ResultSet rs = kundenDAO.selectKunde(gesuchterKunde);
-	this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-
-	if (gesuchterKunde.equalsIgnoreCase("")) {
-		JOptionPane spielAngebenAlert = new JOptionPane();
-		spielAngebenAlert.showMessageDialog(this, "Bitte den Namen des Kunden angeben!", "Fehler", JOptionPane.ERROR_MESSAGE);
 	}
-}
 
+	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		String gesuchterKunde = String.valueOf(suchenTextField.getText().trim());
+		ResultSet rs = kundenDAO.selectKunde(gesuchterKunde);
+		this.kundenlisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 
-protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
-	try {
-		kundenDAO.add(idTextField.getText(), vornameTextField.getText(), nachnameTextField.getText(),  ibanTextField.getText(), emailTextField.getText(),telefonnummerTextField.getText(),  strasseTextField.getText(), ortTextField.getText(), plzTextField.getText());
-	} catch (ClassNotFoundException e1) {
-		// TODO Auto-generated catch block
-		e1.printStackTrace();
+		if (gesuchterKunde.equalsIgnoreCase("")) {
+			JOptionPane spielAngebenAlert = new JOptionPane();
+			spielAngebenAlert.showMessageDialog(this, "Bitte den Namen des Kunden angeben!", "Fehler",
+					JOptionPane.ERROR_MESSAGE);
+		}
 	}
-}
 
-protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-	String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
-	kundenDAO.delete(id);
-}
+	protected void do_hinzufuegenButton_actionPerformed(ActionEvent e) {
+		try {
+			kundenDAO.add(idTextField.getText(), vornameTextField.getText(), nachnameTextField.getText(),
+					ibanTextField.getText(), emailTextField.getText(), telefonnummerTextField.getText(),
+					strasseTextField.getText(), ortTextField.getText(), plzTextField.getText());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 
+	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+		kundenDAO.delete(id);
+	}
 
-protected void do_kundenlisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
-	String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
-	setKundenDaten(id);
+	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
+		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+		setKundenDaten(id);
 
-}
-public Kunde setKundenDaten (String id) throws ClassNotFoundException, SQLException {
-	Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
-	idTextField.setText(String.valueOf(kunde.getId()));
-	vornameTextField.setText(String.valueOf(kunde.getVorname()));
-	nachnameTextField.setText(String.valueOf(kunde.getNachname()));
-	ibanTextField.setText(String.valueOf(kunde.getIban()));
-	emailTextField.setText(String.valueOf(kunde.getEmail()));
-	telefonnummerTextField.setText(String.valueOf(kunde.getTelefonnummer()));
-	strasseTextField.setText(String.valueOf(kunde.getStrasse()));
-	ortTextField.setText(String.valueOf(kunde.getOrt()));
-	plzTextField.setText(String.valueOf(kunde.getPlz()));
-	return kunde;
-}
+	}
+
+	public Kunde setKundenDaten(String id) throws ClassNotFoundException, SQLException {
+		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
+		idTextField.setText(String.valueOf(kunde.getId()));
+		vornameTextField.setText(String.valueOf(kunde.getVorname()));
+		nachnameTextField.setText(String.valueOf(kunde.getNachname()));
+		ibanTextField.setText(String.valueOf(kunde.getIban()));
+		emailTextField.setText(String.valueOf(kunde.getEmail()));
+		telefonnummerTextField.setText(String.valueOf(kunde.getTelefonnummer()));
+		strasseTextField.setText(String.valueOf(kunde.getStrasse()));
+		ortTextField.setText(String.valueOf(kunde.getOrt()));
+		plzTextField.setText(String.valueOf(kunde.getPlz()));
+		return kunde;
+	}
+	
+	public void checkForFilledTextFields() {
+		if (idTextField.getText().length() > 0
+				&& vornameTextField.getText().length() > 0
+				&& nachnameTextField.getText().length() > 0
+				&& ibanTextField.getText().length() > 0
+				&& emailTextField.getText().length() > 0
+				&& telefonnummerTextField.getText().length() > 0
+				&& strasseTextField.getText().length() > 0
+				&& ortTextField.getText().length() > 0
+				&& plzTextField.getText().length() > 0
+				) {
+			entfernenButton.setEnabled(true);
+		}
+		/*else if (!idTextField.getText().equals("")
+				&& !preisTextField.getText().equals("")
+				&& !titelTextField.getText().equals("")
+				&& !releaseDatumTextField.getText().equals("")
+				&& !beschreibungTextField.getText().equals("")
+				&& !lageranzahlTextField.getText().equals("")
+				&& !uskFreigabeTextField.getText().equals("")
+				&& !spracheTextField.getText().equals("")
+				&& !verfuegbarkeitTextField.getText().equals("")
+				&& !genreComboBox.getSelectedItem().equals("")
+				) {
+			entfernenButton.setEnabled(true);
+		}*/
+		else {
+			entfernenButton.setEnabled(false);
+		}
+	}
+	protected void do_ibanTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_telefonnummerTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_ortTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_idTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_plzTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_strasseTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_nachnameTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_vornameTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
+	protected void do_emailTextField_actionPerformed(ActionEvent e) {
+		checkForFilledTextFields();
+	}
 }

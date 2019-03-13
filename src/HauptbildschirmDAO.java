@@ -160,7 +160,7 @@ public class HauptbildschirmDAO {
 			sortierung = "Strategie";
 		}
 		try {
-			String sql = "SELECT " + spalten + " FROM Spiele WHERE Genre= " + sortierung;
+			String sql = "SELECT " + spalten + " FROM Spiele WHERE Genre = " + "'" + sortierung + "'";
 			Connection conn = ConnectToDB.getConnection();
 			statement = conn.createStatement();
 			rs = statement.executeQuery(sql);

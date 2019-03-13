@@ -55,7 +55,7 @@ public class Hauptbildschirm extends JFrame {
 	private JScrollPane spielelisteScrollPane;
 	private KundenDAO kundenDAO;
 	private SpielDAO spielDAO;
-	
+
 	HauptbildschirmDAO hauptDAO = new HauptbildschirmDAO();
 	GetWertInZeile spielAuswaehlen = new GetWertInZeile();
 	Spiel spiel = new Spiel();
@@ -67,7 +67,7 @@ public class Hauptbildschirm extends JFrame {
 	private JButton loginButton;
 	private String adminId = "1";
 	private String adminPasswort = "1";
-	
+
 	private JFrame that=this;
 
 	/**
@@ -94,11 +94,10 @@ public class Hauptbildschirm extends JFrame {
 		hauptDAO = new HauptbildschirmDAO();
 		this.confirmOnClose();
 	}
-	
-	
+
+
 	private void initGUI() {
 		setTitle("Hauptbildschirm");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 775, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -127,12 +126,12 @@ public class Hauptbildschirm extends JFrame {
 					}
 				});
 				this.spielelisteTable.setModel(new DefaultTableModel(
-					new Object[][] {
-					},
-					new String[] {
-						"ID", "Titel", "Genre", "USK", "Release", "Preis (Euro)", "Verfuegbar"
-					}
-				));
+						new Object[][] {
+						},
+						new String[] {
+								"ID", "Titel", "Genre", "USK", "Release", "Preis (Euro)", "Verfuegbar"
+						}
+						));
 				this.spielelisteTable.setBounds(10, 11, 515, 248);
 				this.spielelistePanel.add(this.spielelisteTable);
 			}
@@ -282,6 +281,11 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.genreFilterComboBox = new JComboBox();
+				genreFilterComboBox.addItemListener(new ItemListener() {
+					public void itemStateChanged(ItemEvent e) {
+						do_genreFilterComboBox_itemStateChanged(e);
+					}
+				});
 				this.genreFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Action", "Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
 				this.genreFilterComboBox.setToolTipText("");
 				this.genreFilterComboBox.setBounds(10, 156, 205, 20);
@@ -372,10 +376,10 @@ public class Hauptbildschirm extends JFrame {
 			}
 		}
 	}
-	
-	
-	
+  
 		protected void do_hilfeButton_actionPerformed(ActionEvent e) {
+			Hilfefenster hf = new Hilfefenster();
+			hf.setVisible(true);
 		}
 		protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 			String gesuchtesSpiel = String.valueOf(suchfeldTextField.getText());
@@ -401,34 +405,46 @@ public class Hauptbildschirm extends JFrame {
 					e1.printStackTrace();
 				}
 			}
-}
-		protected void do_schliessenButton_actionPerformed(ActionEvent e) {
-			System.exit(1);
 		}
-		protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
-			Kundenverwaltung kunde = new Kundenverwaltung();
-			kunde.setVisible(true);
+		else if (gesuchtesSpiel.equalsIgnoreCase("")) {
+			ResultSet rs = hauptDAO.sucheNachSpiel(gesuchtesSpiel);
+			System.out.println(rs);
+			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+			try {
+				rs.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
-		protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
-		}
-		protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
-			Spieleverwaltung spiel = new Spieleverwaltung();
-			spiel.setVisible(true);
-		}
-		protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
-			spielelistePanel.setVisible(false);
-			linkesMenuePanel.setVisible(false);
-			buttonMenuePanel.setVisible(false);
-			adminLoginPane.setVisible(true);
-			this.setSize(200, 125);
-			this.setResizable(false);
-		}
-		protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-			
-		}
-		
-		
-		
+	}
+	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
+		System.exit(1);
+	}
+	protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
+		Kundenverwaltung kunde = new Kundenverwaltung();
+		kunde.setVisible(true);
+	}
+	protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
+	}
+	protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
+		Spieleverwaltung spiel = new Spieleverwaltung();
+		spiel.setVisible(true);
+	}
+	protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
+		spielelistePanel.setVisible(false);
+		linkesMenuePanel.setVisible(false);
+		buttonMenuePanel.setVisible(false);
+		adminLoginPane.setVisible(true);
+		this.setSize(200, 125);
+		this.setResizable(false);
+	}
+	protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
+
+	}
+
+
+
 	protected void do_alphabetischFilterComboBox_itemStateChanged(ItemEvent arg0) throws ClassNotFoundException, SQLException {
 		String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
 		if (alphabetischFilterWert != null) {
@@ -436,13 +452,13 @@ public class Hauptbildschirm extends JFrame {
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
 	}
-	
+
 	protected void do_spielelisteTable_mouseClicked(MouseEvent arg0) throws ClassNotFoundException, SQLException {
 		String ausgewaehltesSpiel = spielAuswaehlen.getWertInZeile(spielelisteTable);
 		Spieledetailfenster fenster = new Spieledetailfenster(ausgewaehltesSpiel);
 		fenster.setVisible(true);
 	}
-	
+
 	protected void do_spielVerfuegbarCheckBox_itemStateChanged(ItemEvent arg0) throws ClassNotFoundException {
 		if (this.spielVerfuegbarCheckBox.isSelected()) {
 			boolean spielVerfuegbarkeit = this.spielVerfuegbarCheckBox.isSelected();
@@ -453,45 +469,48 @@ public class Hauptbildschirm extends JFrame {
 			do_suchenButton_actionPerformed(null);
 		}
 	}
-	
+
 	protected void do_preisFilterComboBox_itemStateChanged(ItemEvent arg0) {
+		uskFilterComboBox.setSelectedItem("");
+		genreFilterComboBox.setSelectedItem("");
+		spielVerfuegbarCheckBox.setSelected(false);
 		String sortierEingabe = String.valueOf(this.preisFilterComboBox.getSelectedItem());
 		if (sortierEingabe != null) {
 			ResultSet rs = hauptDAO.sortiereNachPreis(sortierEingabe);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
 	}
-	
+
 	protected void do_uskFilterComboBox_itemStateChanged(ItemEvent e) {
-		String sortierEingabe = String.valueOf(this.uskFilterComboBox.getSelectedItem());
-		this.genreFilterComboBox.setSelectedItem("");
+		preisFilterComboBox.setSelectedItem("");
 		genreFilterComboBox.setSelectedItem("");
+		spielVerfuegbarCheckBox.setSelected(false);
+		String sortierEingabe = String.valueOf(this.uskFilterComboBox.getSelectedItem());
 		if (sortierEingabe != null) {
 			ResultSet rs = hauptDAO.sortiereNachUSK(sortierEingabe);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-
-			}
 		}
-	
+	}
+
 	protected void do_genreFilterComboBox_itemStateChanged(ItemEvent e) {
-		String sortierEingabe = String.valueOf(this.genreFilterComboBox.getSelectedItem());
+		preisFilterComboBox.setSelectedItem("");
+		uskFilterComboBox.setSelectedItem("");
+		spielVerfuegbarCheckBox.setSelected(false);
+		String sortierEingabe = String.valueOf(this.genreFilterComboBox.getSelectedItem().toString());
+		System.out.println(sortierEingabe);
 		if (sortierEingabe != null) {
 			ResultSet rs = hauptDAO.sortiereNachGenre(sortierEingabe);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-			genreFilterComboBox.setSelectedItem("");
-			preisFilterComboBox.setSelectedItem("");
 		}
-		genreFilterComboBox.setSelectedItem("");
-		preisFilterComboBox.setSelectedItem("");
-		}	
-	
-	
+	}	
+
+
 	protected void confirmOnClose() {
 
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-			
+
 				if (idTextField.getText().length() > 0
 
 						|| genreFilterComboBox.getItemAt(0).toString().length() > 0
@@ -510,7 +529,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 		});
 	} 	
-	
+
 	public void checkAdminLoggedIn() {
 		if (idTextField.getText().equalsIgnoreCase(adminId) && passwortTextField.getText().equalsIgnoreCase(adminPasswort)) {
 			adminLoginPane.setVisible(false);
@@ -530,7 +549,7 @@ public class Hauptbildschirm extends JFrame {
 		}
 	}
 	protected void do_loginButton_actionPerformed(ActionEvent e) {
-		 checkAdminLoggedIn();
+		checkAdminLoggedIn();
 	}
 
 }
