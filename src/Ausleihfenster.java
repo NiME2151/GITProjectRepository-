@@ -275,7 +275,8 @@ public class Ausleihfenster extends JFrame {
 
 	}
 	protected void do_kundeAnlegenButton_actionPerformed(ActionEvent arg0) {
-		Kundenverwaltung.main(null);
+		Kundenverwaltung kundenverwaltung = new Kundenverwaltung();
+		kundenverwaltung.setVisible(true);
 	}
 	protected void do_preisBerechnenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
 		this.ausleihpreisProTag = Double.valueOf(getSpieleDaten(spiel).getPreis());

@@ -132,18 +132,19 @@ public class SpielDAO {
 			try {
 				// connect()-Methode wird ausgef�hrt um eine Verbindung zur Datenbank
 				// herzustellen
-				String sql = "UPDATE Spiele SET Titel = ?,Genre = ?,Veroeffentlichkeitsdatum = ?, USK = ?,"
+				String sql = "UPDATE Spiele SET ID, = ?, Titel = ?, Genre = ?, Veroeffentlichkeitsdatum = ?, USK = ?,"
 						+ "Preis = ?, Lageranzahl = ?, Verfuegbarkeit = ?, Sprache = ?, Beschreibung = ? WHERE id LIKE ?" ;
 				PreparedStatement updateValues = conn.prepareStatement(sql);
-				updateValues.setString(1, spiel.getTitel());
-				updateValues.setDouble(5, spiel.getPreis());
-				updateValues.setString(3, spiel.getVeroeffentlichkeitsdatum());
-				updateValues.setString(4, spiel.getUsk());
-				updateValues.setString(2, spiel.getGenre());
-				updateValues.setInt(6, spiel.getLageranzahl());
-				updateValues.setString(7, spiel.getVerfuegbarkeit());
-				updateValues.setString(8, spiel.getSprache());
-				updateValues.setString(9, spiel.getId());
+				updateValues.setString(1, spiel.getId());
+				updateValues.setString(2, spiel.getTitel());
+				updateValues.setDouble(6, spiel.getPreis());
+				updateValues.setString(4, spiel.getVeroeffentlichkeitsdatum());
+				updateValues.setString(5, spiel.getUsk());
+				updateValues.setString(3, spiel.getGenre());
+				updateValues.setInt(7, spiel.getLageranzahl());
+				updateValues.setString(8, spiel.getVerfuegbarkeit());
+				updateValues.setString(9, spiel.getSprache());
+				updateValues.setString(11, spiel.getId());
 				updateValues.setString(10, spiel.getBeschreibung());
 				updateValues.executeUpdate();
 			}catch(SQLException e) {
