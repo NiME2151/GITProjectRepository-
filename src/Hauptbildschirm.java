@@ -436,11 +436,13 @@ public class Hauptbildschirm extends JFrame {
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
 	}
+	
 	protected void do_spielelisteTable_mouseClicked(MouseEvent arg0) throws ClassNotFoundException, SQLException {
 		String ausgewaehltesSpiel = spielAuswaehlen.getWertInZeile(spielelisteTable);
 		Spieledetailfenster fenster = new Spieledetailfenster(ausgewaehltesSpiel);
 		fenster.setVisible(true);
 	}
+	
 	protected void do_spielVerfuegbarCheckBox_itemStateChanged(ItemEvent arg0) throws ClassNotFoundException {
 		if (this.spielVerfuegbarCheckBox.isSelected()) {
 			boolean spielVerfuegbarkeit = this.spielVerfuegbarCheckBox.isSelected();
@@ -451,6 +453,7 @@ public class Hauptbildschirm extends JFrame {
 			do_suchenButton_actionPerformed(null);
 		}
 	}
+	
 	protected void do_preisFilterComboBox_itemStateChanged(ItemEvent arg0) {
 		String sortierEingabe = String.valueOf(this.preisFilterComboBox.getSelectedItem());
 		if (sortierEingabe != null) {
@@ -458,13 +461,30 @@ public class Hauptbildschirm extends JFrame {
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
 	}
+	
 	protected void do_uskFilterComboBox_itemStateChanged(ItemEvent e) {
 		String sortierEingabe = String.valueOf(this.uskFilterComboBox.getSelectedItem());
+		this.genreFilterComboBox.setSelectedItem("");
+		genreFilterComboBox.setSelectedItem("");
 		if (sortierEingabe != null) {
 			ResultSet rs = hauptDAO.sortiereNachUSK(sortierEingabe);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+
+			}
 		}
-	}
+	
+	protected void do_genreFilterComboBox_itemStateChanged(ItemEvent e) {
+		String sortierEingabe = String.valueOf(this.genreFilterComboBox.getSelectedItem());
+		if (sortierEingabe != null) {
+			ResultSet rs = hauptDAO.sortiereNachGenre(sortierEingabe);
+			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
+			genreFilterComboBox.setSelectedItem("");
+			preisFilterComboBox.setSelectedItem("");
+		}
+		genreFilterComboBox.setSelectedItem("");
+		preisFilterComboBox.setSelectedItem("");
+		}	
+	
 	
 	protected void confirmOnClose() {
 
@@ -512,12 +532,5 @@ public class Hauptbildschirm extends JFrame {
 	protected void do_loginButton_actionPerformed(ActionEvent e) {
 		 checkAdminLoggedIn();
 	}
-	protected void do_genreFilterComboBox_itemStateChanged(ItemEvent e) {
-		String sortierEingabe = String.valueOf(this.genreFilterComboBox.getSelectedItem());
-		if (sortierEingabe != null) {
-			ResultSet rs = hauptDAO.sortiereNachGenre(sortierEingabe);
-			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-		}
-	}	
-	
+
 }
