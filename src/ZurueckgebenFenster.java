@@ -20,7 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+
 
 public class ZurueckgebenFenster extends JFrame {
 
@@ -51,8 +53,8 @@ public class ZurueckgebenFenster extends JFrame {
 		panel.setLayout(null);
 		
 		spieleTabelle = new JTable();
-		spieleTabelle.setEnabled(false);
 		spieleTabelle.setBounds(10, 169, 526, -164);
+		spieleTabelle.setEnabled(false);
 		panel.add(spieleTabelle);
 		spieleTabelle.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -94,12 +96,16 @@ public class ZurueckgebenFenster extends JFrame {
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {		
-			
-
 					try {
-						ResultSet rs = zurueckDao.searchForKundenspiele(suchenTextField.getText());
-						ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
-						System.out.println(rs);				
+						ResultSet rs;
+						try {
+							rs = zurueckDao.searchForKundenspiele(suchenTextField.getText());
+							ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
+							System.out.println(rs);	
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}			
 					} catch (ClassNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

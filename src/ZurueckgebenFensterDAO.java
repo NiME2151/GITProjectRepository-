@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -39,8 +40,8 @@ public class ZurueckgebenFensterDAO {
 		
 		if (spiele.getLageranzahl() == 0) {
 			String sql = "Delete KundenSpiele.ausleihmenge From KundenSpiele WHERE KundenSpiele =" + kundenSpiele.getAusleihmenge();
-			String daten;
-			//daten = datenAusgabe(zurueck);
+			
+			
 			// Die Daten vom ZurueckgebenFenster m�ssen in einer Methode geschrieben werden und hier �bergeben werden (siehe Unten!)
 		} else {
 			// Hier kommt nichts mehr hin!
@@ -59,22 +60,26 @@ public class ZurueckgebenFensterDAO {
 		}
 		return rs;
 	}
-	public String datenAusgabe(ZurueckgebenFenster zurueck) {
-		
-		// Wird noch bearbeitet!
+	public ResultSet datenAusgabe(ZurueckgebenFenster zurueck) {
+		 	
 		
 		
 		
 		return null;
 	}
 
-	public ResultSet searchForKundenspiele(String kunde) throws ClassNotFoundException {
+	public ResultSet searchForKundenspiele(String kunde) throws ClassNotFoundException, SQLException {
 		ResultSet rs = null;
+		PreparedStatement preparedStatement = null;
 		conn = ConnectToDB.getConnection();
 		String sql = "SELECT KUNDENSPIELE.* FROM KUNDENSPIELE INNER JOIN KUNDEN ON KUNDENSPIELE.KUNDENID"
-				+ " = KUNDEN.ID WHERE KUNDEN.NACHNAME = '" + kunde.toLowerCase() + "'";
+				+ " = KUNDEN.ID WHERE KUNDEN.NACHNAME = ?";
+		preparedStatement = conn.prepareStatement(sql);
+		preparedStatement.setString(1, kunde.toLowerCase());
+		preparedStatement.executeQuery();
 		System.out.println(sql);
 		try {
+			Connection conn = ConnectToDB.getConnection();
 			statement = conn.createStatement();
 			rs = statement.executeQuery(sql);
 			System.out.println("SQL-SELECT funzt");

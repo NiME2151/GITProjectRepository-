@@ -376,7 +376,7 @@ protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFou
 
 	if (gesuchterKunde.equalsIgnoreCase("")) {
 		JOptionPane spielAngebenAlert = new JOptionPane();
-		spielAngebenAlert.showMessageDialog(this, "Bitte Name des Kunden angeben!", "Fehler", JOptionPane.ERROR_MESSAGE);
+		spielAngebenAlert.showMessageDialog(this, "Bitte den Namen des Kunden angeben!", "Fehler", JOptionPane.ERROR_MESSAGE);
 	}
 }
 
