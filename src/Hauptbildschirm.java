@@ -94,7 +94,6 @@ public class Hauptbildschirm extends JFrame {
 	
 	private void initGUI() {
 		setTitle("Hauptbildschirm");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 775, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -372,6 +371,8 @@ public class Hauptbildschirm extends JFrame {
 	
 	
 		protected void do_hilfeButton_actionPerformed(ActionEvent e) {
+			Hilfefenster hf = new Hilfefenster();
+			hf.setVisible(true);
 		}
 		protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 			String gesuchtesSpiel = String.valueOf(suchfeldTextField.getText());
