@@ -575,7 +575,7 @@ public class Spieleverwaltung extends JFrame {
 			entfernenButton.setEnabled(false);
 		}
 	}
-	/*protected void do_releaseDatumTextField_keyTyped(KeyEvent e) {
+	protected void do_releaseDatumTextField_keyTyped(KeyEvent e) {
 		checkForFilledTextFields();
 	}
 	protected void do_verfuegbarkeitTextField_keyTyped(KeyEvent e) {
@@ -601,7 +601,7 @@ public class Spieleverwaltung extends JFrame {
 	}
 	protected void do_spracheTextField_keyTyped(KeyEvent e) {
 		checkForFilledTextFields();
-	}*/
+	}
 	protected void do_uskFreigabeTextField_actionPerformed(ActionEvent e) {
 		checkForFilledTextFields();
 	}
