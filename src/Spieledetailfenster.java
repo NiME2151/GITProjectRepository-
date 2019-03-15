@@ -80,7 +80,6 @@ public class Spieledetailfenster extends JFrame {
 	
 	private void initGUI() throws ClassNotFoundException, SQLException {
 		setTitle("Spieledetailfenster");
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 400);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
