@@ -27,6 +27,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 //
 public class Hauptbildschirm extends JFrame {
 
@@ -97,12 +99,69 @@ public class Hauptbildschirm extends JFrame {
 
 
 	private void initGUI() {
+		
 		setTitle("Hauptbildschirm");
 		setBounds(100, 100, 775, 400);
+		
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setContentPane(this.contentPane);
 		this.contentPane.setLayout(null);
+		{
+			this.adminLoginPane = new JPanel();
+			this.adminLoginPane.setVisible(false);
+			this.adminLoginPane.setBounds(0, 0, 759, 362);
+			this.contentPane.add(this.adminLoginPane);
+			this.adminLoginPane.setLayout(null);
+			{
+				this.idLabel = new JLabel("ID:");
+				this.idLabel.setBounds(10, 11, 80, 14);
+				this.adminLoginPane.add(this.idLabel);
+			}
+			{
+				this.passwortLabel = new JLabel("Passwort:");
+				this.passwortLabel.setBounds(10, 36, 80, 14);
+				this.adminLoginPane.add(this.passwortLabel);
+			}
+			{
+				this.idTextField = new JTextField();
+				idTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							checkAdminLoggedIn();
+						}
+					}
+				});
+				this.idTextField.setBounds(100, 8, 86, 20);
+				this.adminLoginPane.add(this.idTextField);
+				this.idTextField.setColumns(10);
+			}
+			{
+				this.passwortTextField = new JTextField();
+				passwortTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							checkAdminLoggedIn();
+						}
+					}
+				});
+				this.passwortTextField.setBounds(100, 33, 86, 20);
+				this.adminLoginPane.add(this.passwortTextField);
+				this.passwortTextField.setColumns(10);
+			}
+			{
+				this.loginButton = new JButton("Einloggen");
+				this.loginButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_loginButton_actionPerformed(e);
+					}
+				});
+				this.loginButton.setBounds(97, 64, 89, 23);
+				this.adminLoginPane.add(this.loginButton);
+			}
+		}
 		{
 			this.spielelistePanel = new JPanel();
 			this.spielelistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -440,9 +499,7 @@ public class Hauptbildschirm extends JFrame {
 		this.setSize(200, 125);
 		this.setResizable(false);
 	}
-	protected void do_alphabetischFilterComboBox_actionPerformed(ActionEvent e) throws ClassNotFoundException {
 
-	}
 
 
 
