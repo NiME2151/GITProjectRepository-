@@ -286,6 +286,8 @@ public class Ausleihfenster extends JFrame {
 		System.out.println("preisRechnen: " + this.ausleihpreisTextField.getText());
 		ausleihenButton.setEnabled(true);
 	}
+	
+	
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) {
 		String ausgewaehlterKunde = kundeAuswaehlen.getKundennachnameInTable(kundenlisteTable);
 	}
@@ -319,6 +321,8 @@ public class Ausleihfenster extends JFrame {
 	    System.out.println("faellig: " + date);
 		return date;
 	}
+	
+	
 	public void fehlermeldungButton() throws ClassNotFoundException, SQLException {
 		fenster = new Ausleihfenster(spiel);
 		String gesuchtesSpiel = String.valueOf(kundensucheTextField.getText().trim());

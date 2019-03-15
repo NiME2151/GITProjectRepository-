@@ -136,9 +136,20 @@ public class Spieleverwaltung extends JFrame {
 					}
 				});
 				this.titelTextField.addKeyListener(new KeyAdapter() {
+
 					@Override
-					public void keyTyped(KeyEvent e) {
-						//do_titelTextField_keyTyped(e);
+					public void keyTyped(KeyEvent e)
+					{
+					}
+
+					@Override
+					public void keyReleased(KeyEvent e)
+					{
+					}
+
+					@Override
+					public void keyPressed(KeyEvent e)
+					{
 					}
 				});
 				this.titelTextField.setBounds(120, 38, 190, 20);
@@ -489,6 +500,7 @@ public class Spieleverwaltung extends JFrame {
 						|| titelTextField.getText().length() > 0 
 						|| genreComboBox.getItemAt(0).toString().length() > 0
 						|| genreComboBox.getSelectedItem().toString().length() > 0
+						|| beschreibungTextField.getText().length() > 0
 						|| uskFreigabeTextField.getText().length() > 0
 						|| spracheTextField.getText().length() > 0 
 						|| verfuegbarkeitTextField.getText().length() > 0) {
@@ -545,35 +557,39 @@ public class Spieleverwaltung extends JFrame {
 	}
 	
 	public void checkForFilledTextFields() {
-		if (idTextField.getText().length() > 0
-				&& preisTextField.getText().length() > 0
-				&& titelTextField.getText().length() > 0
-				&& releaseDatumTextField.getText().length() > 0
-				&& beschreibungTextField.getText().length() > 0
-				&& lageranzahlTextField.getText().length() > 0
-				&& uskFreigabeTextField.getText().length() > 0
-				&& spracheTextField.getText().length() > 0
-				&& verfuegbarkeitTextField.getText().length() > 0
-				&& genreComboBox.getSelectedItem() != ""
-				) {
-			entfernenButton.setEnabled(true);
-		}
-		/*else if (!idTextField.getText().equals("")
-				&& !preisTextField.getText().equals("")
-				&& !titelTextField.getText().equals("")
-				&& !releaseDatumTextField.getText().equals("")
-				&& !beschreibungTextField.getText().equals("")
-				&& !lageranzahlTextField.getText().equals("")
-				&& !uskFreigabeTextField.getText().equals("")
-				&& !spracheTextField.getText().equals("")
-				&& !verfuegbarkeitTextField.getText().equals("")
-				&& !genreComboBox.getSelectedItem().equals("")
-				) {
-			entfernenButton.setEnabled(true);
-		}*/
-		else {
-			entfernenButton.setEnabled(false);
-		}
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				do {
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (idTextField.getText().length() > 0
+							&& preisTextField.getText().length() > 0
+							&& titelTextField.getText().length() > 0
+							&& releaseDatumTextField.getText().length() > 0
+							&& beschreibungTextField.getText().length() > 0
+							&& lageranzahlTextField.getText().length() > 0
+							&& uskFreigabeTextField.getText().length() > 0
+							&& spracheTextField.getText().length() > 0
+							&& verfuegbarkeitTextField.getText().length() > 0
+							&& genreComboBox.getSelectedItem().toString().length() > 0
+							) {
+						entfernenButton.setEnabled(true);
+					}
+					else {
+						entfernenButton.setEnabled(false);
+					}
+				} while (true);	
+			}
+		});t.start();
+		
+		
+		
+		
 	}
 	/*protected void do_releaseDatumTextField_keyTyped(KeyEvent e) {
 		checkForFilledTextFields();
