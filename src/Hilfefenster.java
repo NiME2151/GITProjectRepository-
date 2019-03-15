@@ -29,7 +29,10 @@ public class Hilfefenster extends JFrame {
 	private JPanel kundenverwaltungPanel;
 	private JButton kundenverwaltungZurueckButton;
 	private JTextArea kundenverwaltungTextArea;
-
+	private JPanel ausleihfensterPanel;
+	private JTextArea ausleihfensterTextArea;
+	private JButton ausleihfensterZurueckButton;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -63,20 +66,48 @@ public class Hilfefenster extends JFrame {
 			this.spieledetailfensterPanel = new JPanel();
 			this.spieledetailfensterPanel.setVisible(false);
 			{
+				ausleihfensterPanel = new JPanel();
+				ausleihfensterPanel.setBounds(0, 0, 674, 401);
+				contentPane.add(ausleihfensterPanel);
+				ausleihfensterPanel.setLayout(null);
+				{
+					ausleihfensterTextArea = new JTextArea();
+					ausleihfensterTextArea.setBounds(10, 11, 160, 390);
+					ausleihfensterTextArea.setText("1: Oben Links ist der Kunden anlegen Button. Wenn man auf den Button klickt dann \u00F6ffnet sich ein neues Kundenverwaltungsfenster in dem man einen neuen Kunden anlegen kann.\\n\\n  2: Rechts daneben ist ein TextField, in dem TextField wird ein Nachname eingegeben und mit dem Klick auf den Suchen Button wird links der Kunde aufgelistet den man gesucht hat. \\n\\n  3: Rechts unter dem Suchen Button sind mehrere TextFields, in den ersten beiden wird die Leihdauer und die Ausleihmenge angegeben. \tWird da ein falscher Wert eingebeben dann kommt eine Fehlermeldung und der Preis kann nicht berechnet werden. Darunter kann man dann, mit einem klick auf den AusleihButton ausleihen.");
+					ausleihfensterTextArea.setWrapStyleWord(true);
+					ausleihfensterTextArea.setLineWrap(true);
+					ausleihfensterTextArea.setEditable(false);
+					ausleihfensterTextArea.setBackground(SystemColor.menu);
+					ausleihfensterPanel.add(ausleihfensterTextArea);
+				}
+				{
+					ausleihfensterZurueckButton = new JButton("Zur\u00FCck");
+					ausleihfensterZurueckButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							ausleihfensterPanel.setVisible(false);
+							menuePanel.setVisible(true);
+						}
+					});
+					ausleihfensterZurueckButton.setBounds(513, 378, 131, 23);
+					ausleihfensterPanel.add(ausleihfensterZurueckButton);
+				}
+			}
+			{
 				this.kundenverwaltungPanel = new JPanel();
 				this.kundenverwaltungPanel.setBounds(0, 0, 684, 412);
 				this.contentPane.add(this.kundenverwaltungPanel);
-				this.kundenverwaltungPanel.setLayout(null);
 				{
 					this.kundenverwaltungZurueckButton = new JButton("Zur\u00FCck");
+					kundenverwaltungZurueckButton.setBounds(524, 378, 150, 23);
 					this.kundenverwaltungZurueckButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							do_kundenverwaltungZurueckButton_actionPerformed(e);
 						}
 					});
+					kundenverwaltungPanel.setLayout(null);
 					{
 						this.kundenverwaltungTextArea = new JTextArea();
-						this.kundenverwaltungTextArea.setBounds(10, 11, 160, 390);
+						kundenverwaltungTextArea.setBounds(10, 11, 160, 390);
 						this.kundenverwaltungPanel.add(this.kundenverwaltungTextArea);
 						this.kundenverwaltungTextArea.setWrapStyleWord(true);
 						this.kundenverwaltungTextArea.setLineWrap(true);
@@ -90,7 +121,6 @@ public class Hilfefenster extends JFrame {
 								+ "4: Der Entfernen-Button wird erst nuztbar, wenn alle Textfelder ausgefüllt sind. Dann kann der ausgewewählte Kunde gelöscht werden\n\n"
 								+ "5: Der Schließen-Button schließt das aktuelle Fenster.");
 					}
-					this.kundenverwaltungZurueckButton.setBounds(524, 378, 150, 23);
 					this.kundenverwaltungPanel.add(this.kundenverwaltungZurueckButton);
 				}
 			}
@@ -203,6 +233,8 @@ public class Hilfefenster extends JFrame {
 		kundenverwaltungPanel.setVisible(true);
 	}
 	protected void do_ausleihfensterButton_actionPerformed(ActionEvent e) {
+		menuePanel.setVisible(false);
+		ausleihfensterPanel.setVisible(true);
 	}
 	protected void do_hauptbildschirmButton_actionPerformed(ActionEvent e) {
 	}
