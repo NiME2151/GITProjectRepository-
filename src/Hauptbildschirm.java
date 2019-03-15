@@ -308,16 +308,16 @@ public class Hauptbildschirm extends JFrame {
 							}
 						}
 					});
-					this.alphabetischFilterComboBox.addActionListener(new ActionListener() {
+					/*this.alphabetischFilterComboBox.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							try {
-								do_alphabetischFilterComboBox_actionPerformed(arg0);
+								//do_alphabetischFilterComboBox_actionPerformed(arg0);
 							} catch (ClassNotFoundException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
-					});
+					});*/
 					this.alphabetischFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "absteigend", "aufsteigend"}));
 					this.alphabetischFilterComboBox.setToolTipText("");
 					this.alphabetischFilterComboBox.setBounds(10, 100, 205, 20);
