@@ -36,7 +36,7 @@ public class Spieleverwaltung extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel titelLabel;
-	private JPanel panel;
+	private JPanel linkesPanel;
 	private JLabel preisLabel;
 	private JLabel releaseDatumLabel;
 	private JLabel genreLabel;
@@ -83,50 +83,50 @@ public class Spieleverwaltung extends JFrame {
 		setContentPane(this.contentPane);
 		this.contentPane.setLayout(null);
 		{
-			this.panel = new JPanel();
-			this.panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-			this.panel.setBounds(10, 11, 320, 339);
-			this.contentPane.add(this.panel);
-			this.panel.setLayout(null);
+			this.linkesPanel = new JPanel();
+			this.linkesPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+			this.linkesPanel.setBounds(10, 11, 320, 339);
+			this.contentPane.add(this.linkesPanel);
+			this.linkesPanel.setLayout(null);
 			{
 				this.titelLabel = new JLabel("Titel: ");
 				this.titelLabel.setBounds(10, 41, 100, 14);
-				this.panel.add(this.titelLabel);
+				this.linkesPanel.add(this.titelLabel);
 			}
 			{
 				this.preisLabel = new JLabel("Preis pro Tag:");
 				this.preisLabel.setBounds(10, 66, 100, 14);
-				this.panel.add(this.preisLabel);
+				this.linkesPanel.add(this.preisLabel);
 			}
 			{
 				this.releaseDatumLabel = new JLabel("Release-Datum:");
 				this.releaseDatumLabel.setBounds(10, 91, 100, 14);
-				this.panel.add(this.releaseDatumLabel);
+				this.linkesPanel.add(this.releaseDatumLabel);
 			}
 			{
 				this.genreLabel = new JLabel("Genre:");
 				this.genreLabel.setBounds(10, 116, 100, 14);
-				this.panel.add(this.genreLabel);
+				this.linkesPanel.add(this.genreLabel);
 			}
 			{
 				this.uskFreigabeLabel = new JLabel("USK-Freigabe:");
 				this.uskFreigabeLabel.setBounds(10, 141, 100, 14);
-				this.panel.add(this.uskFreigabeLabel);
+				this.linkesPanel.add(this.uskFreigabeLabel);
 			}
 			{
 				this.lageranzahlLabel = new JLabel("Lageranzahl:");
 				this.lageranzahlLabel.setBounds(10, 166, 100, 14);
-				this.panel.add(this.lageranzahlLabel);
+				this.linkesPanel.add(this.lageranzahlLabel);
 			}
 			{
 				this.verfuegbarkeitLabel = new JLabel("Verf\u00FCgbarkeit:");
 				this.verfuegbarkeitLabel.setBounds(10, 191, 100, 14);
-				this.panel.add(this.verfuegbarkeitLabel);
+				this.linkesPanel.add(this.verfuegbarkeitLabel);
 			}
 			{
 				this.spracheLabel = new JLabel("Sprache:");
 				this.spracheLabel.setBounds(10, 216, 100, 14);
-				this.panel.add(this.spracheLabel);
+				this.linkesPanel.add(this.spracheLabel);
 			}
 			{
 				this.titelTextField = new JTextField();
@@ -136,13 +136,24 @@ public class Spieleverwaltung extends JFrame {
 					}
 				});
 				this.titelTextField.addKeyListener(new KeyAdapter() {
+
 					@Override
-					public void keyTyped(KeyEvent e) {
-						//do_titelTextField_keyTyped(e);
+					public void keyTyped(KeyEvent e)
+					{
+					}
+
+					@Override
+					public void keyReleased(KeyEvent e)
+					{
+					}
+
+					@Override
+					public void keyPressed(KeyEvent e)
+					{
 					}
 				});
 				this.titelTextField.setBounds(120, 38, 190, 20);
-				this.panel.add(this.titelTextField);
+				this.linkesPanel.add(this.titelTextField);
 				this.titelTextField.setColumns(10);
 			}
 			{
@@ -160,7 +171,7 @@ public class Spieleverwaltung extends JFrame {
 				});
 				this.preisTextField.setColumns(10);
 				this.preisTextField.setBounds(120, 63, 190, 20);
-				this.panel.add(this.preisTextField);
+				this.linkesPanel.add(this.preisTextField);
 			}
 			{
 				this.releaseDatumTextField = new JTextField();
@@ -177,7 +188,7 @@ public class Spieleverwaltung extends JFrame {
 				});
 				this.releaseDatumTextField.setColumns(10);
 				this.releaseDatumTextField.setBounds(120, 88, 190, 20);
-				this.panel.add(this.releaseDatumTextField);
+				this.linkesPanel.add(this.releaseDatumTextField);
 			}
 			{
 				this.uskFreigabeTextField = new JTextField();
@@ -194,7 +205,7 @@ public class Spieleverwaltung extends JFrame {
 				});
 				this.uskFreigabeTextField.setColumns(10);
 				this.uskFreigabeTextField.setBounds(120, 138, 190, 20);
-				this.panel.add(this.uskFreigabeTextField);
+				this.linkesPanel.add(this.uskFreigabeTextField);
 			}
 			{
 				this.lageranzahlTextField = new JTextField();
@@ -211,7 +222,7 @@ public class Spieleverwaltung extends JFrame {
 				});
 				this.lageranzahlTextField.setColumns(10);
 				this.lageranzahlTextField.setBounds(120, 163, 190, 20);
-				this.panel.add(this.lageranzahlTextField);
+				this.linkesPanel.add(this.lageranzahlTextField);
 			}
 			{
 				this.verfuegbarkeitTextField = new JTextField();
@@ -228,7 +239,7 @@ public class Spieleverwaltung extends JFrame {
 				});
 				this.verfuegbarkeitTextField.setColumns(10);
 				this.verfuegbarkeitTextField.setBounds(120, 188, 190, 20);
-				this.panel.add(this.verfuegbarkeitTextField);
+				this.linkesPanel.add(this.verfuegbarkeitTextField);
 			}
 			{
 				this.spracheTextField = new JTextField();
@@ -245,7 +256,7 @@ public class Spieleverwaltung extends JFrame {
 				});
 				this.spracheTextField.setColumns(10);
 				this.spracheTextField.setBounds(120, 213, 190, 20);
-				this.panel.add(this.spracheTextField);
+				this.linkesPanel.add(this.spracheTextField);
 			}
 			{
 				this.hinzufuegenButton = new JButton("Hinzuf\u00FCgen");
@@ -260,7 +271,7 @@ public class Spieleverwaltung extends JFrame {
 					}
 				});
 				this.hinzufuegenButton.setBounds(10, 305, 98, 23);
-				this.panel.add(this.hinzufuegenButton);
+				this.linkesPanel.add(this.hinzufuegenButton);
 			}
 			{
 				this.entfernenButton = new JButton("Entfernen");
@@ -276,7 +287,7 @@ public class Spieleverwaltung extends JFrame {
 					}
 				});
 				this.entfernenButton.setBounds(212, 305, 98, 23);
-				this.panel.add(this.entfernenButton);
+				this.linkesPanel.add(this.entfernenButton);
 			}
 			{
 				this.aendernButton = new JButton("\u00C4ndern");
@@ -286,7 +297,7 @@ public class Spieleverwaltung extends JFrame {
 					}
 				});
 				this.aendernButton.setBounds(120, 305, 82, 23);
-				this.panel.add(this.aendernButton);
+				this.linkesPanel.add(this.aendernButton);
 			}
 			{
 				this.genreComboBox = new JComboBox();
@@ -301,12 +312,12 @@ public class Spieleverwaltung extends JFrame {
 						"Simulation", "Sport", "Strategie" }));
 				this.genreComboBox.setToolTipText("");
 				this.genreComboBox.setBounds(120, 113, 190, 20);
-				this.panel.add(this.genreComboBox);
+				this.linkesPanel.add(this.genreComboBox);
 			}
 
 			JLabel idLabel = new JLabel("ID:");
 			idLabel.setBounds(10, 16, 100, 14);
-			panel.add(idLabel);
+			linkesPanel.add(idLabel);
 
 			idTextField = new JTextField();
 			this.idTextField.addActionListener(new ActionListener() {
@@ -321,12 +332,12 @@ public class Spieleverwaltung extends JFrame {
 				}
 			});
 			idTextField.setBounds(120, 13, 190, 20);
-			panel.add(idTextField);
+			linkesPanel.add(idTextField);
 			idTextField.setColumns(10);
 			{
 				this.beschreibungLabel = new JLabel("Beschreibung:");
 				this.beschreibungLabel.setBounds(10, 241, 100, 14);
-				this.panel.add(this.beschreibungLabel);
+				this.linkesPanel.add(this.beschreibungLabel);
 			}
 			{
 				this.beschreibungTextField = new JTextField();
@@ -343,7 +354,7 @@ public class Spieleverwaltung extends JFrame {
 				});
 				this.beschreibungTextField.setColumns(10);
 				this.beschreibungTextField.setBounds(120, 238, 190, 20);
-				this.panel.add(this.beschreibungTextField);
+				this.linkesPanel.add(this.beschreibungTextField);
 			}
 		}
 		{
@@ -408,9 +419,9 @@ public class Spieleverwaltung extends JFrame {
 		spielelisteTable.setBounds(350, 331, 284, 240);
 		contentPane.add(spielelisteTable);
 
-		JScrollPane scrollPane = new JScrollPane(spielelisteTable);
-		scrollPane.setBounds(340, 76, 284, 240);
-		contentPane.add(scrollPane);
+		JScrollPane spielelisteScrollPane = new JScrollPane(spielelisteTable);
+		spielelisteScrollPane.setBounds(340, 76, 284, 240);
+		contentPane.add(spielelisteScrollPane);
 	}
 
 	protected void do_suchenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
@@ -489,6 +500,7 @@ public class Spieleverwaltung extends JFrame {
 						|| titelTextField.getText().length() > 0 
 						|| genreComboBox.getItemAt(0).toString().length() > 0
 						|| genreComboBox.getSelectedItem().toString().length() > 0
+						|| beschreibungTextField.getText().length() > 0
 						|| uskFreigabeTextField.getText().length() > 0
 						|| spracheTextField.getText().length() > 0 
 						|| verfuegbarkeitTextField.getText().length() > 0) {
@@ -545,35 +557,39 @@ public class Spieleverwaltung extends JFrame {
 	}
 	
 	public void checkForFilledTextFields() {
-		if (idTextField.getText().length() > 0
-				&& preisTextField.getText().length() > 0
-				&& titelTextField.getText().length() > 0
-				&& releaseDatumTextField.getText().length() > 0
-				&& beschreibungTextField.getText().length() > 0
-				&& lageranzahlTextField.getText().length() > 0
-				&& uskFreigabeTextField.getText().length() > 0
-				&& spracheTextField.getText().length() > 0
-				&& verfuegbarkeitTextField.getText().length() > 0
-				&& genreComboBox.getSelectedItem() != ""
-				) {
-			entfernenButton.setEnabled(true);
-		}
-		/*else if (!idTextField.getText().equals("")
-				&& !preisTextField.getText().equals("")
-				&& !titelTextField.getText().equals("")
-				&& !releaseDatumTextField.getText().equals("")
-				&& !beschreibungTextField.getText().equals("")
-				&& !lageranzahlTextField.getText().equals("")
-				&& !uskFreigabeTextField.getText().equals("")
-				&& !spracheTextField.getText().equals("")
-				&& !verfuegbarkeitTextField.getText().equals("")
-				&& !genreComboBox.getSelectedItem().equals("")
-				) {
-			entfernenButton.setEnabled(true);
-		}*/
-		else {
-			entfernenButton.setEnabled(false);
-		}
+		Thread t = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				do {
+					try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					if (idTextField.getText().length() > 0
+							&& preisTextField.getText().length() > 0
+							&& titelTextField.getText().length() > 0
+							&& releaseDatumTextField.getText().length() > 0
+							&& beschreibungTextField.getText().length() > 0
+							&& lageranzahlTextField.getText().length() > 0
+							&& uskFreigabeTextField.getText().length() > 0
+							&& spracheTextField.getText().length() > 0
+							&& verfuegbarkeitTextField.getText().length() > 0
+							&& genreComboBox.getSelectedItem().toString().length() > 0
+							) {
+						entfernenButton.setEnabled(true);
+					}
+					else {
+						entfernenButton.setEnabled(false);
+					}
+				} while (true);	
+			}
+		});t.start();
+		
+		
+		
+		
 	}
 	protected void do_releaseDatumTextField_keyTyped(KeyEvent e) {
 		checkForFilledTextFields();
