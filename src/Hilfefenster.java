@@ -95,12 +95,12 @@ public class Hilfefenster extends JFrame {
 							this.kundenverwaltungTextArea.setEditable(false);
 							this.kundenverwaltungTextArea.setBackground(SystemColor.menu);
 							this.kundenverwaltungTextArea.setText("1: Im Suchfeld kann, per Nachname, nach einen Kunden gesucht werden. "
-									+ "Dieser wird in der Tabelle unter dem Suchfeld angezeigt. Bei Klick auf die Zeile des Kunden den man auswählen will"
+									+ "Dieser wird in der Tabelle unter dem Suchfeld angezeigt. Bei Klick auf die Zeile des Kunden den man auswï¿½hlen will"
 									+ "werden die Daten des Kunden in die Textfelder geschrieben.\n\n"
-									+ "2: Sind alle Felder ausgefüllt kann der Hinzufügen-Button benutzt werden um einen neuen Kunden anzulegen\n\n"
-									+ "3: Ist ein Kunde ausgewählt kann man die Daten in den Textfeldern ändern, um mit Klick auf den Ändern-Button werden die Daten geändert.\n\n"
-									+ "4: Der Entfernen-Button wird erst nuztbar, wenn alle Textfelder ausgefüllt sind. Dann kann der ausgewewählte Kunde gelöscht werden\n\n"
-									+ "5: Der Schließen-Button schließt das aktuelle Fenster.");
+									+ "2: Sind alle Felder ausgefï¿½llt kann der Hinzufï¿½gen-Button benutzt werden um einen neuen Kunden anzulegen\n\n"
+									+ "3: Ist ein Kunde ausgewï¿½hlt kann man die Daten in den Textfeldern ï¿½ndern, um mit Klick auf den ï¿½ndern-Button werden die Daten geï¿½ndert.\n\n"
+									+ "4: Der Entfernen-Button wird erst nuztbar, wenn alle Textfelder ausgefï¿½llt sind. Dann kann der ausgewewï¿½hlte Kunde gelï¿½scht werden\n\n"
+									+ "5: Der Schlieï¿½en-Button schlieï¿½t das aktuelle Fenster.");
 						}
 						this.kundenverwaltungZurueckButton.setBounds(524, 378, 150, 23);
 						this.kundenverwaltungPanel.add(this.kundenverwaltungZurueckButton);
@@ -152,10 +152,10 @@ public class Hilfefenster extends JFrame {
 					{
 						this.spieleverwaltungTextArea = new JTextArea();
 						this.spieleverwaltungTextArea.setText("1: In dem Suchfeld kann nach einem Spieletitel gesucht werden. Die Ergebnisse werden in der Liste darunter angezeigt.\n\n"
-								+ "2: Sind alle Felder ausgefüllt kann der Hinzufügen-Button benutzt werden um einen neuen Kunden anzulegen\n\n"
-								+ "3: Ist ein Kunde ausgewählt kann man die Daten in den Textfeldern ändern, um mit Klick auf den Ändern-Button werden die Daten geändert.\n\n"
-								+ "4: Der Entfernen-Button wird erst nuztbar, wenn alle Textfelder ausgefüllt sind. Dann kann der ausgewewählte Kunde gelöscht werden\n\n"
-								+ "5: Der Schließen-Button schließt das aktuelle Fenster.");
+								+ "2: Sind alle Felder ausgefï¿½llt kann der Hinzufï¿½gen-Button benutzt werden um einen neuen Kunden anzulegen\n\n"
+								+ "3: Ist ein Kunde ausgewï¿½hlt kann man die Daten in den Textfeldern ï¿½ndern, um mit Klick auf den ï¿½ndern-Button werden die Daten geï¿½ndert.\n\n"
+								+ "4: Der Entfernen-Button wird erst nuztbar, wenn alle Textfelder ausgefï¿½llt sind. Dann kann der ausgewewï¿½hlte Kunde gelï¿½scht werden\n\n"
+								+ "5: Der Schlieï¿½en-Button schlieï¿½t das aktuelle Fenster.");
 						this.spieleverwaltungTextArea.setWrapStyleWord(true);
 						this.spieleverwaltungTextArea.setLineWrap(true);
 						this.spieleverwaltungTextArea.setEditable(false);
