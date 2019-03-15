@@ -278,10 +278,7 @@ public class Ausleihfenster extends JFrame {
 		kundenverwaltung.setVisible(true);
 	}
 	protected void do_preisBerechnenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException, SQLException {
-		this.ausleihpreisProTag = Double.valueOf(getSpieleDaten(spiel).getPreis());
-		this.gesamtausleihpreis = (Double.valueOf(this.leihdauerInTagenTextField.getText()) * ausleihpreisProTag);
-		this.gesamtausleihpreis = this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText());
-		this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.gesamtausleihpreis).replace('.', ',')));
+		parsePrice();
 		System.out.println("preisRechnen: " + this.ausleihpreisTextField.getText());
 		ausleihenButton.setEnabled(true);
 	}
@@ -344,13 +341,16 @@ public class Ausleihfenster extends JFrame {
 			ausleihenButton.setVisible(false);
 		}
 	}
+	
+	public void parsePrice() throws ClassNotFoundException, SQLException {
+		try {
+			this.ausleihpreisProTag = Double.parseDouble(String.valueOf(getSpieleDaten(spiel).getPreis()));
+			this.gesamtausleihpreis = Double.parseDouble(String.valueOf((Double.valueOf(this.leihdauerInTagenTextField.getText()) * ausleihpreisProTag)));
+			this.gesamtausleihpreis = Double.parseDouble(String.valueOf(this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText())));
+			this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.gesamtausleihpreis).replace('.', ',')));
+		} catch (NumberFormatException e) {
+			JOptionPane parsePriceAlert = new JOptionPane();
+			parsePriceAlert.showMessageDialog(this, "Ihre Eingabe '" + leihdauerInTagenTextField.getText() + "' ist nicht korrekt. Es dürfen nur positive Zahlen eingegeben werden.", "Fehler", JOptionPane.ERROR_MESSAGE);
+		}
+	}
 }
-
-
-
-
-
-
-
-
-
