@@ -27,6 +27,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 //
@@ -252,7 +253,12 @@ public class Hauptbildschirm extends JFrame {
 				this.hilfeButton = new JButton("Hilfe");
 				this.hilfeButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						do_hilfeButton_actionPerformed(e);
+						try {
+							do_hilfeButton_actionPerformed(e);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				this.hilfeButton.setBounds(594, 10, 60, 28);
@@ -437,7 +443,7 @@ public class Hauptbildschirm extends JFrame {
 		}
 	}
 
-	protected void do_hilfeButton_actionPerformed(ActionEvent e) {
+	protected void do_hilfeButton_actionPerformed(ActionEvent e) throws IOException {
 		Hilfefenster hf = new Hilfefenster();
 		hf.setVisible(true);
 	}
