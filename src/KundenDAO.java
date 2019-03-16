@@ -11,7 +11,7 @@ public class KundenDAO {
 		ResultSet rs = null;
 		Connection conn = connect.connectToDB();
 		try {
-			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.vorname) = '"
+			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.nachname) = '"
 					+ kunde.toLowerCase() + "'";
 
 			
