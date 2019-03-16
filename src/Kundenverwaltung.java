@@ -421,12 +421,12 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_entfernenButton_actionPerformed(ActionEvent e) throws ClassNotFoundException {
-		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+		String id = kundeAuswaehlen.getKundennachnameInTable(kundenlisteTable);
 		kundenDAO.delete(id);
 	}
 
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
-		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
+		String id = kundeAuswaehlen.getKundennachnameInTable(kundenlisteTable);
 		setKundenDaten(id);
 
 	}

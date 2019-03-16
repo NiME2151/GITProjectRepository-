@@ -32,6 +32,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.SwingConstants;
 
 public class Ausleihfenster extends JFrame {
 
@@ -189,6 +190,8 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.ausleihpreisTextField = new JTextField();
+			this.ausleihpreisTextField.setHorizontalAlignment(SwingConstants.RIGHT);
+			this.ausleihpreisTextField.setEditable(false);
 			ausleihpreisTextField.setBounds(485, 145, 50, 20);
 			this.contentPane.add(this.ausleihpreisTextField);
 			this.ausleihpreisTextField.setColumns(10);
@@ -256,7 +259,7 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.waehrungTextField = new JTextField();
-			this.waehrungTextField.setText("EUR");
+			this.waehrungTextField.setText("\u20AC");
 			this.waehrungTextField.setEditable(false);
 			this.waehrungTextField.setBounds(545, 145, 29, 20);
 			this.contentPane.add(this.waehrungTextField);
@@ -343,14 +346,25 @@ public class Ausleihfenster extends JFrame {
 	}
 	
 	public void parsePrice() throws ClassNotFoundException, SQLException {
+		JOptionPane alert = new JOptionPane();
 		try {
 			this.ausleihpreisProTag = Double.parseDouble(String.valueOf(getSpieleDaten(spiel).getPreis()));
 			this.gesamtausleihpreis = Double.parseDouble(String.valueOf((Double.valueOf(this.leihdauerInTagenTextField.getText()) * ausleihpreisProTag)));
-			this.gesamtausleihpreis = Double.parseDouble(String.valueOf(this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText())));
-			this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.gesamtausleihpreis).replace('.', ',')));
+			if (this.gesamtausleihpreis > 0 && Double.valueOf(this.ausleihmengeTextField.getText()) > 0) {
+				this.gesamtausleihpreis = Double.parseDouble(String.valueOf(this.gesamtausleihpreis * Double.valueOf(this.ausleihmengeTextField.getText())));
+				this.ausleihpreisTextField.setText(String.valueOf(this.df.format(this.gesamtausleihpreis).replace('.', ',')));
+			}
+			else if (this.gesamtausleihpreis <= 0) {
+				alert.showMessageDialog(this, "Ihre Eingabe '" + leihdauerInTagenTextField.getText() + "' ist nicht korrekt. Die Leihdauer muss mehr als einen Tag betragen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+			}
+			else if (Double.valueOf(this.ausleihmengeTextField.getText()) <= 0) {
+				alert.showMessageDialog(this, "Ihre Eingabe '" + ausleihmengeTextField.getText() + "' ist nicht korrekt. Die Ausleihmenge muss mindestens eins betragen.", "Fehler", JOptionPane.ERROR_MESSAGE);
+			}
+			else {
+				System.out.println("Fehler");
+			}
 		} catch (NumberFormatException e) {
-			JOptionPane parsePriceAlert = new JOptionPane();
-			parsePriceAlert.showMessageDialog(this, "Ihre Eingabe '" + leihdauerInTagenTextField.getText() + "' ist nicht korrekt. Es dürfen nur positive Zahlen eingegeben werden.", "Fehler", JOptionPane.ERROR_MESSAGE);
+			alert.showMessageDialog(this, "Ihre Eingabe '" + leihdauerInTagenTextField.getText() + "' ist nicht korrekt. Es dürfen nur positive Zahlen eingegeben werden.", "Fehler", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
