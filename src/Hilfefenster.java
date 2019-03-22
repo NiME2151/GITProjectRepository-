@@ -1,17 +1,23 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import javax.swing.JLabel;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import java.awt.SystemColor;
 import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
 
 public class Hilfefenster extends JFrame {
 
@@ -37,6 +43,9 @@ public class Hilfefenster extends JFrame {
 	private JScrollPane spieleverwaltungScrollPane;
 	private JScrollPane spieledetailfensterScrollPane;
 	private JScrollPane kundenverwaltungScrollPane;
+	private JLabel kundenverwaltungImageLabel;
+	private JLabel spieledetailfensterImageLabel;
+	private JLabel spieleverwaltungImageLabel;
 
 	/**
 	 * Launch the application.
@@ -56,11 +65,12 @@ public class Hilfefenster extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws IOException 
 	 */
-	public Hilfefenster() {
+	public Hilfefenster() throws IOException {
 		initGUI();
 	}
-	private void initGUI() {
+	private void initGUI() throws IOException {
 		setTitle("Hilfefenster");
 		setBounds(100, 100, 700, 450);
 		this.contentPane = new JPanel();
@@ -69,13 +79,91 @@ public class Hilfefenster extends JFrame {
 		this.contentPane.setLayout(null);
 		{
 			{
-				this.spieleverwaltungPanel = new JPanel();
-				this.spieleverwaltungPanel.setVisible(false);
-				this.spieledetailfensterPanel = new JPanel();
-				this.spieledetailfensterPanel.setVisible(false);
 				{
 					this.kundenverwaltungPanel = new JPanel();
 					this.kundenverwaltungPanel.setVisible(false);
+					this.spieledetailfensterPanel = new JPanel();
+					this.spieledetailfensterPanel.setVisible(false);
+					this.spieleverwaltungPanel = new JPanel();
+					this.spieleverwaltungPanel.setVisible(false);
+					this.spieleverwaltungPanel.setBounds(0, 0, 684, 412);
+					this.contentPane.add(this.spieleverwaltungPanel);
+					this.spieleverwaltungPanel.setLayout(null);
+					{
+						this.spieleverwaltungZurueckButton = new JButton("Zur\u00FCck");
+						this.spieleverwaltungZurueckButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								do_spieleverwaltungZurueckButton_actionPerformed(e);
+							}
+						});
+						{
+							this.spieleverwaltungTextArea = new JTextArea();
+							this.spieleverwaltungTextArea.setText("1: In dem Suchfeld kann nach einem Spieletitel gesucht werden. Die Ergebnisse werden in der Liste darunter angezeigt.\n\n"
+									+ "2: Sind alle Felder ausgef�llt kann der Hinzuf�gen-Button benutzt werden um einen neuen Kunden anzulegen\n\n"
+									+ "3: Ist ein Kunde ausgew�hlt kann man die Daten in den Textfeldern �ndern, um mit Klick auf den �ndern-Button werden die Daten ge�ndert.\n\n"
+									+ "4: Der Entfernen-Button wird erst nuztbar, wenn alle Textfelder ausgef�llt sind. Dann kann der ausgewew�hlte Kunde gel�scht werden\n\n"
+									+ "5: Der Schlie�en-Button schlie�t das aktuelle Fenster.");
+							this.spieleverwaltungTextArea.setWrapStyleWord(true);
+							this.spieleverwaltungTextArea.setLineWrap(true);
+							this.spieleverwaltungTextArea.setEditable(false);
+							this.spieleverwaltungTextArea.setBackground(SystemColor.menu);
+							this.spieleverwaltungTextArea.setBounds(10, 11, 160, 390);
+							this.spieleverwaltungPanel.add(this.spieleverwaltungTextArea);
+						}
+						this.spieleverwaltungZurueckButton.setBounds(524, 378, 150, 23);
+						this.spieleverwaltungPanel.add(this.spieleverwaltungZurueckButton);
+					}
+					{
+						this.spieleverwaltungImageLabel = new JLabel();
+						this.spieleverwaltungImageLabel.setBounds(180, 11, 494, 356);
+						this.spieleverwaltungPanel.add(this.spieleverwaltungImageLabel);
+						ImageIcon imgIcon = new ImageIcon(getClass().getResource("/images/spieleverwaltung.PNG"));
+					    Image img = imgIcon.getImage().getScaledInstance(spieleverwaltungImageLabel.getWidth(), spieleverwaltungImageLabel.getHeight(), Image.SCALE_SMOOTH);
+						ImageIcon resizedImageIcon = new ImageIcon(img);
+					    this.spieleverwaltungImageLabel.setIcon(resizedImageIcon);
+					}
+					{
+						this.spieleverwaltungScrollPane = new JScrollPane(spieleverwaltungTextArea);
+						this.spieleverwaltungScrollPane.setBounds(10, 11, 160, 390);
+						this.spieleverwaltungPanel.add(this.spieleverwaltungScrollPane);
+					}
+					this.spieledetailfensterPanel.setBounds(0, 0, 684, 412);
+					this.contentPane.add(this.spieledetailfensterPanel);
+					this.spieledetailfensterPanel.setLayout(null);
+					{
+						this.spieledetailfensterTextArea = new JTextArea();
+						this.spieledetailfensterTextArea.setWrapStyleWord(true);
+						this.spieledetailfensterTextArea.setBackground(UIManager.getColor("Button.background"));
+						this.spieledetailfensterTextArea.setEditable(false);
+						this.spieledetailfensterTextArea.setBounds(10, 11, 160, 390);
+						this.spieledetailfensterPanel.add(this.spieledetailfensterTextArea);
+						this.spieledetailfensterTextArea.setLineWrap(true);
+						this.spieledetailfensterTextArea.setText("1: Links sind die Daten des ausgew\u00E4hlten Spieles zu sehen.\r\n\r\n2: Im Feld rechts ist eine kurze Beschreibung des Spieles.\r\n\r\n3: Der Ausleihen-Button f\u00FChrt zum Ausleihfenster, dort kann das ausgew\u00E4hlte Spiel ausgeliehen werden.\r\n\r\n4: Der Zur\u00FCckgeben-Button f\u00FChrt zum Zzur\u00FCckgebenfenster, dort kann man das ausgew\u00E4hlte Spiele wieder zur\u00FCckgeben\r\n\r\n5: Der Schlie\u00DFen-Button schlie\u00DFt das aktuelle Fenster.");
+					}
+					{
+						this.spieledetailfensterZurueckButton = new JButton("Zur\u00FCck");
+						this.spieledetailfensterZurueckButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								do_spieledetailfensterZurueckButton_actionPerformed(e);
+							}
+						});
+						this.spieledetailfensterZurueckButton.setBounds(524, 378, 150, 23);
+						this.spieledetailfensterPanel.add(this.spieledetailfensterZurueckButton);
+					}
+					{
+						this.spieledetailfensterImageLabel = new JLabel();
+						this.spieledetailfensterImageLabel.setBounds(180, 11, 494, 356);
+						this.spieledetailfensterPanel.add(this.spieledetailfensterImageLabel);
+						ImageIcon imgIcon = new ImageIcon(getClass().getResource("/images/spieledetailfenster.PNG"));
+					    Image img = imgIcon.getImage().getScaledInstance(spieledetailfensterImageLabel.getWidth(), spieledetailfensterImageLabel.getHeight(), Image.SCALE_SMOOTH);
+						ImageIcon resizedImageIcon = new ImageIcon(img);
+					    this.spieledetailfensterImageLabel.setIcon(resizedImageIcon);
+					}
+					{
+						this.spieledetailfensterScrollPane = new JScrollPane(spieledetailfensterTextArea);
+						this.spieledetailfensterScrollPane.setBounds(10, 11, 160, 390);
+						this.spieledetailfensterPanel.add(this.spieledetailfensterScrollPane);
+					}
 					this.kundenverwaltungPanel.setBounds(0, 0, 684, 412);
 					this.contentPane.add(this.kundenverwaltungPanel);
 					this.kundenverwaltungPanel.setLayout(null);
@@ -106,72 +194,19 @@ public class Hilfefenster extends JFrame {
 						this.kundenverwaltungPanel.add(this.kundenverwaltungZurueckButton);
 					}
 					{
+						this.kundenverwaltungImageLabel = new JLabel();
+						this.kundenverwaltungImageLabel.setBounds(180, 11, 494, 356);
+						this.kundenverwaltungPanel.add(this.kundenverwaltungImageLabel);
+						ImageIcon imgIcon = new ImageIcon(getClass().getResource("/images/Kundenverwaltung.PNG"));
+					    Image img = imgIcon.getImage().getScaledInstance(kundenverwaltungImageLabel.getWidth(), kundenverwaltungImageLabel.getHeight(), Image.SCALE_SMOOTH);
+						ImageIcon resizedImageIcon = new ImageIcon(img);
+					    this.kundenverwaltungImageLabel.setIcon(resizedImageIcon);
+					}
+					{
 						this.kundenverwaltungScrollPane = new JScrollPane(kundenverwaltungTextArea);
 						this.kundenverwaltungScrollPane.setBounds(10, 11, 160, 390);
 						this.kundenverwaltungPanel.add(this.kundenverwaltungScrollPane);
 					}
-				}
-				this.spieledetailfensterPanel.setBounds(0, 0, 684, 412);
-				this.contentPane.add(this.spieledetailfensterPanel);
-				this.spieledetailfensterPanel.setLayout(null);
-				{
-					this.spieledetailfensterTextArea = new JTextArea();
-					this.spieledetailfensterTextArea.setWrapStyleWord(true);
-					this.spieledetailfensterTextArea.setBackground(UIManager.getColor("Button.background"));
-					this.spieledetailfensterTextArea.setEditable(false);
-					this.spieledetailfensterTextArea.setBounds(10, 11, 160, 390);
-					this.spieledetailfensterPanel.add(this.spieledetailfensterTextArea);
-					this.spieledetailfensterTextArea.setLineWrap(true);
-					this.spieledetailfensterTextArea.setText("1: Links sind die Daten des ausgew\u00E4hlten Spieles zu sehen.\r\n\r\n2: Im Feld rechts ist eine kurze Beschreibung des Spieles.\r\n\r\n3: Der Ausleihen-Button f\u00FChrt zum Ausleihfenster, dort kann das ausgew\u00E4hlte Spiel ausgeliehen werden.\r\n\r\n4: Der Zur\u00FCckgeben-Button f\u00FChrt zum Zzur\u00FCckgebenfenster, dort kann man das ausgew\u00E4hlte Spiele wieder zur\u00FCckgeben\r\n\r\n5: Der Schlie\u00DFen-Button schlie\u00DFt das aktuelle Fenster.");
-				}
-				{
-					this.spieledetailfensterZurueckButton = new JButton("Zur\u00FCck");
-					this.spieledetailfensterZurueckButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							do_spieledetailfensterZurueckButton_actionPerformed(e);
-						}
-					});
-					this.spieledetailfensterZurueckButton.setBounds(524, 378, 150, 23);
-					this.spieledetailfensterPanel.add(this.spieledetailfensterZurueckButton);
-				}
-				{
-					this.spieledetailfensterScrollPane = new JScrollPane(spieledetailfensterTextArea);
-					this.spieledetailfensterScrollPane.setBounds(10, 11, 160, 390);
-					this.spieledetailfensterPanel.add(this.spieledetailfensterScrollPane);
-				}
-				this.spieleverwaltungPanel.setBounds(0, 0, 684, 412);
-				this.contentPane.add(this.spieleverwaltungPanel);
-				this.spieleverwaltungPanel.setLayout(null);
-				{
-					this.spieleverwaltungZurueckButton = new JButton("Zur\u00FCck");
-					this.spieleverwaltungZurueckButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							do_spieleverwaltungZurueckButton_actionPerformed(e);
-						}
-					});
-					{
-						this.spieleverwaltungTextArea = new JTextArea();
-						this.spieleverwaltungTextArea.setText("1: In dem Suchfeld kann nach einem Spieletitel gesucht werden. Die Ergebnisse werden in der Liste darunter angezeigt.\n\n"
-								+ "2: Sind alle Felder ausgef�llt kann der Hinzuf�gen-Button benutzt werden um einen neuen Kunden anzulegen\n\n"
-								+ "3: Ist ein Kunde ausgew�hlt kann man die Daten in den Textfeldern �ndern, um mit Klick auf den �ndern-Button werden die Daten ge�ndert.\n\n"
-								+ "4: Der Entfernen-Button wird erst nuztbar, wenn alle Textfelder ausgef�llt sind. Dann kann der ausgewew�hlte Kunde gel�scht werden\n\n"
-								+ "5: Der Schlie�en-Button schlie�t das aktuelle Fenster.");
-						this.spieleverwaltungTextArea.setWrapStyleWord(true);
-						this.spieleverwaltungTextArea.setLineWrap(true);
-						this.spieleverwaltungTextArea.setEditable(false);
-						this.spieleverwaltungTextArea.setBackground(SystemColor.menu);
-						this.spieleverwaltungTextArea.setBounds(10, 11, 160, 390);
-						this.spieleverwaltungPanel.add(this.spieleverwaltungTextArea);
-					}
-					this.spieleverwaltungZurueckButton.setBounds(524, 378, 150, 23);
-					this.spieleverwaltungPanel.add(this.spieleverwaltungZurueckButton);
-				}
-				{
-					this.spieleverwaltungScrollPane = new JScrollPane(spieleverwaltungTextArea);
-					this.spieleverwaltungScrollPane.setBounds(10, 11, 160, 390);
-					this.spieleverwaltungPanel.add(this.spieleverwaltungScrollPane);
-				}
-				{
 					this.menuePanel = new JPanel();
 					this.menuePanel.setBounds(0, 0, 684, 412);
 					this.contentPane.add(this.menuePanel);
