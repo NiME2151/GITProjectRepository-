@@ -18,6 +18,7 @@ import javax.swing.UIManager;
 import java.awt.SystemColor;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
+import java.awt.Component;
 
 public class Hilfefenster extends JFrame {
 
@@ -46,23 +47,17 @@ public class Hilfefenster extends JFrame {
 	private JLabel kundenverwaltungImageLabel;
 	private JLabel spieledetailfensterImageLabel;
 	private JLabel spieleverwaltungImageLabel;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Hilfefenster frame = new Hilfefenster();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private JPanel ausleihfensterPanel;
+	private JButton ausleihfensterZurueckButton;
+	private JLabel ausleihfensterImageLabel;
+	private JScrollPane ausleihfensterScrollPane;
+	private JTextArea ausleihfensterTextArea;
+	private JPanel hauptbildschirmPanel;
+	private JButton hauptbildschirmZurueckButton;
+	private JLabel hauptbildschirmImageLabel;
+	private JScrollPane hauptbildschirmScrollPane;
+	private JTextArea hauptbildschirmTextArea;
+	
 	/**
 	 * Create the frame.
 	 * @throws IOException 
@@ -86,6 +81,179 @@ public class Hilfefenster extends JFrame {
 					this.spieledetailfensterPanel.setVisible(false);
 					this.spieleverwaltungPanel = new JPanel();
 					this.spieleverwaltungPanel.setVisible(false);
+					this.menuePanel = new JPanel();
+					this.menuePanel.setBounds(0, 0, 684, 412);
+					this.contentPane.add(this.menuePanel);
+					this.menuePanel.setLayout(null);
+					{
+						this.ueberschriftLabel = new JLabel("Hier finden Sie Hilfe zu folgenden Fenstern:");
+						this.ueberschriftLabel.setBounds(10, 11, 280, 14);
+						this.menuePanel.add(this.ueberschriftLabel);
+					}
+					this.ausleihfensterButton = new JButton("Ausleihfenster");
+					this.ausleihfensterButton.setBounds(10, 35, 150, 23);
+					this.menuePanel.add(this.ausleihfensterButton);
+					{
+						this.hauptbildschirmButton = new JButton("Hauptbildschirm");
+						this.hauptbildschirmButton.setBounds(10, 75, 150, 23);
+						this.menuePanel.add(this.hauptbildschirmButton);
+						{
+							this.kundenverwaltungButton = new JButton("Kundenverwaltung");
+							this.kundenverwaltungButton.setBounds(10, 115, 150, 23);
+							this.menuePanel.add(this.kundenverwaltungButton);
+							{
+								this.spieleverwaltungButton = new JButton("Spieleverwaltung");
+								this.spieleverwaltungButton.setBounds(10, 155, 150, 23);
+								this.menuePanel.add(this.spieleverwaltungButton);
+								{
+									this.spieledetailfensterButton = new JButton("Spieledetailfenster");
+									this.spieledetailfensterButton.setBounds(10, 195, 150, 23);
+									this.menuePanel.add(this.spieledetailfensterButton);
+									{
+										this.zurueckgebenfensterButton = new JButton("Zur\u00FCckgebenfenster");
+										this.zurueckgebenfensterButton.setBounds(10, 235, 150, 23);
+										this.menuePanel.add(this.zurueckgebenfensterButton);
+										{
+											this.schliessenButton = new JButton("Schlie\u00DFen");
+											this.schliessenButton.addActionListener(new ActionListener() {
+												public void actionPerformed(ActionEvent e) {
+													do_schliessenButton_actionPerformed(e);
+												}
+											});
+											this.schliessenButton.setBounds(574, 378, 100, 23);
+											this.menuePanel.add(this.schliessenButton);
+										}
+										this.zurueckgebenfensterButton.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												do_zurueckgebenfensterButton_actionPerformed(e);
+											}
+										});
+									}
+									this.spieledetailfensterButton.addActionListener(new ActionListener() {
+										public void actionPerformed(ActionEvent e) {
+											do_spieledetailfensterButton_actionPerformed(e);
+										}
+									});
+								}
+								this.spieleverwaltungButton.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										do_spieleverwaltungButton_actionPerformed(e);
+									}
+								});
+							}
+							this.kundenverwaltungButton.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent e) {
+									do_kundenverwaltungButton_actionPerformed(e);
+								}
+							});
+						}
+						this.hauptbildschirmButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								do_hauptbildschirmButton_actionPerformed(e);
+							}
+						});
+					}
+					this.ausleihfensterButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							do_ausleihfensterButton_actionPerformed(e);
+						}
+					});
+					this.hauptbildschirmPanel = new JPanel();
+					this.hauptbildschirmPanel.setVisible(false);
+					this.hauptbildschirmPanel.setBounds(0, 0, 684, 412);
+					this.contentPane.add(this.hauptbildschirmPanel);
+					this.hauptbildschirmPanel.setLayout(null);
+					{
+						this.hauptbildschirmZurueckButton = new JButton("Zur\u00FCck");
+						this.hauptbildschirmZurueckButton.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+								do_hauptbildschirmZurueckButton_actionPerformed(arg0);
+							}
+						});
+						this.hauptbildschirmZurueckButton.setBounds(524, 378, 150, 23);
+						this.hauptbildschirmPanel.add(this.hauptbildschirmZurueckButton);
+					}
+					this.hauptbildschirmImageLabel = new JLabel();
+					this.hauptbildschirmImageLabel.setBounds(180, 11, 494, 356);
+					this.hauptbildschirmPanel.add(this.hauptbildschirmImageLabel);
+					ImageIcon imgIconhauptbildschirm = new ImageIcon(getClass().getResource("/images/hauptbildschirm.PNG"));
+					Image imgHauptbildschirm = imgIconhauptbildschirm.getImage().getScaledInstance(hauptbildschirmImageLabel.getWidth(), hauptbildschirmImageLabel.getHeight(), Image.SCALE_SMOOTH);
+					ImageIcon resizedImageIconHauptbildschirm = new ImageIcon(imgHauptbildschirm);
+					this.hauptbildschirmImageLabel.setIcon(resizedImageIconHauptbildschirm);
+					{
+						this.hauptbildschirmScrollPane = new JScrollPane();
+						this.hauptbildschirmScrollPane.setBounds(10, 11, 160, 390);
+						this.hauptbildschirmPanel.add(this.hauptbildschirmScrollPane);
+						{
+							this.hauptbildschirmTextArea = new JTextArea();
+							this.hauptbildschirmScrollPane.setViewportView(this.hauptbildschirmTextArea);
+							this.hauptbildschirmTextArea.setWrapStyleWord(true);
+							this.hauptbildschirmTextArea.setText("1: Mit dem Admin-Login-Button kann sich der Besitzer anmelden. Damit schaltet er die beiden ausgegrauten Buttons frei"
+									+ "Diese führen zur Spiele- und Kundenverwaltung, also dort hin wo Spiele bzw. Kunden angelegt, geändert oder entfernt werden können. "
+									+ "Die Daten zum Einloggen werden in einer Text-Datei dem Besitzer hinterlegt.\n\n"
+									+ "2: Mit diesem Button kann angezeigt werden was die zehn am meisten augeliehenden Spiele sind.\n\n"
+									+ "3: Der Hilfe-Button führt sie hierher. zum Hilfefenster.\n\n"
+									+ "4: Mit diesem Button schließen Sie die Anwendung.\n\n"
+									+ "5: Mit dem Suchfeld kann nach Spielen gesucht werden. Diese werden in der Tabelle unten rechts angezeigt."
+									+ "Klickt man auf die Zeile eines Spiels bekommt man ein Fenster mit allen Daten zum Spiel zu Gesicht. "
+									+ "Dort kann auch das angeklickte Spiel ausgeliehen oder zurückgegeben werden."
+									+ "Wird der Suchen-Button genutzt ohne etwas einzugeben so werden alle Spiele angezeigt.\n\n"
+									+ "6: Wird der Hacken hier gesetzt werden nur die Spiele angezeigt, welche noch verfügbar sind. Heißt die, die noch mindestens einmal im Laden vorhanden sind.\n\n"
+									+ "7: Mit diesen Comboboxen können Spiele gefilter/sortiert werden. Es kann immer nur ein Filter auf einmal angewendet werden."
+									+ "Bei Titel sortieren werden die Spiele alphabetisch von A-Z oder Z-A sortiert. Beim Genre-Filter werden nur Spiele des ausgewählten Genres angezeigt."
+									+ "Beim Filter nach der USK kann von der geringsten USK zur höchsten oder auch anders herum gefiltert werden. Es können auch nur Spiele einer USK-Stufe angezeigt werden."
+									+ "Beim sortieren nach Preis werden alle Spiele angezeigt sortiert nach dem teuersten vom Ausleihpreis her oder nach dem billigestem.");
+							this.hauptbildschirmTextArea.setLineWrap(true);
+							this.hauptbildschirmTextArea.setEditable(false);
+							this.hauptbildschirmTextArea.setBackground(SystemColor.menu);
+						}
+					}
+					{
+						this.ausleihfensterPanel = new JPanel();
+						this.ausleihfensterPanel.setVisible(false);
+						this.ausleihfensterPanel.setBounds(0, 0, 684, 412);
+						this.contentPane.add(this.ausleihfensterPanel);
+						this.ausleihfensterPanel.setLayout(null);
+						{
+							this.ausleihfensterZurueckButton = new JButton("Zur\u00FCck");
+							this.ausleihfensterZurueckButton.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent arg0) {
+									do_ausleihfensterZurueckButton_actionPerformed(arg0);
+								}
+							});
+							this.ausleihfensterZurueckButton.setBounds(524, 378, 150, 23);
+							this.ausleihfensterPanel.add(this.ausleihfensterZurueckButton);
+						}
+						{
+							this.ausleihfensterImageLabel = new JLabel();
+							this.ausleihfensterImageLabel.setBounds(180, 11, 494, 356);
+							this.ausleihfensterPanel.add(this.ausleihfensterImageLabel);
+							ImageIcon imgIconAusleihfenster = new ImageIcon(getClass().getResource("/images/ausleihfenster.PNG"));
+							Image imgAusleihfenster = imgIconAusleihfenster.getImage().getScaledInstance(ausleihfensterImageLabel.getWidth(), ausleihfensterImageLabel.getHeight(), Image.SCALE_SMOOTH);
+							ImageIcon resizedImageIconAusleihfenster = new ImageIcon(imgAusleihfenster);
+							this.ausleihfensterImageLabel.setIcon(resizedImageIconAusleihfenster);
+						}
+						{
+							this.ausleihfensterScrollPane = new JScrollPane();
+							this.ausleihfensterScrollPane.setBounds(10, 11, 160, 390);
+							this.ausleihfensterPanel.add(this.ausleihfensterScrollPane);
+							{
+								this.ausleihfensterTextArea = new JTextArea();
+								this.ausleihfensterScrollPane.setViewportView(this.ausleihfensterTextArea);
+								this.ausleihfensterTextArea.setWrapStyleWord(true);
+								this.ausleihfensterTextArea.setText("1: Im Suchfeld kann, per Nachname, nach einem Kunden gesucht werden. "
+										+ "Dieser wird in der Tabelle unten links angezeigt. Dieser muss dann per Klick auf die Zeile in der Tabelle ausgewählt werden damit klar ist wer das Spiel ausleiht.\n\n"
+										+ "2: Ist der Kunde noch nicht im System beim Ausleihprozess, dann kann der Kunden anlegen-Button genutzt werden um zur Kundenverwaltung zu gelangen.\n\n"
+										+ "3: Wurde der Kunde ausgewählt so kann nun angegeben werden wie lang der Kunde das Spiel ausleiehen möchte. Außerdem muss noch angeben werden wie oft er das Spiel ausleihen möchte.\n\n"
+										+ "4: Der Preis berechnen-Button wird erst dann sichtbar wenn korrekte eingaben in den beiden vorherigen Feldern eingeben wurden. "
+										+ "Dann kann jener genutzt werden um zu berechnen wie viel es kostet das Spiel auszuleihen.\n\n"
+										+ "5: Der Ausleih-Button beendet den Prozess und ist erst dann nutzbar wenn alle vorherigen Schritte korrekt ausgeführt wurden. Dann kann der Button genutzt werden um das Spiel auszuleihen.");
+								this.ausleihfensterTextArea.setLineWrap(true);
+								this.ausleihfensterTextArea.setEditable(false);
+								this.ausleihfensterTextArea.setBackground(SystemColor.menu);
+							}
+						}
+					}
 					this.spieleverwaltungPanel.setBounds(0, 0, 684, 412);
 					this.contentPane.add(this.spieleverwaltungPanel);
 					this.spieleverwaltungPanel.setLayout(null);
@@ -113,19 +281,19 @@ public class Hilfefenster extends JFrame {
 						this.spieleverwaltungZurueckButton.setBounds(524, 378, 150, 23);
 						this.spieleverwaltungPanel.add(this.spieleverwaltungZurueckButton);
 					}
-					{
-						this.spieleverwaltungImageLabel = new JLabel();
-						this.spieleverwaltungImageLabel.setBounds(180, 11, 494, 356);
-						this.spieleverwaltungPanel.add(this.spieleverwaltungImageLabel);
-						ImageIcon imgIcon = new ImageIcon(getClass().getResource("/images/spieleverwaltung.PNG"));
-					    Image img = imgIcon.getImage().getScaledInstance(spieleverwaltungImageLabel.getWidth(), spieleverwaltungImageLabel.getHeight(), Image.SCALE_SMOOTH);
-						ImageIcon resizedImageIcon = new ImageIcon(img);
-					    this.spieleverwaltungImageLabel.setIcon(resizedImageIcon);
-					}
+					this.spieleverwaltungImageLabel = new JLabel();
+					this.spieleverwaltungImageLabel.setBounds(180, 11, 494, 356);
+					this.spieleverwaltungPanel.add(this.spieleverwaltungImageLabel);
 					{
 						this.spieleverwaltungScrollPane = new JScrollPane(spieleverwaltungTextArea);
 						this.spieleverwaltungScrollPane.setBounds(10, 11, 160, 390);
 						this.spieleverwaltungPanel.add(this.spieleverwaltungScrollPane);
+					}
+					{
+						ImageIcon imgIconspieleverwaltung = new ImageIcon(getClass().getResource("/images/spieleverwaltung.PNG"));
+						Image imgSpieleverwaltung = imgIconspieleverwaltung.getImage().getScaledInstance(spieleverwaltungImageLabel.getWidth(), spieleverwaltungImageLabel.getHeight(), Image.SCALE_SMOOTH);
+						ImageIcon resizedImageIconspieleverwaltung = new ImageIcon(imgSpieleverwaltung);
+						this.spieleverwaltungImageLabel.setIcon(resizedImageIconspieleverwaltung);
 					}
 					this.spieledetailfensterPanel.setBounds(0, 0, 684, 412);
 					this.contentPane.add(this.spieledetailfensterPanel);
@@ -154,10 +322,10 @@ public class Hilfefenster extends JFrame {
 						this.spieledetailfensterImageLabel = new JLabel();
 						this.spieledetailfensterImageLabel.setBounds(180, 11, 494, 356);
 						this.spieledetailfensterPanel.add(this.spieledetailfensterImageLabel);
-						ImageIcon imgIcon = new ImageIcon(getClass().getResource("/images/spieledetailfenster.PNG"));
-					    Image img = imgIcon.getImage().getScaledInstance(spieledetailfensterImageLabel.getWidth(), spieledetailfensterImageLabel.getHeight(), Image.SCALE_SMOOTH);
-						ImageIcon resizedImageIcon = new ImageIcon(img);
-					    this.spieledetailfensterImageLabel.setIcon(resizedImageIcon);
+						ImageIcon imgIconspieledetailfenster = new ImageIcon(getClass().getResource("/images/spieledetailfenster.PNG"));
+					    Image imgSpieledetailfenster = imgIconspieledetailfenster.getImage().getScaledInstance(spieledetailfensterImageLabel.getWidth(), spieledetailfensterImageLabel.getHeight(), Image.SCALE_SMOOTH);
+						ImageIcon resizedImageIconspieledetailfenster = new ImageIcon(imgSpieledetailfenster);
+					    this.spieledetailfensterImageLabel.setIcon(resizedImageIconspieledetailfenster);
 					}
 					{
 						this.spieledetailfensterScrollPane = new JScrollPane(spieledetailfensterTextArea);
@@ -197,94 +365,15 @@ public class Hilfefenster extends JFrame {
 						this.kundenverwaltungImageLabel = new JLabel();
 						this.kundenverwaltungImageLabel.setBounds(180, 11, 494, 356);
 						this.kundenverwaltungPanel.add(this.kundenverwaltungImageLabel);
-						ImageIcon imgIcon = new ImageIcon(getClass().getResource("/images/Kundenverwaltung.PNG"));
-					    Image img = imgIcon.getImage().getScaledInstance(kundenverwaltungImageLabel.getWidth(), kundenverwaltungImageLabel.getHeight(), Image.SCALE_SMOOTH);
-						ImageIcon resizedImageIcon = new ImageIcon(img);
-					    this.kundenverwaltungImageLabel.setIcon(resizedImageIcon);
+						ImageIcon imgIcokundenverwaltungn = new ImageIcon(getClass().getResource("/images/Kundenverwaltung.PNG"));
+					    Image imgKundenverwaltung = imgIcokundenverwaltungn.getImage().getScaledInstance(kundenverwaltungImageLabel.getWidth(), kundenverwaltungImageLabel.getHeight(), Image.SCALE_SMOOTH);
+						ImageIcon resizedImageIconkundenverwaltung = new ImageIcon(imgKundenverwaltung);
+					    this.kundenverwaltungImageLabel.setIcon(resizedImageIconkundenverwaltung);
 					}
 					{
 						this.kundenverwaltungScrollPane = new JScrollPane(kundenverwaltungTextArea);
 						this.kundenverwaltungScrollPane.setBounds(10, 11, 160, 390);
 						this.kundenverwaltungPanel.add(this.kundenverwaltungScrollPane);
-					}
-					this.menuePanel = new JPanel();
-					this.menuePanel.setBounds(0, 0, 684, 412);
-					this.contentPane.add(this.menuePanel);
-					this.menuePanel.setLayout(null);
-					{
-						this.ueberschriftLabel = new JLabel("Hier finden Sie Hilfe zu folgenden Fenstern:");
-						this.ueberschriftLabel.setBounds(10, 11, 280, 14);
-						this.menuePanel.add(this.ueberschriftLabel);
-					}
-					{
-						this.ausleihfensterButton = new JButton("Ausleihfenster");
-						this.ausleihfensterButton.setBounds(10, 35, 150, 23);
-						this.menuePanel.add(this.ausleihfensterButton);
-						{
-							this.hauptbildschirmButton = new JButton("Hauptbildschirm");
-							this.hauptbildschirmButton.setBounds(10, 75, 150, 23);
-							this.menuePanel.add(this.hauptbildschirmButton);
-							{
-								this.kundenverwaltungButton = new JButton("Kundenverwaltung");
-								this.kundenverwaltungButton.setBounds(10, 115, 150, 23);
-								this.menuePanel.add(this.kundenverwaltungButton);
-								{
-									this.spieleverwaltungButton = new JButton("Spieleverwaltung");
-									this.spieleverwaltungButton.setBounds(10, 155, 150, 23);
-									this.menuePanel.add(this.spieleverwaltungButton);
-									{
-										this.spieledetailfensterButton = new JButton("Spieledetailfenster");
-										this.spieledetailfensterButton.setBounds(10, 195, 150, 23);
-										this.menuePanel.add(this.spieledetailfensterButton);
-										{
-											this.zurueckgebenfensterButton = new JButton("Zur\u00FCckgebenfenster");
-											this.zurueckgebenfensterButton.setBounds(10, 235, 150, 23);
-											this.menuePanel.add(this.zurueckgebenfensterButton);
-											{
-												this.schliessenButton = new JButton("Schlie\u00DFen");
-												this.schliessenButton.addActionListener(new ActionListener() {
-													public void actionPerformed(ActionEvent e) {
-														do_schliessenButton_actionPerformed(e);
-													}
-												});
-												this.schliessenButton.setBounds(574, 378, 100, 23);
-												this.menuePanel.add(this.schliessenButton);
-											}
-											this.zurueckgebenfensterButton.addActionListener(new ActionListener() {
-												public void actionPerformed(ActionEvent e) {
-													do_zurueckgebenfensterButton_actionPerformed(e);
-												}
-											});
-										}
-										this.spieledetailfensterButton.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
-												do_spieledetailfensterButton_actionPerformed(e);
-											}
-										});
-									}
-									this.spieleverwaltungButton.addActionListener(new ActionListener() {
-										public void actionPerformed(ActionEvent e) {
-											do_spieleverwaltungButton_actionPerformed(e);
-										}
-									});
-								}
-								this.kundenverwaltungButton.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
-										do_kundenverwaltungButton_actionPerformed(e);
-									}
-								});
-							}
-							this.hauptbildschirmButton.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									do_hauptbildschirmButton_actionPerformed(e);
-								}
-							});
-						}
-						this.ausleihfensterButton.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								do_ausleihfensterButton_actionPerformed(e);
-							}
-						});
 					}
 				}
 			}
@@ -299,8 +388,12 @@ public class Hilfefenster extends JFrame {
 		kundenverwaltungPanel.setVisible(true);
 	}
 	protected void do_ausleihfensterButton_actionPerformed(ActionEvent e) {
+		menuePanel.setVisible(false);
+		ausleihfensterPanel.setVisible(true);
 	}
 	protected void do_hauptbildschirmButton_actionPerformed(ActionEvent e) {
+		menuePanel.setVisible(false);
+		hauptbildschirmPanel.setVisible(true);
 	}
 	protected void do_zurueckgebenfensterButton_actionPerformed(ActionEvent e) {
 	}
@@ -322,5 +415,13 @@ public class Hilfefenster extends JFrame {
 	}
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		this.dispose();
+	}
+	protected void do_ausleihfensterZurueckButton_actionPerformed(ActionEvent arg0) {
+		ausleihfensterPanel.setVisible(false);
+		menuePanel.setVisible(true);
+	}
+	protected void do_hauptbildschirmZurueckButton_actionPerformed(ActionEvent arg0) {
+		hauptbildschirmPanel.setVisible(false);
+		menuePanel.setVisible(true);
 	}
 }
