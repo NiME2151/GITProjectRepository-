@@ -41,6 +41,7 @@ public class SpielDAO {
 			spiel.setVerfuegbarkeit(rs.getString("verfuegbarkeit"));
 			spiel.setSprache(rs.getString("sprache"));
 			spiel.setBeschreibung(rs.getString("beschreibung"));
+			spiel.setAusleihCounter(rs.getInt("AusleihCounter"));
 			// Gibt Nachricht aus bei funktionierendem SELECT
 			System.out.println("SQL-SELECT funzt");
 			System.out.println(spiel.getTitel());

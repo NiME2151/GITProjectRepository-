@@ -13,6 +13,7 @@ Lageranzahl varchar (3),
 Verfuegbarkeit varchar (15),
 Sprache varchar (15),
 Beschreibung varchar(500),
+AusleihCounter numeric(6, 0)
 primary key (ID)
 );
 
@@ -42,40 +43,40 @@ primary key (SpieleID, KundenID, Faelligkeitsdatum, Ausleihdatum)
 );
 
 insert into Spiele values (
-'00001', 'Meine Kraft', 'Open-World', '2010-1-1', '06', '2,00', '4', 'verfügbar', 'Deutsch', 'Meine Kraft ist ein Spiel in dem man seine eigene Welt bauen kann, mit Freunden zusammen spielen kann, oder gegen Monster kämpfen kann'
+'00001', 'Meine Kraft', 'Open-World', '2010-1-1', '06', '2,00', '4', 'verfügbar', 'Deutsch', 'Meine Kraft ist ein Spiel in dem man seine eigene Welt bauen kann, mit Freunden zusammen spielen kann, oder gegen Monster kämpfen kann', '0'
 );
 insert into Spiele values (
-'00002', 'Schlaftfeld 1', 'Action', '2018-12-1', '18', '5,00', '2', 'verfügbar', 'Deutsch', 'Schlachtfeld 1 ist ein Ego-Shooter der im ersten Weltkrieg spielt'
+'00002', 'Schlaftfeld 1', 'Action', '2018-12-1', '18', '5,00', '2', 'verfügbar', 'Deutsch', 'Schlachtfeld 1 ist ein Ego-Shooter der im ersten Weltkrieg spielt', '0'
 );
 insert into Spiele values (
-'00003', 'Schlaftfeld Weltkrieg 2', 'Action', '2016-8-6', '18', '6,00', '1', 'verfügbar', 'Englisch', 'Schlachtfeld Weltkrieg 2 ist ein Ego-Shooter der im zweiten Weltkrieg spielt'
+'00003', 'Schlaftfeld Weltkrieg 2', 'Action', '2016-8-6', '18', '6,00', '1', 'verfügbar', 'Englisch', 'Schlachtfeld Weltkrieg 2 ist ein Ego-Shooter der im zweiten Weltkrieg spielt', '0'
 );
 insert into Spiele values (
-'00004', 'Rand des Himmels', 'Open-World', '2011-4-6', '16', '3,00', '5', 'verfügbar', 'Deutsch', 'In Rand des Himmels ist man ein Gefangener, jedoch stellt sich später raus, dass man mehr als nur ein einfacher Gefangener ist'
+'00004', 'Rand des Himmels', 'Open-World', '2011-4-6', '16', '3,00', '5', 'verfügbar', 'Deutsch', 'In Rand des Himmels ist man ein Gefangener, jedoch stellt sich später raus, dass man mehr als nur ein einfacher Gefangener ist', '0'
 );
 insert into Spiele values (
-'00005', 'Hentai World Xtreme', 'Erotik', '2017-10-12', '18', '2,00', '1', 'verfügbar', 'Englisch', 'In diesem erotischen Titel kannst du dein eigenes Harem erstellen und die um dieses "kümmern"'
+'00005', 'Hentai World Xtreme', 'Erotik', '2017-10-12', '18', '2,00', '1', 'verfügbar', 'Englisch', 'In diesem erotischen Titel kannst du dein eigenes Harem erstellen und die um dieses "kümmern"', '0'
 );
 insert into Spiele values (
-'00006', 'N/A Game', 'RPG', '2014-4-16', '06', '2,00', '0', 'verliehen', 'Englisch', 'Keine Beschreibung verfügbar'
+'00006', 'N/A Game', 'RPG', '2014-4-16', '06', '2,00', '0', 'verliehen', 'Englisch', 'Keine Beschreibung verfügbar', '0'
 );
 insert into Spiele values (
-'00007', 'N/A Game 2', 'RPG', '2016-6-16', '06', '3,00', '0', 'verliehen', 'Deutsch', 'Keine Beschreibung verfügbar'
+'00007', 'N/A Game 2', 'RPG', '2016-6-16', '06', '3,00', '0', 'verliehen', 'Deutsch', 'Keine Beschreibung verfügbar', '0'
 );
 insert into Spiele values (
-'00008', 'Pixelville', 'Adventure', '1998-4-10', '12', '3,00', '2', 'verfügbar', 'Deutsch', 'In diesem pixeligen Spiel bist du eine Farmer und kannst deine Farm erweitern, Monster bekämpfen und viele andere Abenteuer erleben'
+'00008', 'Pixelville', 'Adventure', '1998-4-10', '12', '3,00', '2', 'verfügbar', 'Deutsch', 'In diesem pixeligen Spiel bist du eine Farmer und kannst deine Farm erweitern, Monster bekämpfen und viele andere Abenteuer erleben', '0'
 );
 insert into Spiele values (
-'00009', 'Pixelville 2', 'Adventure', '1999-4-17', '12', '4,00', '6', 'verfügbar', 'Deutsch', 'Wie auch schon im Vorgänger kannst du eine liebevoll gestaltete Pixel-Welt erkunden diesmal sogar mit deinen Freunden im Multiplayer-Modus'
+'00009', 'Pixelville 2', 'Adventure', '1999-4-17', '12', '4,00', '6', 'verfügbar', 'Deutsch', 'Wie auch schon im Vorgänger kannst du eine liebevoll gestaltete Pixel-Welt erkunden diesmal sogar mit deinen Freunden im Multiplayer-Modus', '0'
 );
 insert into Spiele values (
-'00010', 'Pixelville 3', 'Adventure', '2013-7-13', '12', '4,00', '5', 'verfügbar', 'Deutsch', 'Mit dem dritten Ableger der Pixelville-Reihe haben sich die Entwickler mit einem anderem Pixel-Stil etwas interessantes gewagt. Kritiker bezeichnen diesen Teil als den vielleicht besten der Reihe'
+'00010', 'Pixelville 3', 'Adventure', '2013-7-13', '12', '4,00', '5', 'verfügbar', 'Deutsch', 'Mit dem dritten Ableger der Pixelville-Reihe haben sich die Entwickler mit einem anderem Pixel-Stil etwas interessantes gewagt. Kritiker bezeichnen diesen Teil als den vielleicht besten der Reihe', '0'
 );
 insert into Spiele values (
-'00011', 'Pixelville 4', 'Open-World', '2004-6-4', '12', '4,00', '3', 'verfügbar', 'Deutsch', 'Mit dem vierten Teil setzen die Entwickler die beliebte Reihe fort. Diesmal mit neuen Charakteren, jedoch sollen auch bekannt Charaktere der Reihe zurückkehren'
+'00011', 'Pixelville 4', 'Open-World', '2004-6-4', '12', '4,00', '3', 'verfügbar', 'Deutsch', 'Mit dem vierten Teil setzen die Entwickler die beliebte Reihe fort. Diesmal mit neuen Charakteren, jedoch sollen auch bekannt Charaktere der Reihe zurückkehren', '0'
 );
 insert into Spiele values (
-'00012', 'Pixelville', 'Open-World', '2007-7-9', '12', '4,00', '2', 'verfügbar', 'Englisch', 'Der erste immer noch sehr beliebte Teil der Reihe bekommt ein Remaster mit frischer aufgehübschter Grafik'
+'00012', 'Pixelville', 'Open-World', '2007-7-9', '12', '4,00', '2', 'verfügbar', 'Englisch', 'Der erste immer noch sehr beliebte Teil der Reihe bekommt ein Remaster mit frischer aufgehübschter Grafik', '0'
 );
 
 insert into Kunden values (

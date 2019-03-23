@@ -17,9 +17,12 @@ public class KundenSpieleDAO {
 			String ausleihmenge = kundenSpiele.getAusleihmenge();
 			String faelligkeitsdatum = kundenSpiele.getFaelligkeitsdatum();
 			String ausleihdatum = kundenSpiele.getAusleihdatum();
-			String sql = "INSERT INTO KundenSpiele VALUES ('" + spieleID + "', '" + kundenID + "', '" + ausleihpreis + "', '" + ausleihmenge + "', '" + faelligkeitsdatum + "', " + "CURRENT_DATE)";
+			String sqlInsert = "INSERT INTO KundenSpiele VALUES ('" + spieleID + "', '" + kundenID + "', '" + ausleihpreis + "', '" + ausleihmenge + "', '" + faelligkeitsdatum + "', " + "CURRENT_DATE)";
+			String sqlUpdate = "UPDATE Spiele SET AusleihCounter = AusleihCounter+1 WHERE ID = '" + spieleID + "'";
 			Connection conn = ConnectToDB.getConnection();
-			statement = conn.prepareStatement(sql);
+			statement = conn.prepareStatement(sqlInsert);
+			statement.executeUpdate();
+			statement = conn.prepareStatement(sqlUpdate);
 			statement.executeUpdate();
 			System.out.println(spieleID + "\n" + kundenID+ "\n" + ausleihpreis + "\n" + ausleihmenge + "\n" + faelligkeitsdatum+ "\n" + ausleihdatum + "\n");
 		} catch (Exception e) {

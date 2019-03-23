@@ -11,6 +11,7 @@ public class Spiel {
 	private String verfuegbarkeit;
 	private String sprache;
 	private String beschreibung;
+	private int ausleihCounter;
 	
 	public Spiel() {
 		this.id = id;
@@ -23,6 +24,7 @@ public class Spiel {
 		this.verfuegbarkeit = verfuegbarkeit;
 		this.sprache = sprache;
 		this.beschreibung = beschreibung;
+		this.ausleihCounter = ausleihCounter;
 	}
 
 	public String getId() {
@@ -103,5 +105,13 @@ public class Spiel {
 
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
+	}
+	
+	public int getAusleihCounter() {
+		return ausleihCounter;
+	}
+
+	public void setAusleihCounter(int ausleihCounter) {
+		this.ausleihCounter = ausleihCounter;
 	}
 }
