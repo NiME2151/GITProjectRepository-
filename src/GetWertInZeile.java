@@ -25,4 +25,18 @@ public class GetWertInZeile {
 		System.out.println(rueckgabewert);
 		return rueckgabewert;
 	}
+	
+	public String getAusleihCounterInTable(JTable table) {
+		int zeile = table.getSelectedRow();
+		String rueckgabewert = (String) table.getValueAt(zeile, 12);
+		System.out.println(rueckgabewert);
+		return rueckgabewert;
+	}
+	
+	public String getWertInZeileVariabel(JTable table, int zeileInTable) {
+		int zeile = table.getSelectedRow();
+		String rueckgabewert = (String) table.getValueAt(zeile, zeileInTable);
+		System.out.println(rueckgabewert);
+		return rueckgabewert;
+	}
 }
