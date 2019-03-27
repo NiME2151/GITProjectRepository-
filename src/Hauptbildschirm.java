@@ -30,6 +30,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
 //
 public class Hauptbildschirm extends JFrame {
 
@@ -71,7 +72,7 @@ public class Hauptbildschirm extends JFrame {
 	private String adminId = "1";
 	private String adminPasswort = "1";
 
-	private JFrame that=this;
+	private JFrame that = this;
 
 	/**
 	 * Launch the application.
@@ -98,12 +99,11 @@ public class Hauptbildschirm extends JFrame {
 		this.confirmOnClose();
 	}
 
-
 	private void initGUI() {
-		
+
 		setTitle("Hauptbildschirm");
 		setBounds(100, 100, 775, 400);
-		
+
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		setContentPane(this.contentPane);
@@ -185,13 +185,8 @@ public class Hauptbildschirm extends JFrame {
 						}
 					}
 				});
-				this.spielelisteTable.setModel(new DefaultTableModel(
-						new Object[][] {
-						},
-						new String[] {
-								"ID", "Titel", "Genre", "USK", "Release", "Preis (Euro)", "Verfuegbar"
-						}
-						));
+				this.spielelisteTable.setModel(new DefaultTableModel(new Object[][] {},
+						new String[] { "ID", "Titel", "Genre", "USK", "Release", "Preis (Euro)", "Verfuegbar" }));
 				this.spielelisteTable.setBounds(10, 11, 515, 248);
 				this.spielelistePanel.add(this.spielelisteTable);
 			}
@@ -243,7 +238,12 @@ public class Hauptbildschirm extends JFrame {
 				this.topZehnSpieleButton = new JButton("Top-10-Spiele");
 				this.topZehnSpieleButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						do_topZehnSpieleButton_actionPerformed(e);
+						try {
+							do_topZehnSpieleButton_actionPerformed(e);
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				});
 				this.topZehnSpieleButton.setBounds(440, 10, 125, 28);
@@ -314,17 +314,15 @@ public class Hauptbildschirm extends JFrame {
 							}
 						}
 					});
-					/*this.alphabetischFilterComboBox.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							try {
-								//do_alphabetischFilterComboBox_actionPerformed(arg0);
-							} catch (ClassNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-					});*/
-					this.alphabetischFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "absteigend", "aufsteigend"}));
+					/*
+					 * this.alphabetischFilterComboBox.addActionListener(new ActionListener() {
+					 * public void actionPerformed(ActionEvent arg0) { try {
+					 * //do_alphabetischFilterComboBox_actionPerformed(arg0); } catch
+					 * (ClassNotFoundException e) { // TODO Auto-generated catch block
+					 * e.printStackTrace(); } } });
+					 */
+					this.alphabetischFilterComboBox
+							.setModel(new DefaultComboBoxModel(new String[] { "", "absteigend", "aufsteigend" }));
 					this.alphabetischFilterComboBox.setToolTipText("");
 					this.alphabetischFilterComboBox.setBounds(10, 100, 205, 20);
 					this.linkesMenuePanel.add(this.alphabetischFilterComboBox);
@@ -351,7 +349,10 @@ public class Hauptbildschirm extends JFrame {
 							do_genreFilterComboBox_itemStateChanged(e);
 						}
 					});
-					this.genreFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Action", "Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik", "Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele", "R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie"}));
+					this.genreFilterComboBox.setModel(new DefaultComboBoxModel(new String[] { "", "Action",
+							"Action-Adventures", "Adventures", "Textadventures", "Horror", "Shooter", "Erotik",
+							"Geschicklichtkeitsspiele,", "Jump 'n' Runs", "Lernspiele", "Open-World", "Musikspiele",
+							"R\u00E4tselspiele", "RPG", "Simulation", "Sport", "Strategie" }));
 					this.genreFilterComboBox.setToolTipText("");
 					this.genreFilterComboBox.setBounds(10, 156, 205, 20);
 					this.linkesMenuePanel.add(this.genreFilterComboBox);
@@ -363,7 +364,9 @@ public class Hauptbildschirm extends JFrame {
 							do_uskFilterComboBox_itemStateChanged(e);
 						}
 					});
-					this.uskFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Von USK 0 bis USK 18", "Von USK 18 bis USK 0", "Nur USK 0", "Nur USK 6", "Nur USK 12", "Nur USK 16", "Nur USK 18"}));
+					this.uskFilterComboBox.setModel(
+							new DefaultComboBoxModel(new String[] { "", "Von USK 0 bis USK 18", "Von USK 18 bis USK 0",
+									"Nur USK 0", "Nur USK 6", "Nur USK 12", "Nur USK 16", "Nur USK 18" }));
 					this.uskFilterComboBox.setToolTipText("");
 					this.uskFilterComboBox.setBounds(10, 212, 205, 20);
 					this.linkesMenuePanel.add(this.uskFilterComboBox);
@@ -375,7 +378,8 @@ public class Hauptbildschirm extends JFrame {
 							do_preisFilterComboBox_itemStateChanged(arg0);
 						}
 					});
-					this.preisFilterComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "teuerste", "billigste"}));
+					this.preisFilterComboBox
+							.setModel(new DefaultComboBoxModel(new String[] { "", "teuerste", "billigste" }));
 					this.preisFilterComboBox.setToolTipText("");
 					this.preisFilterComboBox.setBounds(10, 268, 205, 20);
 					this.linkesMenuePanel.add(this.preisFilterComboBox);
@@ -460,8 +464,7 @@ public class Hauptbildschirm extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}
-		else if (gesuchtesSpiel.equalsIgnoreCase("")) {
+		} else if (gesuchtesSpiel.equalsIgnoreCase("")) {
 			ResultSet rs = hauptDAO.sucheNachSpiel(gesuchtesSpiel);
 			System.out.println(rs);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
@@ -471,7 +474,7 @@ public class Hauptbildschirm extends JFrame {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-		}else if (gesuchtesSpiel.equalsIgnoreCase("")) {
+		} else if (gesuchtesSpiel.equalsIgnoreCase("")) {
 			ResultSet rs = hauptDAO.sucheNachSpiel(gesuchtesSpiel);
 			System.out.println(rs);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
@@ -483,20 +486,27 @@ public class Hauptbildschirm extends JFrame {
 			}
 		}
 	}
-	
+
 	protected void do_schliessenButton_actionPerformed(ActionEvent e) {
 		System.exit(1);
 	}
+
 	protected void do_kundenverwaltungButton_actionPerformed(ActionEvent e) {
 		Kundenverwaltung kunde = new Kundenverwaltung();
 		kunde.setVisible(true);
 	}
-	protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) {
+
+	protected void do_topZehnSpieleButton_actionPerformed(ActionEvent e) throws SQLException {
+		Top10SpieleFenster top10fenster = new Top10SpieleFenster();
+		this.setVisible(false);
+		top10fenster.setVisible(true);
 	}
+
 	protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
 		Spieleverwaltung spiel = new Spieleverwaltung();
 		spiel.setVisible(true);
 	}
+
 	protected void do_adminLoginButton_actionPerformed(ActionEvent e) {
 		spielelistePanel.setVisible(false);
 		linkesMenuePanel.setVisible(false);
@@ -506,10 +516,8 @@ public class Hauptbildschirm extends JFrame {
 		this.setResizable(false);
 	}
 
-
-
-
-	protected void do_alphabetischFilterComboBox_itemStateChanged(ItemEvent arg0) throws ClassNotFoundException, SQLException {
+	protected void do_alphabetischFilterComboBox_itemStateChanged(ItemEvent arg0)
+			throws ClassNotFoundException, SQLException {
 		String alphabetischFilterWert = String.valueOf(alphabetischFilterComboBox.getSelectedItem());
 		if (alphabetischFilterWert != null) {
 			ResultSet rs = hauptDAO.orderBy(alphabetischFilterWert);
@@ -528,8 +536,7 @@ public class Hauptbildschirm extends JFrame {
 			boolean spielVerfuegbarkeit = this.spielVerfuegbarCheckBox.isSelected();
 			ResultSet rs = hauptDAO.sucheVerfuegbareSpiele(spielVerfuegbarkeit);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
-		}
-		else if (!this.spielVerfuegbarCheckBox.isSelected()) {
+		} else if (!this.spielVerfuegbarCheckBox.isSelected()) {
 			do_suchenButton_actionPerformed(null);
 		}
 	}
@@ -566,8 +573,7 @@ public class Hauptbildschirm extends JFrame {
 			ResultSet rs = hauptDAO.sortiereNachGenre(sortierEingabe);
 			this.spielelisteTable.setModel(DbUtils.resultSetToTableModel(rs));
 		}
-	}	
-
+	}
 
 	protected void confirmOnClose() {
 
@@ -581,10 +587,9 @@ public class Hauptbildschirm extends JFrame {
 						|| genreFilterComboBox.getSelectedItem().toString().length() > 0
 						|| uskFilterComboBox.getItemAt(0).toString().length() > 0
 						|| uskFilterComboBox.getSelectedItem().toString().length() > 0) {
-					if (JOptionPane.showConfirmDialog(that, 
-							"Are you sure you want to close this window?", "Close Window?", 
-							JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+					if (JOptionPane.showConfirmDialog(that, "Are you sure you want to close this window?",
+							"Close Window?", JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 						dispose();
 					}
 				} else {
@@ -592,10 +597,11 @@ public class Hauptbildschirm extends JFrame {
 				}
 			}
 		});
-	} 	
+	}
 
 	public void checkAdminLoggedIn() {
-		if (idTextField.getText().equalsIgnoreCase(adminId) && passwortTextField.getText().equalsIgnoreCase(adminPasswort)) {
+		if (idTextField.getText().equalsIgnoreCase(adminId)
+				&& passwortTextField.getText().equalsIgnoreCase(adminPasswort)) {
 			adminLoginPane.setVisible(false);
 			spielelistePanel.setVisible(true);
 			buttonMenuePanel.setVisible(true);
@@ -603,15 +609,16 @@ public class Hauptbildschirm extends JFrame {
 			initGUI();
 			kundenverwaltungButton.setEnabled(true);
 			spieleverwaltungButton.setEnabled(true);
-		}
-		else if (!idTextField.getText().equalsIgnoreCase(adminId) || !passwortTextField.getText().equalsIgnoreCase(adminPasswort)) {
+		} else if (!idTextField.getText().equalsIgnoreCase(adminId)
+				|| !passwortTextField.getText().equalsIgnoreCase(adminPasswort)) {
 			JOptionPane alert = new JOptionPane();
-			alert.showMessageDialog(this, "Die von Ihnen eingegebenen Daten sind nicht korrekt", "Login fehlgeschlagen", JOptionPane.ERROR_MESSAGE);
-		}
-		else {
+			alert.showMessageDialog(this, "Die von Ihnen eingegebenen Daten sind nicht korrekt", "Login fehlgeschlagen",
+					JOptionPane.ERROR_MESSAGE);
+		} else {
 			System.out.println("False oder Error");
 		}
 	}
+
 	protected void do_loginButton_actionPerformed(ActionEvent e) {
 		checkAdminLoggedIn();
 	}
