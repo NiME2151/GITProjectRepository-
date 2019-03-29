@@ -359,6 +359,7 @@ public class Spieleverwaltung extends JFrame {
 		}
 		{
 			this.suchenTextField = new JTextField();
+			this.suchenTextField.setToolTipText("Hier kann ein Spieletitel eingegeben werden");
 			this.suchenTextField.setBounds(340, 11, 284, 20);
 			this.contentPane.add(this.suchenTextField);
 			this.suchenTextField.setColumns(10);
@@ -366,6 +367,7 @@ public class Spieleverwaltung extends JFrame {
 		try {
 			{
 				this.suchenButton = new JButton("Suchen");
+				this.suchenButton.setToolTipText("Bei Klick auf den Button wird nach einem Spiel gesucht");
 				this.suchenButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
@@ -400,6 +402,7 @@ public class Spieleverwaltung extends JFrame {
 		}
 
 		spielelisteTable = new JTable();
+		this.spielelisteTable.removeEditor();
 		this.spielelisteTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -420,6 +423,7 @@ public class Spieleverwaltung extends JFrame {
 		contentPane.add(spielelisteTable);
 
 		JScrollPane spielelisteScrollPane = new JScrollPane(spielelisteTable);
+		spielelisteScrollPane.setToolTipText("Hier werden die Spiele angezeigt die gesucht werden");
 		spielelisteScrollPane.setBounds(340, 76, 284, 240);
 		contentPane.add(spielelisteScrollPane);
 	}

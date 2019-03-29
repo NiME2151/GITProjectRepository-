@@ -109,61 +109,6 @@ public class Hauptbildschirm extends JFrame {
 		setContentPane(this.contentPane);
 		this.contentPane.setLayout(null);
 		{
-			this.adminLoginPane = new JPanel();
-			this.adminLoginPane.setVisible(false);
-			this.adminLoginPane.setBounds(0, 0, 759, 362);
-			this.contentPane.add(this.adminLoginPane);
-			this.adminLoginPane.setLayout(null);
-			{
-				this.idLabel = new JLabel("ID:");
-				this.idLabel.setBounds(10, 11, 80, 14);
-				this.adminLoginPane.add(this.idLabel);
-			}
-			{
-				this.passwortLabel = new JLabel("Passwort:");
-				this.passwortLabel.setBounds(10, 36, 80, 14);
-				this.adminLoginPane.add(this.passwortLabel);
-			}
-			{
-				this.idTextField = new JTextField();
-				idTextField.addKeyListener(new KeyAdapter() {
-					@Override
-					public void keyPressed(KeyEvent e) {
-						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-							checkAdminLoggedIn();
-						}
-					}
-				});
-				this.idTextField.setBounds(100, 8, 86, 20);
-				this.adminLoginPane.add(this.idTextField);
-				this.idTextField.setColumns(10);
-			}
-			{
-				this.passwortTextField = new JTextField();
-				passwortTextField.addKeyListener(new KeyAdapter() {
-					@Override
-					public void keyPressed(KeyEvent e) {
-						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-							checkAdminLoggedIn();
-						}
-					}
-				});
-				this.passwortTextField.setBounds(100, 33, 86, 20);
-				this.adminLoginPane.add(this.passwortTextField);
-				this.passwortTextField.setColumns(10);
-			}
-			{
-				this.loginButton = new JButton("Einloggen");
-				this.loginButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						do_loginButton_actionPerformed(e);
-					}
-				});
-				this.loginButton.setBounds(97, 64, 89, 23);
-				this.adminLoginPane.add(this.loginButton);
-			}
-		}
-		{
 			this.spielelistePanel = new JPanel();
 			this.spielelistePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 			this.spielelistePanel.setBounds(224, 49, 535, 313);
@@ -188,6 +133,7 @@ public class Hauptbildschirm extends JFrame {
 				this.spielelisteTable.setModel(new DefaultTableModel(new Object[][] {},
 						new String[] { "ID", "Titel", "Genre", "USK", "Release", "Preis (Euro)", "Verfuegbar" }));
 				this.spielelisteTable.setBounds(10, 11, 515, 248);
+				this.spielelisteTable.removeEditor();
 				this.spielelistePanel.add(this.spielelisteTable);
 			}
 			{
@@ -204,6 +150,7 @@ public class Hauptbildschirm extends JFrame {
 			this.buttonMenuePanel.setLayout(null);
 			{
 				this.adminLoginButton = new JButton("Admin-Login");
+				this.adminLoginButton.setToolTipText("Vollen Zugriff erlangen Sie \u00FCber diesen Button");
 				this.adminLoginButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						do_adminLoginButton_actionPerformed(e);
@@ -214,6 +161,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.kundenverwaltungButton = new JButton("Kundenverwaltung");
+				this.kundenverwaltungButton.setToolTipText("Hiermit gelangen Sie zur Kundenverwaltung, mit welcher Sie Kunden anlegen, \u00E4ndern oder entfernen k\u00F6nnen");
 				this.kundenverwaltungButton.setEnabled(false);
 				this.kundenverwaltungButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -225,6 +173,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.spieleverwaltungButton = new JButton("Spieleverwaltung");
+				this.spieleverwaltungButton.setToolTipText("Hiermit gelangen Sie zur Spieleverwaltung mit welcher Sie Spiele anlegen, \u00E4ndern oder entfernen k\u00F6nnen");
 				this.spieleverwaltungButton.setEnabled(false);
 				this.spieleverwaltungButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -236,6 +185,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.topZehnSpieleButton = new JButton("Top-10-Spiele");
+				this.topZehnSpieleButton.setToolTipText("Hier werden Ihnen die zehn am meisten ausgeliehende Spiele angezeigt");
 				this.topZehnSpieleButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
@@ -251,6 +201,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.hilfeButton = new JButton("Hilfe");
+				this.hilfeButton.setToolTipText("Bei Klick finden Sie mehr Infos zur Anwendung");
 				this.hilfeButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						try {
@@ -266,6 +217,7 @@ public class Hauptbildschirm extends JFrame {
 			}
 			{
 				this.schliessenButton = new JButton("Beenden");
+				this.schliessenButton.setToolTipText("Hiermit schlie\u00DFen Sie die Anwendung");
 				this.schliessenButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						do_schliessenButton_actionPerformed(e);
@@ -283,12 +235,14 @@ public class Hauptbildschirm extends JFrame {
 				this.linkesMenuePanel.setLayout(null);
 				{
 					this.suchfeldTextField = new JTextField();
+					this.suchfeldTextField.setToolTipText("Hier k\u00F6nnen Sie den Titel eines Spieles suchen, welches dann in der Tabelle erscheint");
 					this.suchfeldTextField.setBounds(10, 11, 205, 20);
 					this.linkesMenuePanel.add(this.suchfeldTextField);
 					this.suchfeldTextField.setColumns(10);
 				}
 				{
 					this.suchenButton = new JButton("Suchen");
+					this.suchenButton.setToolTipText("Der Suchen-Button kann genutzt werden um das Spiel zu suchen. Wird der Button genutzt ohne etwas einzugeben erscheinene alle Spiele");
 					this.suchenButton.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							try {
@@ -329,6 +283,7 @@ public class Hauptbildschirm extends JFrame {
 				}
 				{
 					this.spielVerfuegbarCheckBox = new JCheckBox("Spiel verf\u00FCgbar");
+					this.spielVerfuegbarCheckBox.setToolTipText("Wenn angeklickt werden nur Spiele angezeigt, welche noch verf\u00FCgbar sind");
 					this.spielVerfuegbarCheckBox.addItemListener(new ItemListener() {
 						public void itemStateChanged(ItemEvent arg0) {
 							try {
@@ -405,44 +360,63 @@ public class Hauptbildschirm extends JFrame {
 					this.linkesMenuePanel.add(this.preisSortierenLabel);
 				}
 			}
+		}
+		{
+			this.adminLoginPane = new JPanel();
+			this.adminLoginPane.setVisible(false);
+			this.adminLoginPane.setBounds(0, 0, 759, 362);
+			this.contentPane.add(this.adminLoginPane);
+			this.adminLoginPane.setLayout(null);
 			{
-				this.adminLoginPane = new JPanel();
-				this.adminLoginPane.setVisible(false);
-				this.adminLoginPane.setBounds(0, 0, 759, 362);
-				this.contentPane.add(this.adminLoginPane);
-				this.adminLoginPane.setLayout(null);
-				{
-					this.idLabel = new JLabel("ID:");
-					this.idLabel.setBounds(10, 11, 80, 14);
-					this.adminLoginPane.add(this.idLabel);
-				}
-				{
-					this.passwortLabel = new JLabel("Passwort:");
-					this.passwortLabel.setBounds(10, 36, 80, 14);
-					this.adminLoginPane.add(this.passwortLabel);
-				}
-				{
-					this.idTextField = new JTextField();
-					this.idTextField.setBounds(100, 8, 86, 20);
-					this.adminLoginPane.add(this.idTextField);
-					this.idTextField.setColumns(10);
-				}
-				{
-					this.passwortTextField = new JTextField();
-					this.passwortTextField.setBounds(100, 33, 86, 20);
-					this.adminLoginPane.add(this.passwortTextField);
-					this.passwortTextField.setColumns(10);
-				}
-				{
-					this.loginButton = new JButton("Einloggen");
-					this.loginButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							do_loginButton_actionPerformed(e);
+				this.idLabel = new JLabel("ID:");
+				this.idLabel.setBounds(10, 11, 80, 14);
+				this.adminLoginPane.add(this.idLabel);
+			}
+			{
+				this.passwortLabel = new JLabel("Passwort:");
+				this.passwortLabel.setBounds(10, 36, 80, 14);
+				this.adminLoginPane.add(this.passwortLabel);
+			}
+			{
+				this.idTextField = new JTextField();
+				idTextField.setToolTipText("Geben Sie hier die Ihnen mitgelieferte ID ein");
+				idTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							checkAdminLoggedIn();
 						}
-					});
-					this.loginButton.setBounds(97, 64, 89, 23);
-					this.adminLoginPane.add(this.loginButton);
-				}
+					}
+				});
+				this.idTextField.setBounds(100, 8, 86, 20);
+				this.adminLoginPane.add(this.idTextField);
+				this.idTextField.setColumns(10);
+			}
+			{
+				this.passwortTextField = new JTextField();
+				passwortTextField.setToolTipText("Geben Sie hier das Ihnen mitgelieferte Passwort ein");
+				passwortTextField.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyPressed(KeyEvent e) {
+						if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+							checkAdminLoggedIn();
+						}
+					}
+				});
+				this.passwortTextField.setBounds(100, 33, 86, 20);
+				this.adminLoginPane.add(this.passwortTextField);
+				this.passwortTextField.setColumns(10);
+			}
+			{
+				this.loginButton = new JButton("Einloggen");
+				loginButton.setToolTipText("Einloggen um Zugriff auf alle Funtktionen zu erhalten");
+				this.loginButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						do_loginButton_actionPerformed(e);
+					}
+				});
+				this.loginButton.setBounds(97, 64, 89, 23);
+				this.adminLoginPane.add(this.loginButton);
 			}
 		}
 	}

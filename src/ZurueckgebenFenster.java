@@ -57,10 +57,12 @@ public class ZurueckgebenFenster extends JFrame {
 		panel.setLayout(null);
 		
 		JScrollPane spielelisteScrollPane = new JScrollPane();
+		spielelisteScrollPane.setToolTipText("Hier werden die Daten des Kunden und die zum Ausleih-Prozess angezeigt die gesucht werden");
 		spielelisteScrollPane.setBounds(0, 0, 546, 176);
 		panel.add(spielelisteScrollPane);
 		
 		ausgabeTabelle = new JTable();
+		this.ausgabeTabelle.removeEditor();
 		this.ausgabeTabelle.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -77,6 +79,7 @@ public class ZurueckgebenFenster extends JFrame {
 		spielelisteScrollPane.setViewportView(ausgabeTabelle);
 		
 		JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
+		zurueckgebenButton.setToolTipText("Bei Klick wird der Zur\u00FCckgeben-Prozess beendet");
 		zurueckgebenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -96,6 +99,7 @@ public class ZurueckgebenFenster extends JFrame {
 		contentPane.add(zurueckgebenButton);
 		
 		JButton suchenButton = new JButton("Suchen");
+		suchenButton.setToolTipText("Bei Klick auf den Button wird nach einem Kunden gesucht");
 		suchenButton.addActionListener(new ActionListener() {
 				public void actionPerformed (ActionEvent e) {
 					try {
@@ -113,6 +117,7 @@ public class ZurueckgebenFenster extends JFrame {
 		contentPane.add(suchenButton);
 		
 		suchenTextField = new JTextField();
+		this.suchenTextField.setToolTipText("Hier kann ein Kundennachname eingegeben werden");
 		suchenTextField.setBounds(400, 12, 156, 20);
 		contentPane.add(suchenTextField);
 		suchenTextField.setColumns(10);
