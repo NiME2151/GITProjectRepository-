@@ -1,3 +1,4 @@
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,7 +7,6 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-//
 public class KundenSpieleDAO {
 	
 	private Connection conn = null;
