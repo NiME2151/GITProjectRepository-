@@ -71,7 +71,7 @@ public class ZurueckgebenFenster extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"SpieleID","KundenID", "Ausleihpreis", "Ausleihmenge", "Faelligkeitsdatum", "Ausleihdatum", "Ausleihcounter"
+				"SpieleID","KundenID", "Ausleihpreis", "Ausleihmenge", "Faelligkeitsdatum", "Ausleihdatum"
 			}
 		));
 		spielelisteScrollPane.setViewportView(ausgabeTabelle);
