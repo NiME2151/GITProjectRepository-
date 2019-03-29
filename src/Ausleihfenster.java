@@ -51,7 +51,7 @@ public class Ausleihfenster extends JFrame {
 	private double ausleihpreisProTag;
 	private double gesamtausleihpreis;
 	private JLabel ausleihmengeLabel;
-	private JTextField ausleihmengeTextField;	
+	private JTextField ausleihmengeTextField;
 	private JButton preisBerechnenButton;
 	private String spiel;
 	Ausleihfenster fenster;
@@ -86,12 +86,14 @@ public class Ausleihfenster extends JFrame {
 		contentPane.setLayout(null);
 		{
 			this.kundensucheTextField = new JTextField();
+			this.kundensucheTextField.setToolTipText("Hier kann ein Kundennachname eingegeben werden");
 			kundensucheTextField.setBounds(155, 11, 320, 20);
 			this.contentPane.add(this.kundensucheTextField);
 			this.kundensucheTextField.setColumns(10);
 		}
 		{
 			this.suchenButton = new JButton("Suchen");
+			this.suchenButton.setToolTipText("Bei Klick auf den Button wird nach einem Kunden gesucht");
 			suchenButton.setBounds(485, 10, 89, 23);
 			this.suchenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -128,21 +130,16 @@ public class Ausleihfenster extends JFrame {
 					new String[] {
 						"ID", "Vorname", "Nachname", "IBAN", "Strasse"
 					}
-				) {
-					boolean[] columnEditables = new boolean[] {
-						true, false, false, true
-					};
-					public boolean isCellEditable(int row, int column) {
-						return columnEditables[column];
-					}
-				});
+				));
 				this.kundenlisteTable.getColumnModel().getColumn(1).setResizable(false);
 				this.kundenlisteTable.getColumnModel().getColumn(2).setResizable(false);
 				this.kundenlisteTable.setBounds(10, 11, 264, 268);
 				this.kundenlistePanel.add(this.kundenlisteTable);
+				this.kundenlisteTable.removeEditor();
 			}
 			{
 				this.scrollPane = new JScrollPane(kundenlisteTable);
+				this.scrollPane.setToolTipText("Hier werden die Kunden angezeigt die gesucht werden");
 				this.scrollPane.setBounds(0, 0, 284, 290);
 				this.kundenlistePanel.add(this.scrollPane);
 			}
@@ -154,6 +151,7 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.kundenAnlegenButton = new JButton("Kunden anlegen");
+			this.kundenAnlegenButton.setToolTipText("Hiermit gelangen Sie zur Kundenverwaltung, mit welcher Sie Kunden anlegen, \u00E4ndern oder entfernen k\u00F6nnen");
 			kundenAnlegenButton.setBounds(10, 10, 135, 23);
 			this.kundenAnlegenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -169,6 +167,7 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.leihdauerInTagenTextField = new JTextField();
+			this.leihdauerInTagenTextField.setToolTipText("Geben Sie hier ein f\u00FCr wie lange das Spiel ausgeliehen werden soll");
 			leihdauerInTagenTextField.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyPressed(KeyEvent e) {
@@ -190,6 +189,7 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.ausleihpreisTextField = new JTextField();
+			this.ausleihpreisTextField.setToolTipText("Hier wird angzeigt wie viel das Ausleihen insgesamt kostet");
 			this.ausleihpreisTextField.setHorizontalAlignment(SwingConstants.RIGHT);
 			this.ausleihpreisTextField.setEditable(false);
 			ausleihpreisTextField.setBounds(485, 145, 50, 20);
@@ -203,6 +203,7 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.ausleihmengeTextField = new JTextField();
+			this.ausleihmengeTextField.setToolTipText("Geben Sie hier die Menge an wie viele Exemplare ausgeliehen werden sollen");
 			ausleihmengeTextField.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyPressed(KeyEvent e) {
@@ -219,6 +220,7 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.preisBerechnenButton = new JButton("Preis berechnen");
+			this.preisBerechnenButton.setToolTipText("Hiermit wird der Preis berechnet f\u00FCr das Ausleihen des Spiels");
 			preisBerechnenButton.setBounds(370, 111, 135, 23);
 			this.preisBerechnenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -237,6 +239,7 @@ public class Ausleihfenster extends JFrame {
 		}
 		{
 			this.ausleihenButton = new JButton("Ausleihen");
+			this.ausleihenButton.setToolTipText("Bei Klick wird der Ausleih-Prozess beendet");
 			ausleihenButton.setEnabled(false);
 			this.ausleihenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {

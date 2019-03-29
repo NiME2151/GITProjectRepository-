@@ -56,6 +56,7 @@ public class Top10SpieleFenster extends JFrame {
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(this.contentPane);
 		this.contentPane.setLayout(null);
+		topspieleTable.removeEditor();
 		topspieleTable.setModel(new DefaultTableModel(
 			new Object[][] {
 			},

@@ -1,5 +1,3 @@
-//
-
 public class Kunde {
 
 	private String id;
@@ -20,9 +18,9 @@ public class Kunde {
 		this.iban = iban;
 		this.email = email;
 		this.telefonnummer = telefonnummer;
-		this.ort = ort;
 		this.strasse = strasse;
 		this.plz = plz;
+		this.ort = ort;
 	}
 	
 	public String getId() {
@@ -77,7 +75,6 @@ public class Kunde {
 	public String getStrasse() {
 		return strasse;
 	}
-
 
 	public void setStrasse(String strasse) {
 		this.strasse = strasse;
