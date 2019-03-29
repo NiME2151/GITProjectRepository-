@@ -71,7 +71,7 @@ public class ZurueckgebenFenster extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"SpieleID","KundenID", "Ausleihpreis", "Ausleihmenge", "Faelligkeitsdatum", "Ausleihdatum"
+				"SpieleID","KundenID", "Ausleihpreis", "Ausleihmenge", "Faelligkeitsdatum", "Ausleihdatum", "Ausleihcounter"
 			}
 		));
 		spielelisteScrollPane.setViewportView(ausgabeTabelle);
@@ -132,11 +132,17 @@ public class ZurueckgebenFenster extends JFrame {
 	}
 	
 	protected void do_ZurueckgebenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
-		zurueckDao.decreaseCounter(getWertInZeile.getWertInZeile(ausgabeTabelle), getWertInZeile.getAusleihCounterInTable(ausgabeTabelle));
-		ResultSet rs = kundenSpieleDAO.selectKundenSpiele(ausgabeTabelle);
-		zurueckDao.zurueckgeben(kundenSpiele);
+		String spieleID = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 0);
+		String kundenID = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 1);
+		String ausleihmenge = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 3);
+		String faelligkeitsdatum = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 4);
+		String ausleihdatum = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 5);
+		zurueckDao.decreaseCounter(spieleID, ausleihmenge);
+		
+		//KundenSpiele ks = kundenSpieleDAO.selectKundenSpiele(ausgabeTabelle);
+		zurueckDao.zurueckgeben(spieleID, kundenID, faelligkeitsdatum, ausleihdatum);
 	}
 	protected void do_ausgabeTabelle_mouseClicked(MouseEvent e) {
-		String kundenID = getWertInZeile.getKundennachnameInTable(ausgabeTabelle);
+		String kundenID = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 1);
 	}
 }

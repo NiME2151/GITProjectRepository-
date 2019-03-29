@@ -295,8 +295,20 @@ public class Ausleihfenster extends JFrame {
 		return spiel;
 	}
 	protected void do_ausleihenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException, ParseException {
-		KundenSpiele ks = setKundenSpieleDaten(spiel);
-		kundenSpieleDAO.insertToKundenSpiele(ks);
+		System.out.println("spielID: " + spiel);
+		int lageranzahl = new SpielDAO().selectSpiel(spiel).getLageranzahl();
+		String verfuegbarkeit = new SpielDAO().selectSpiel(spiel).getVerfuegbarkeit();
+		if (lageranzahl != 0 && verfuegbarkeit.equalsIgnoreCase("verfügbar")) {
+			KundenSpiele ks = setKundenSpieleDaten(spiel);
+			kundenSpieleDAO.insert(ks, spiel);
+		}
+		else if (lageranzahl == 0 && !verfuegbarkeit.equalsIgnoreCase("verfügbar")) {
+			JOptionPane alert = new JOptionPane();
+			alert.showMessageDialog(this, "Das Spiel kann nicht mehr ausgeliehen werden!", "Fehler", JOptionPane.ERROR_MESSAGE);
+		}
+		else {
+			System.out.println("Fehler beim Ausleihen!");
+		}
 	}
 	
 	public KundenSpiele setKundenSpieleDaten(String ausgewaehltesSpiel) throws ClassNotFoundException, SQLException, ParseException {

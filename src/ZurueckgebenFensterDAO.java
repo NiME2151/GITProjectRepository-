@@ -84,31 +84,33 @@ public class ZurueckgebenFensterDAO {
 		return rs;
 	}
 
-	public void decreaseCounter(String spieleID, String ausleihcounter) {
+	public void decreaseCounter(String spieleID, String ausleihmenge) throws ClassNotFoundException, SQLException {
 		ResultSet rs = null;
-		String sqlCounter = "UPDATE Spiele SET AusleihCounter = AusleihCounter-1 WHERE ID = '" + spieleID + "', ";
+		String sqlAusleihmenge = "UPDATE Spiele SET Lageranzahl = Lageranzahl+" + ausleihmenge +  " WHERE ID = '" + spieleID + "'";
 		String sqlVerfuegbarkeit = "UPDATE Spiele SET Verfuegbarkeit = 'verfügbar' WHERE ID = '" + spieleID + "'";
-		if (Double.valueOf(ausleihcounter) > 0) {
+		int lageranzahl = new SpielDAO().selectSpiel(spieleID).getLageranzahl();
+		System.out.println("lageranzahl: " + lageranzahl);
+		if (Integer.valueOf(lageranzahl) > 0) {
 			try {
 				// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 				// herzustellen
 				Connection conn = ConnectToDB.getConnection();
-				preparedStatement = conn.prepareStatement(sqlCounter);
-				statement.executeUpdate(sqlCounter);
+				preparedStatement = conn.prepareStatement(sqlAusleihmenge);
+				statement.executeUpdate(sqlAusleihmenge);
 				// Gibt Nachricht aus bei funktionierendem SELECT
 				System.out.println("SQL-SELECT funzt");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		} else if (Double.valueOf(ausleihcounter) == 0) {
+		} else if (Integer.valueOf(lageranzahl) <= 0) {
 			try {
 				// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 				// herzustellen
 				Connection conn = ConnectToDB.getConnection();
 				preparedStatement = conn.prepareStatement(sqlVerfuegbarkeit);
 				statement.executeUpdate(sqlVerfuegbarkeit);
-				preparedStatement = conn.prepareStatement(sqlCounter);
-				statement.executeUpdate(sqlCounter);
+				preparedStatement = conn.prepareStatement(sqlAusleihmenge);
+				statement.executeUpdate(sqlAusleihmenge);
 				// Gibt Nachricht aus bei funktionierendem SELECT
 				System.out.println("SQL-SELECT funzt");
 			} catch (SQLException e) {
@@ -117,10 +119,12 @@ public class ZurueckgebenFensterDAO {
 		}
 	}
 
-	public void zurueckgeben(KundenSpiele kundenSpiele) {
+	public void zurueckgeben(String spieleID, String kundenID, String faelligkeitsdatum, String ausleihdatum) {
 		ResultSet rs = null;
-		String sql = "DELETE FROM KundenSpiele WHERE KundenID = " + kundenSpiele.getKundenID() + " AND SpieleID = " + kundenSpiele.getSpieleID() 
-		+ " AND Faelligkeitsdatum = " + kundenSpiele.getFaelligkeitsdatum() + " AND Ausleihdatum = " + kundenSpiele.getAusleihdatum();
+		System.out.println(spieleID + " " + kundenID + " " + faelligkeitsdatum + " " + ausleihdatum);
+		String sql = "DELETE FROM KundenSpiele WHERE SpieleID = '" + spieleID + "' AND KundenID = '" + kundenID 
+		+ "' AND Faelligkeitsdatum = '" + faelligkeitsdatum + "' AND Ausleihdatum = '" + ausleihdatum + "'";
+		System.out.println(sql);
 		try {
 			// connect()-Methode wird ausgeführt um eine Verbindung zur Datenbank
 			// herzustellen
