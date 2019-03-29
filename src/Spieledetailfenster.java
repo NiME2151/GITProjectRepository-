@@ -235,6 +235,7 @@ public class Spieledetailfenster extends JFrame {
 		}
 		{
 			this.ausleihenButton = new JButton("Ausleihen");
+			this.ausleihenButton.setToolTipText("Das hier angezeigte Spiel kann hier\u00FCber ausgeliehen werden");
 			this.ausleihenButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -253,6 +254,7 @@ public class Spieledetailfenster extends JFrame {
 		}
 
 		JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
+		zurueckgebenButton.setToolTipText("Das hier angezeigte Spiel kann hier\u00FCber zur\u00FCckgegeben werden");
 		zurueckgebenButton.addActionListener(new ActionListener() {
 //			
 

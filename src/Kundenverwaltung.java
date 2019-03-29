@@ -269,12 +269,14 @@ public class Kundenverwaltung extends JFrame {
 		}
 		{
 			this.suchenTextField = new JTextField();
+			this.suchenTextField.setToolTipText("Hier kann ein Kundennachname eingegeben werden");
 			suchenTextField.setBounds(340, 11, 284, 20);
 			this.contentPane.add(this.suchenTextField);
 			this.suchenTextField.setColumns(10);
 		}
 		{
 			this.suchenButton = new JButton("Suchen");
+			this.suchenButton.setToolTipText("Bei Klick auf den Button wird nach einem Kunden gesucht");
 			suchenButton.setBounds(535, 42, 89, 23);
 			this.suchenButton.addActionListener(new ActionListener() {
 
@@ -308,6 +310,7 @@ public class Kundenverwaltung extends JFrame {
 			this.kundenlistePanel.setLayout(null);
 			{
 				this.kundenlisteTable = new JTable();
+				this.kundenlisteTable.removeEditor();
 				this.kundenlisteTable.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -331,6 +334,7 @@ public class Kundenverwaltung extends JFrame {
 			}
 			{
 				this.kundenlisteScrollPane = new JScrollPane(kundenlisteTable);
+				this.kundenlisteScrollPane.setToolTipText("Hier werden die Kunden angezeigt die gesucht werden");
 				this.kundenlisteScrollPane.setBounds(0, 0, 284, 250);
 				this.kundenlistePanel.add(this.kundenlisteScrollPane);
 			}
@@ -426,12 +430,13 @@ public class Kundenverwaltung extends JFrame {
 	}
 
 	protected void do_kundenlisteTable_mouseClicked(MouseEvent e) throws ClassNotFoundException, SQLException {
-		String id = kundeAuswaehlen.getKundennachnameInTable(kundenlisteTable);
+		String id = kundeAuswaehlen.getWertInZeile(kundenlisteTable);
 		setKundenDaten(id);
 
 	}
 
 	public Kunde setKundenDaten(String id) throws ClassNotFoundException, SQLException {
+		System.out.println("idid: " + id);
 		Kunde kunde = kundenDAO.selectKundeKundenverwaltung(id);
 		idTextField.setText(String.valueOf(kunde.getId()));
 		vornameTextField.setText(String.valueOf(kunde.getVorname()));

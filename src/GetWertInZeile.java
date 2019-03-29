@@ -14,7 +14,7 @@ public class GetWertInZeile {
 	
 	public String getKundennachnameInTable(JTable table) {
 		int zeile = table.getSelectedRow();
-		String rueckgabewert = (String) table.getValueAt(zeile, 2);
+		String rueckgabewert = String.valueOf(table.getValueAt(zeile, 2));
 		System.out.println("rückgabe:" + rueckgabewert);
 		return rueckgabewert;
 	}
@@ -22,6 +22,20 @@ public class GetWertInZeile {
 	public String getZurueckgebenFenster(JTable table) {
 		int zeile = table.getSelectedRow();
 		String rueckgabewert = (String) table.getValueAt(zeile, 3);
+		System.out.println(rueckgabewert);
+		return rueckgabewert;
+	}
+	
+	public String getAusleihCounterInTable(JTable table) {
+		int zeile = table.getSelectedRow();
+		String rueckgabewert = (String) table.getValueAt(zeile, 12);
+		System.out.println(rueckgabewert);
+		return rueckgabewert;
+	}
+	
+	public String getWertInZeileVariabel(JTable table, int zeileInTable) {
+		int zeile = table.getSelectedRow();
+		String rueckgabewert = String.valueOf(table.getValueAt(zeile, zeileInTable));
 		System.out.println(rueckgabewert);
 		return rueckgabewert;
 	}

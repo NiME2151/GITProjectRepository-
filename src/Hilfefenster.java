@@ -57,6 +57,11 @@ public class Hilfefenster extends JFrame {
 	private JLabel hauptbildschirmImageLabel;
 	private JScrollPane hauptbildschirmScrollPane;
 	private JTextArea hauptbildschirmTextArea;
+	private JPanel zurueckgebenPanel;
+	private JButton zurueckgebenZurueckButton;
+	private JLabel zurueckgebenImageLabel;
+	private JScrollPane zurueckgebenScrollPane;
+	private JTextArea zurueckgebenTextArea;
 	
 	/**
 	 * Create the frame.
@@ -158,6 +163,47 @@ public class Hilfefenster extends JFrame {
 							do_ausleihfensterButton_actionPerformed(e);
 						}
 					});
+					{
+						this.zurueckgebenPanel = new JPanel();
+						this.zurueckgebenPanel.setBounds(0, 0, 684, 411);
+						this.contentPane.add(this.zurueckgebenPanel);
+						this.zurueckgebenPanel.setLayout(null);
+						{
+							this.zurueckgebenZurueckButton = new JButton("Zur\u00FCck");
+							this.zurueckgebenZurueckButton.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent arg0) {
+									do_zurueckgebenZurueckButton_actionPerformed(arg0);
+								}
+							});
+							this.zurueckgebenZurueckButton.setBounds(524, 377, 150, 23);
+							this.zurueckgebenPanel.add(this.zurueckgebenZurueckButton);
+						}
+						{
+							this.zurueckgebenImageLabel = new JLabel();
+							this.zurueckgebenImageLabel.setBounds(180, 11, 494, 356);
+							this.zurueckgebenPanel.add(this.zurueckgebenImageLabel);
+						}
+						{
+							this.zurueckgebenScrollPane = new JScrollPane();
+							this.zurueckgebenScrollPane.setBounds(10, 11, 160, 390);
+							this.zurueckgebenPanel.add(this.zurueckgebenScrollPane);
+							ImageIcon imgIconZurueckgeben = new ImageIcon(getClass().getResource("/images/Zurückgebenfenster.PNG"));
+							Image imgZurueckgeben = imgIconZurueckgeben.getImage().getScaledInstance(zurueckgebenImageLabel.getWidth(), zurueckgebenImageLabel.getHeight(), Image.SCALE_SMOOTH);
+							ImageIcon resizedImageIconZurueckgeben = new ImageIcon(imgZurueckgeben);
+							this.zurueckgebenImageLabel.setIcon(resizedImageIconZurueckgeben);
+							{
+								this.zurueckgebenTextArea = new JTextArea();
+								this.zurueckgebenTextArea.setEditable(false);
+								this.zurueckgebenTextArea.setBackground(UIManager.getColor("Button.background"));
+								this.zurueckgebenTextArea.setLineWrap(true);
+								this.zurueckgebenTextArea.setWrapStyleWord(true);
+								this.zurueckgebenTextArea.setText("1: Mit dem Suchfeld kann nach einem Kundennachnamen gesucht werden. Ward ein Kunde gefunden wird dieser in der Tabelle unten angezeigt.\n\n"
+										+ "2: Hier werden gesuchte Kunden angezeigt.\n\n"
+										+ "3: Klickt man auf den Zurückgeben-Button wird das ausgeliehende Spiel wieder verfügbar und kann ausgeliehen werden.");
+								this.zurueckgebenScrollPane.setViewportView(this.zurueckgebenTextArea);
+							}
+						}
+					}
 					this.hauptbildschirmPanel = new JPanel();
 					this.hauptbildschirmPanel.setVisible(false);
 					this.hauptbildschirmPanel.setBounds(0, 0, 684, 412);
@@ -396,6 +442,8 @@ public class Hilfefenster extends JFrame {
 		hauptbildschirmPanel.setVisible(true);
 	}
 	protected void do_zurueckgebenfensterButton_actionPerformed(ActionEvent e) {
+		menuePanel.setVisible(false);
+		zurueckgebenPanel.setVisible(true);
 	}
 	protected void do_spieleverwaltungButton_actionPerformed(ActionEvent e) {
 		menuePanel.setVisible(false);
@@ -422,6 +470,10 @@ public class Hilfefenster extends JFrame {
 	}
 	protected void do_hauptbildschirmZurueckButton_actionPerformed(ActionEvent arg0) {
 		hauptbildschirmPanel.setVisible(false);
+		menuePanel.setVisible(true);
+	}
+	protected void do_zurueckgebenZurueckButton_actionPerformed(ActionEvent arg0) {
+		zurueckgebenPanel.setVisible(false);
 		menuePanel.setVisible(true);
 	}
 }

@@ -2,6 +2,7 @@
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.TextField;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,16 +23,19 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class ZurueckgebenFenster extends JFrame {
 
 	private JPanel contentPane;
-	private JTable spieleTabelle;
 	private JTextField suchenTextField;
 	private JTable ausgabeTabelle;
 	KundenSpiele kundenSpiele = new KundenSpiele();
+	KundenSpieleDAO kundenSpieleDAO = new KundenSpieleDAO();
 	ZurueckgebenFensterDAO zurueckDao = new ZurueckgebenFensterDAO();
+	GetWertInZeile getWertInZeile = new GetWertInZeile();
 	/**
 	 * Launch the application.
 	 */
@@ -52,39 +56,40 @@ public class ZurueckgebenFenster extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		spieleTabelle = new JTable();
-		spieleTabelle.setBounds(10, 169, 526, -164);
-		spieleTabelle.setEnabled(false);
-		panel.add(spieleTabelle);
-		spieleTabelle.setModel(new DefaultTableModel(
-			new Object[][] {
-				
-			},
-			new String[] {
-				"Beschreibung", "FSK", "Datum", "Spiel"
-			}
-		));
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 0, 546, 176);
-		panel.add(scrollPane_1);
+		JScrollPane spielelisteScrollPane = new JScrollPane();
+		spielelisteScrollPane.setToolTipText("Hier werden die Daten des Kunden und die zum Ausleih-Prozess angezeigt die gesucht werden");
+		spielelisteScrollPane.setBounds(0, 0, 546, 176);
+		panel.add(spielelisteScrollPane);
 		
 		ausgabeTabelle = new JTable();
+		this.ausgabeTabelle.removeEditor();
+		this.ausgabeTabelle.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				do_ausgabeTabelle_mouseClicked(e);
+			}
+		});
 		ausgabeTabelle.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"spieleID","kundenID", "preis", "ausleihmenge", "faelligkeitsdatum", "ausleihdatum"
+				"SpieleID","KundenID", "Ausleihpreis", "Ausleihmenge", "Faelligkeitsdatum", "Ausleihdatum"
 			}
 		));
-		scrollPane_1.setViewportView(ausgabeTabelle);
+		spielelisteScrollPane.setViewportView(ausgabeTabelle);
 		
 		JButton zurueckgebenButton = new JButton("Zur\u00FCckgeben");
+		zurueckgebenButton.setToolTipText("Bei Klick wird der Zur\u00FCckgeben-Prozess beendet");
 		zurueckgebenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ResultSet rs = zurueckDao.deleteKundeSpiel(kundenSpiele.getKundenID());
-				} catch (ClassNotFoundException e1) {
+					try {
+						do_ZurueckgebenButton_actionPerformed(e);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					} catch (ClassNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -94,33 +99,25 @@ public class ZurueckgebenFenster extends JFrame {
 		contentPane.add(zurueckgebenButton);
 		
 		JButton suchenButton = new JButton("Suchen");
+		suchenButton.setToolTipText("Bei Klick auf den Button wird nach einem Kunden gesucht");
 		suchenButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {		
+				public void actionPerformed (ActionEvent e) {
 					try {
-						ResultSet rs;
-						try {
-							rs = zurueckDao.searchForKundenspiele(suchenTextField.getText());
-							ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
-							System.out.println(rs);	
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}			
+						do_SuchenButton_actionPerformed(e);
 					} catch (ClassNotFoundException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-		}
+				}
 		});
 		suchenButton.setBounds(283, 11, 107, 23);
 		contentPane.add(suchenButton);
 		
 		suchenTextField = new JTextField();
-		suchenTextField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+		this.suchenTextField.setToolTipText("Hier kann ein Kundennachname eingegeben werden");
 		suchenTextField.setBounds(400, 12, 156, 20);
 		contentPane.add(suchenTextField);
 		suchenTextField.setColumns(10);
@@ -134,8 +131,23 @@ public class ZurueckgebenFenster extends JFrame {
 		contentPane.add(kundenlisteLabel);
 	}
 
-	protected ResultSet selectKundeSpieleDao(String text) {
-		// TODO Auto-generated method stub
-		return null;
+	protected void do_SuchenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
+		ResultSet rs = zurueckDao.searchForKundenspiele(suchenTextField.getText());
+		this.ausgabeTabelle.setModel(DbUtils.resultSetToTableModel(rs));
+	}
+	
+	protected void do_ZurueckgebenButton_actionPerformed(ActionEvent arg0) throws ClassNotFoundException, SQLException {
+		String spieleID = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 0);
+		String kundenID = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 1);
+		String ausleihmenge = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 3);
+		String faelligkeitsdatum = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 4);
+		String ausleihdatum = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 5);
+		zurueckDao.decreaseCounter(spieleID, ausleihmenge);
+		
+		//KundenSpiele ks = kundenSpieleDAO.selectKundenSpiele(ausgabeTabelle);
+		zurueckDao.zurueckgeben(spieleID, kundenID, faelligkeitsdatum, ausleihdatum);
+	}
+	protected void do_ausgabeTabelle_mouseClicked(MouseEvent e) {
+		String kundenID = getWertInZeile.getWertInZeileVariabel(ausgabeTabelle, 1);
 	}
 }

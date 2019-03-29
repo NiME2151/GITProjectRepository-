@@ -1,15 +1,19 @@
+
 //
+import java.sql.Statement;
 import java.sql.*;
 
 public class KundenDAO {
 
 	private Statement statement = null;
 	ConnectToDB connect = new ConnectToDB();
+	PreparedStatement preparedStatement = null;
+	Kunde kunde = new Kunde();
 
 	// Methode zum Anzeigen aller Datensätze der Spalte name
 	public ResultSet selectKunde(String kunde) throws ClassNotFoundException {
 		ResultSet rs = null;
-		Connection conn = connect.connectToDB();
+		Connection conn = ConnectToDB.connectToDB();
 		try {
 			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.nachname) = '"
 					+ kunde.toLowerCase() + "'";
@@ -32,7 +36,7 @@ public class KundenDAO {
 
 	public ResultSet selectKundeAusleihfenster(String kunde) throws ClassNotFoundException {
 		ResultSet rs = null;
-		Connection conn = connect.connectToDB();
+		Connection conn = ConnectToDB.connectToDB();
 		try {
 			String sql = "SELECT DISTINCT Kunden.id, Kunden.vorname, Kunden.nachname, Kunden.iban, Kunden.strasse FROM Kunden WHERE LOWER(Kunden.nachname) = '"
 					+ kunde.toLowerCase() + "'";
@@ -51,7 +55,7 @@ public class KundenDAO {
 
 	public void delete(String kundenID) throws ClassNotFoundException {
 		PreparedStatement preparedStatement = null;
-		Connection conn = connect.connectToDB();
+		Connection conn = ConnectToDB.connectToDB();
 		try {
 			String sql = "DELETE FROM Kunden WHERE id = ?";
 			preparedStatement = conn.prepareStatement(sql);
@@ -72,34 +76,33 @@ public class KundenDAO {
 	}
 
 	public Kunde selectKundeKundenverwaltung(String id) throws ClassNotFoundException, SQLException {
-		Kunde kunde = new Kunde();
-		Connection conn = connect.connectToDB();
-		PreparedStatement preparedStatement = null;
+		ResultSet rs = null;
+		Connection conn = ConnectToDB.connectToDB();
 		try {
-			String sql = "SELECT * FROM KUNDEN where id = ?";
+			String sql = "SELECT * FROM KUNDEN WHERE ID = '" + id + "'";
 			preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, id);
-			ResultSet rS = preparedStatement.executeQuery();
-			kunde.setId(rS.getString(1));
-			System.out.println(kunde.getId());
-			kunde.setVorname(rS.getString(2));
-			kunde.setNachname(rS.getString(3));
-			kunde.setIban(rS.getString(4));
-			kunde.setEmail(rS.getString(5));
-			kunde.setTelefonnummer(rS.getString(6));
-			kunde.setStrasse(rS.getString(7));
-			kunde.setPlz(rS.getString(8));
-			kunde.setOrt(rS.getString(9));
-			System.out.println(kunde.getVorname());
+			rs = preparedStatement.executeQuery();
+			rs.next();
+			// preparedStatement.setString(1, id);
+			kunde.setId(rs.getString("id"));
+			kunde.setVorname(rs.getString("vorname"));
+			kunde.setNachname(rs.getString("nachname"));
+			kunde.setIban(rs.getString("iban"));
+			kunde.setEmail(rs.getString("email"));
+			kunde.setTelefonnummer(rs.getString("telefonnummer"));
+			kunde.setStrasse(rs.getString("strasse"));
+			kunde.setPlz(rs.getString("plz"));
+			kunde.setOrt(rs.getString("ort"));
+			System.out.println(kunde.getEmail());
 		} catch (Exception e) {
 			e.getMessage();
 		}
 		return kunde;
 	}
-	public void add(String id, String vorname, String nachname, String strasse, String iban, String email, String telefonnumer, String plz, String ort) throws ClassNotFoundException {
+	public void add(String id, String vorname, String nachname, String iban, String email, String telefonnummer, String strasse, String plz, String ort) throws ClassNotFoundException {
 		PreparedStatement preparedStatement = null;
 		ResultSet rs = null;
-		Connection conn = connect.connectToDB();
+		Connection conn = ConnectToDB.connectToDB();
 		try{
 			String sql = "INSERT INTO Kunden values(?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 			preparedStatement = conn.prepareStatement(sql);
@@ -108,7 +111,7 @@ public class KundenDAO {
 			preparedStatement.setString(3, nachname);
 			preparedStatement.setString(4, iban);
 			preparedStatement.setString(5, email);
-			preparedStatement.setString(6, telefonnumer);
+			preparedStatement.setString(6, telefonnummer);
 			preparedStatement.setString(7, strasse);
 			preparedStatement.setString(8, plz);
 			preparedStatement.setString(9, ort);
